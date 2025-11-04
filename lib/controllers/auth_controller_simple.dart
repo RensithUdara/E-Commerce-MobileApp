@@ -1,6 +1,5 @@
 import '../models/models.dart';
-import '../services/auth_service.dart';
-import '../services/database_service.dart';
+import '../services/services.dart';
 
 class AuthController {
   final AuthService _authService = FirebaseAuthService();
@@ -17,12 +16,10 @@ class AuthController {
 
   void _setLoading(bool loading) {
     _isLoading = loading;
-    notifyListeners();
   }
 
   void _setError(String? error) {
     _errorMessage = error;
-    notifyListeners();
   }
 
   Future<bool> signUp({
@@ -96,7 +93,6 @@ class AuthController {
     try {
       await _authService.signOut();
       _currentUser = null;
-      notifyListeners();
     } catch (e) {
       _setError(e.toString());
     }
@@ -123,7 +119,6 @@ class AuthController {
       try {
         final user = await _databaseService.getUser(currentAuthUser.uid);
         _currentUser = user;
-        notifyListeners();
       } catch (e) {
         // Handle error - user might not exist in database
         await signOut();

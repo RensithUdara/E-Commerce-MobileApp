@@ -3,7 +3,7 @@ import '../services/services.dart';
 
 class OrderController {
   final DatabaseService _databaseService = FirestoreService();
-  
+
   List<Order> _orders = [];
   bool _isLoading = false;
   String? _errorMessage;
@@ -66,13 +66,15 @@ class OrderController {
       _setLoading(true);
       _setError(null);
 
-      final orderItems = cartItems.map((cartItem) => OrderItem(
-        productId: cartItem.productId,
-        title: cartItem.title,
-        imageUrl: cartItem.imageUrl,
-        price: cartItem.price,
-        quantity: cartItem.quantity,
-      )).toList();
+      final orderItems = cartItems
+          .map((cartItem) => OrderItem(
+                productId: cartItem.productId,
+                title: cartItem.title,
+                imageUrl: cartItem.imageUrl,
+                price: cartItem.price,
+                quantity: cartItem.quantity,
+              ))
+          .toList();
 
       final totalAmount = cartItems.fold<double>(
         0.0,
@@ -115,17 +117,17 @@ class OrderController {
           updatedAt: DateTime.now(),
         );
         await _databaseService.updateOrder(updatedOrder);
-        
+
         // Update local list
         final index = _orders.indexWhere((o) => o.id == orderId);
         if (index != -1) {
           _orders[index] = updatedOrder;
         }
-        
+
         _setLoading(false);
         return true;
       }
-      
+
       _setLoading(false);
       return false;
     } catch (e) {
@@ -147,17 +149,17 @@ class OrderController {
           updatedAt: DateTime.now(),
         );
         await _databaseService.updateOrder(updatedOrder);
-        
+
         // Update local list
         final index = _orders.indexWhere((o) => o.id == orderId);
         if (index != -1) {
           _orders[index] = updatedOrder;
         }
-        
+
         _setLoading(false);
         return true;
       }
-      
+
       _setLoading(false);
       return false;
     } catch (e) {

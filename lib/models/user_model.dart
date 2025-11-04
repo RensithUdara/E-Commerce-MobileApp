@@ -30,11 +30,16 @@ class User {
       address: data['address'],
       profileImageUrl: data['profileImageUrl'],
       role: UserRole.values.firstWhere(
-        (role) => role.toString().split('.').last == (data['role'] ?? 'customer'),
+        (role) =>
+            role.toString().split('.').last == (data['role'] ?? 'customer'),
         orElse: () => UserRole.customer,
       ),
-      createdAt: data['createdAt'] != null ? DateTime.parse(data['createdAt']) : DateTime.now(),
-      updatedAt: data['updatedAt'] != null ? DateTime.parse(data['updatedAt']) : DateTime.now(),
+      createdAt: data['createdAt'] != null
+          ? DateTime.parse(data['createdAt'])
+          : DateTime.now(),
+      updatedAt: data['updatedAt'] != null
+          ? DateTime.parse(data['updatedAt'])
+          : DateTime.now(),
     );
   }
 

@@ -24,8 +24,12 @@ class Category {
       description: data['description'] ?? '',
       imageUrl: data['imageUrl'] ?? '',
       isActive: data['isActive'] ?? true,
-      createdAt: data['createdAt'] != null ? DateTime.parse(data['createdAt']) : DateTime.now(),
-      updatedAt: data['updatedAt'] != null ? DateTime.parse(data['updatedAt']) : DateTime.now(),
+      createdAt: data['createdAt'] != null
+          ? DateTime.parse(data['createdAt'])
+          : DateTime.now(),
+      updatedAt: data['updatedAt'] != null
+          ? DateTime.parse(data['updatedAt'])
+          : DateTime.now(),
     );
   }
 
@@ -89,9 +93,15 @@ class Banner {
       imageUrl: data['imageUrl'] ?? '',
       actionUrl: data['actionUrl'],
       isActive: data['isActive'] ?? true,
-      startDate: data['startDate'] != null ? DateTime.parse(data['startDate']) : DateTime.now(),
-      endDate: data['endDate'] != null ? DateTime.parse(data['endDate']) : DateTime.now().add(const Duration(days: 30)),
-      createdAt: data['createdAt'] != null ? DateTime.parse(data['createdAt']) : DateTime.now(),
+      startDate: data['startDate'] != null
+          ? DateTime.parse(data['startDate'])
+          : DateTime.now(),
+      endDate: data['endDate'] != null
+          ? DateTime.parse(data['endDate'])
+          : DateTime.now().add(const Duration(days: 30)),
+      createdAt: data['createdAt'] != null
+          ? DateTime.parse(data['createdAt'])
+          : DateTime.now(),
     );
   }
 

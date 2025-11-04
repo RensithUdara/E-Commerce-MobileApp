@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 import '../models/models.dart' hide Order;
 import '../models/order_model.dart' as order_model;
 
@@ -127,21 +128,23 @@ class FirestoreService implements DatabaseService {
   }
 
   @override
-  Future<List<Product>> getProducts({String? category, String? sellerId}) async {
+  Future<List<Product>> getProducts(
+      {String? category, String? sellerId}) async {
     try {
       Query query = _products;
-      
+
       if (category != null) {
         query = query.where('category', isEqualTo: category);
       }
-      
+
       if (sellerId != null) {
         query = query.where('sellerId', isEqualTo: sellerId);
       }
 
       final snapshot = await query.get();
       return snapshot.docs
-          .map((doc) => Product.fromMap(doc.data() as Map<String, dynamic>, doc.id))
+          .map((doc) =>
+              Product.fromMap(doc.data() as Map<String, dynamic>, doc.id))
           .toList();
     } catch (e) {
       throw Exception('Failed to get products: $e');
@@ -226,7 +229,8 @@ class FirestoreService implements DatabaseService {
     try {
       final doc = await _orders.doc(orderId).get();
       if (doc.exists) {
-        return order_model.Order.fromMap(doc.data() as Map<String, dynamic>, doc.id);
+        return order_model.Order.fromMap(
+            doc.data() as Map<String, dynamic>, doc.id);
       }
       return null;
     } catch (e) {
@@ -241,9 +245,10 @@ class FirestoreService implements DatabaseService {
           .where('userId', isEqualTo: userId)
           .orderBy('createdAt', descending: true)
           .get();
-      
+
       return snapshot.docs
-          .map((doc) => order_model.Order.fromMap(doc.data() as Map<String, dynamic>, doc.id))
+          .map((doc) => order_model.Order.fromMap(
+              doc.data() as Map<String, dynamic>, doc.id))
           .toList();
     } catch (e) {
       throw Exception('Failed to get user orders: $e');
@@ -255,10 +260,12 @@ class FirestoreService implements DatabaseService {
     try {
       // For seller orders, we need to query based on order items
       // This is a simplified implementation
-      final snapshot = await _orders.orderBy('createdAt', descending: true).get();
-      
+      final snapshot =
+          await _orders.orderBy('createdAt', descending: true).get();
+
       return snapshot.docs
-          .map((doc) => order_model.Order.fromMap(doc.data() as Map<String, dynamic>, doc.id))
+          .map((doc) => order_model.Order.fromMap(
+              doc.data() as Map<String, dynamic>, doc.id))
           .toList();
     } catch (e) {
       throw Exception('Failed to get seller orders: $e');
@@ -305,14 +312,16 @@ class FirestoreService implements DatabaseService {
   Future<List<Auction>> getAuctions({AuctionStatus? status}) async {
     try {
       Query query = _auctions.orderBy('createdAt', descending: true);
-      
+
       if (status != null) {
-        query = query.where('status', isEqualTo: status.toString().split('.').last);
+        query =
+            query.where('status', isEqualTo: status.toString().split('.').last);
       }
 
       final snapshot = await query.get();
       return snapshot.docs
-          .map((doc) => Auction.fromMap(doc.data() as Map<String, dynamic>, doc.id))
+          .map((doc) =>
+              Auction.fromMap(doc.data() as Map<String, dynamic>, doc.id))
           .toList();
     } catch (e) {
       throw Exception('Failed to get auctions: $e');
@@ -336,9 +345,10 @@ class FirestoreService implements DatabaseService {
         throw Exception('Auction not found');
       }
 
-      final auction = Auction.fromMap(auctionDoc.data() as Map<String, dynamic>, auctionDoc.id);
+      final auction = Auction.fromMap(
+          auctionDoc.data() as Map<String, dynamic>, auctionDoc.id);
       final updatedBids = List<Bid>.from(auction.bids)..add(bid);
-      
+
       final updatedAuction = Auction(
         id: auction.id,
         productId: auction.productId,
@@ -367,9 +377,11 @@ class FirestoreService implements DatabaseService {
   @override
   Future<List<Category>> getCategories() async {
     try {
-      final snapshot = await _categories.where('isActive', isEqualTo: true).get();
+      final snapshot =
+          await _categories.where('isActive', isEqualTo: true).get();
       return snapshot.docs
-          .map((doc) => Category.fromMap(doc.data() as Map<String, dynamic>, doc.id))
+          .map((doc) =>
+              Category.fromMap(doc.data() as Map<String, dynamic>, doc.id))
           .toList();
     } catch (e) {
       throw Exception('Failed to get categories: $e');
@@ -403,12 +415,11 @@ class FirestoreService implements DatabaseService {
   Future<List<Banner>> getBanners() async {
     try {
       final now = DateTime.now();
-      final snapshot = await _banners
-          .where('isActive', isEqualTo: true)
-          .get();
-      
+      final snapshot = await _banners.where('isActive', isEqualTo: true).get();
+
       return snapshot.docs
-          .map((doc) => Banner.fromMap(doc.data() as Map<String, dynamic>, doc.id))
+          .map((doc) =>
+              Banner.fromMap(doc.data() as Map<String, dynamic>, doc.id))
           .where((banner) => banner.isCurrentlyActive)
           .toList();
     } catch (e) {

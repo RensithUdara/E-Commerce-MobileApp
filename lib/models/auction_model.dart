@@ -42,11 +42,16 @@ class Auction {
       startingPrice: (data['startingPrice'] as num?)?.toDouble() ?? 0.0,
       currentBid: (data['currentBid'] as num?)?.toDouble() ?? 0.0,
       sellerId: data['sellerId'] ?? '',
-      startTime: data['startTime'] != null ? DateTime.parse(data['startTime']) : DateTime.now(),
-      endTime: data['endTime'] != null ? DateTime.parse(data['endTime']) : DateTime.now(),
+      startTime: data['startTime'] != null
+          ? DateTime.parse(data['startTime'])
+          : DateTime.now(),
+      endTime: data['endTime'] != null
+          ? DateTime.parse(data['endTime'])
+          : DateTime.now(),
       imageUrls: List<String>.from(data['imageUrls'] ?? []),
       status: AuctionStatus.values.firstWhere(
-        (status) => status.toString().split('.').last == (data['status'] ?? 'active'),
+        (status) =>
+            status.toString().split('.').last == (data['status'] ?? 'active'),
         orElse: () => AuctionStatus.active,
       ),
       bids: (data['bids'] as List<dynamic>?)
@@ -54,8 +59,12 @@ class Auction {
               .toList() ??
           [],
       winnerId: data['winnerId'],
-      createdAt: data['createdAt'] != null ? DateTime.parse(data['createdAt']) : DateTime.now(),
-      updatedAt: data['updatedAt'] != null ? DateTime.parse(data['updatedAt']) : DateTime.now(),
+      createdAt: data['createdAt'] != null
+          ? DateTime.parse(data['createdAt'])
+          : DateTime.now(),
+      updatedAt: data['updatedAt'] != null
+          ? DateTime.parse(data['updatedAt'])
+          : DateTime.now(),
     );
   }
 
@@ -78,10 +87,12 @@ class Auction {
     };
   }
 
-  bool get isActive => status == AuctionStatus.active && DateTime.now().isBefore(endTime);
+  bool get isActive =>
+      status == AuctionStatus.active && DateTime.now().isBefore(endTime);
   bool get hasEnded => DateTime.now().isAfter(endTime);
-  Duration get timeRemaining => hasEnded ? Duration.zero : endTime.difference(DateTime.now());
-  
+  Duration get timeRemaining =>
+      hasEnded ? Duration.zero : endTime.difference(DateTime.now());
+
   String get primaryImageUrl => imageUrls.isNotEmpty ? imageUrls.first : '';
 }
 
@@ -106,7 +117,9 @@ class Bid {
       auctionId: data['auctionId'] ?? '',
       userId: data['userId'] ?? '',
       amount: (data['amount'] as num?)?.toDouble() ?? 0.0,
-      timestamp: data['timestamp'] != null ? DateTime.parse(data['timestamp']) : DateTime.now(),
+      timestamp: data['timestamp'] != null
+          ? DateTime.parse(data['timestamp'])
+          : DateTime.now(),
     );
   }
 

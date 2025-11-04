@@ -33,17 +33,24 @@ class Order {
           [],
       totalAmount: (data['totalAmount'] as num?)?.toDouble() ?? 0.0,
       status: OrderStatus.values.firstWhere(
-        (status) => status.toString().split('.').last == (data['status'] ?? 'pending'),
+        (status) =>
+            status.toString().split('.').last == (data['status'] ?? 'pending'),
         orElse: () => OrderStatus.pending,
       ),
       shippingAddress: data['shippingAddress'] ?? '',
       deliveryDate: data['deliveryDate'],
       paymentMethod: PaymentMethod.values.firstWhere(
-        (method) => method.toString().split('.').last == (data['paymentMethod'] ?? 'card'),
+        (method) =>
+            method.toString().split('.').last ==
+            (data['paymentMethod'] ?? 'card'),
         orElse: () => PaymentMethod.card,
       ),
-      createdAt: data['createdAt'] != null ? DateTime.parse(data['createdAt']) : DateTime.now(),
-      updatedAt: data['updatedAt'] != null ? DateTime.parse(data['updatedAt']) : DateTime.now(),
+      createdAt: data['createdAt'] != null
+          ? DateTime.parse(data['createdAt'])
+          : DateTime.now(),
+      updatedAt: data['updatedAt'] != null
+          ? DateTime.parse(data['updatedAt'])
+          : DateTime.now(),
     );
   }
 

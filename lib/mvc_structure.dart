@@ -1,5 +1,5 @@
 // MVC App Structure Documentation
-// 
+//
 // This Flutter app now follows a clean MVC (Model-View-Controller) architecture:
 //
 // 📁 lib/

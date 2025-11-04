@@ -3,7 +3,7 @@ import '../services/services.dart';
 
 class AuctionController {
   final DatabaseService _databaseService = FirestoreService();
-  
+
   List<Auction> _auctions = [];
   bool _isLoading = false;
   String? _errorMessage;
@@ -150,8 +150,10 @@ class AuctionController {
           imageUrls: auction.imageUrls,
           status: AuctionStatus.ended,
           bids: auction.bids,
-          winnerId: auction.bids.isNotEmpty 
-              ? auction.bids.reduce((a, b) => a.amount > b.amount ? a : b).userId 
+          winnerId: auction.bids.isNotEmpty
+              ? auction.bids
+                  .reduce((a, b) => a.amount > b.amount ? a : b)
+                  .userId
               : null,
           createdAt: auction.createdAt,
           updatedAt: DateTime.now(),
@@ -162,7 +164,7 @@ class AuctionController {
         _setLoading(false);
         return true;
       }
-      
+
       _setLoading(false);
       return false;
     } catch (e) {
@@ -177,13 +179,15 @@ class AuctionController {
   }
 
   List<Auction> getEndedAuctions() {
-    return _auctions.where((auction) => auction.status == AuctionStatus.ended).toList();
+    return _auctions
+        .where((auction) => auction.status == AuctionStatus.ended)
+        .toList();
   }
 
   List<Auction> getUserBidAuctions(String userId) {
-    return _auctions.where((auction) => 
-      auction.bids.any((bid) => bid.userId == userId)
-    ).toList();
+    return _auctions
+        .where((auction) => auction.bids.any((bid) => bid.userId == userId))
+        .toList();
   }
 
   Bid? getHighestBid(String auctionId) {

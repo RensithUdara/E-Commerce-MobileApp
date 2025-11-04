@@ -40,14 +40,20 @@ class Product {
       category: data['category'] ?? '',
       unit: data['unit'] ?? '',
       quantity: data['quantity'] ?? 0,
-      imageUrls: List<String>.from(data['imageUrls'] ?? [data['imageUrl'] ?? '']),
+      imageUrls:
+          List<String>.from(data['imageUrls'] ?? [data['imageUrl'] ?? '']),
       sellerId: data['sellerId'] ?? '',
       status: ProductStatus.values.firstWhere(
-        (status) => status.toString().split('.').last == (data['status'] ?? 'active'),
+        (status) =>
+            status.toString().split('.').last == (data['status'] ?? 'active'),
         orElse: () => ProductStatus.active,
       ),
-      createdAt: data['createdAt'] != null ? DateTime.parse(data['createdAt']) : DateTime.now(),
-      updatedAt: data['updatedAt'] != null ? DateTime.parse(data['updatedAt']) : DateTime.now(),
+      createdAt: data['createdAt'] != null
+          ? DateTime.parse(data['createdAt'])
+          : DateTime.now(),
+      updatedAt: data['updatedAt'] != null
+          ? DateTime.parse(data['updatedAt'])
+          : DateTime.now(),
       rating: (data['rating'] as num?)?.toDouble(),
       reviewCount: data['reviewCount'],
     );

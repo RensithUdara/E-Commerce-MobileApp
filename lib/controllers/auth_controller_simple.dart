@@ -4,7 +4,7 @@ import '../services/services.dart';
 class AuthController {
   final AuthService _authService = FirebaseAuthService();
   final DatabaseService _databaseService = FirestoreService();
-  
+
   User? _currentUser;
   bool _isLoading = false;
   String? _errorMessage;
@@ -33,8 +33,9 @@ class AuthController {
       _setLoading(true);
       _setError(null);
 
-      final authResult = await _authService.signUpWithEmailPassword(email, password);
-      
+      final authResult =
+          await _authService.signUpWithEmailPassword(email, password);
+
       if (authResult != null) {
         final user = User(
           id: authResult.uid,
@@ -51,7 +52,7 @@ class AuthController {
         _setLoading(false);
         return true;
       }
-      
+
       _setLoading(false);
       return false;
     } catch (e) {
@@ -69,15 +70,16 @@ class AuthController {
       _setLoading(true);
       _setError(null);
 
-      final authResult = await _authService.signInWithEmailPassword(email, password);
-      
+      final authResult =
+          await _authService.signInWithEmailPassword(email, password);
+
       if (authResult != null) {
         final user = await _databaseService.getUser(authResult.uid);
         _currentUser = user;
         _setLoading(false);
         return true;
       }
-      
+
       _setLoading(false);
       return false;
     } catch (e) {
@@ -100,7 +102,7 @@ class AuthController {
     try {
       _setLoading(true);
       _setError(null);
-      
+
       await _authService.resetPassword(email);
       _setLoading(false);
       return true;

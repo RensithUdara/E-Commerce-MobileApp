@@ -46,7 +46,7 @@ abstract class DatabaseService {
 
 class FirestoreService implements DatabaseService {
   // This will be implemented with actual Firestore imports later
-  
+
   @override
   Future<void> createUser(User user) async {
     throw UnimplementedError();
@@ -78,7 +78,8 @@ class FirestoreService implements DatabaseService {
   }
 
   @override
-  Future<List<Product>> getProducts({String? category, String? sellerId}) async {
+  Future<List<Product>> getProducts(
+      {String? category, String? sellerId}) async {
     throw UnimplementedError();
   }
 

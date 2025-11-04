@@ -72,7 +72,8 @@ class Cart {
     required this.updatedAt,
   });
 
-  double get totalAmount => items.fold(0.0, (sum, item) => sum + item.totalPrice);
+  double get totalAmount =>
+      items.fold(0.0, (sum, item) => sum + item.totalPrice);
   int get totalItems => items.fold(0, (sum, item) => sum + item.quantity);
 
   factory Cart.fromMap(Map<String, dynamic> data, String id) {
@@ -80,11 +81,16 @@ class Cart {
       id: id,
       userId: data['userId'] ?? '',
       items: (data['items'] as List<dynamic>?)
-              ?.map((itemData) => CartItem.fromMap(itemData, itemData['id'] ?? ''))
+              ?.map((itemData) =>
+                  CartItem.fromMap(itemData, itemData['id'] ?? ''))
               .toList() ??
           [],
-      createdAt: data['createdAt'] != null ? DateTime.parse(data['createdAt']) : DateTime.now(),
-      updatedAt: data['updatedAt'] != null ? DateTime.parse(data['updatedAt']) : DateTime.now(),
+      createdAt: data['createdAt'] != null
+          ? DateTime.parse(data['createdAt'])
+          : DateTime.now(),
+      updatedAt: data['updatedAt'] != null
+          ? DateTime.parse(data['updatedAt'])
+          : DateTime.now(),
     );
   }
 

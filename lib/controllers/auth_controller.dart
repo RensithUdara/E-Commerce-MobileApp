@@ -1,10 +1,9 @@
+import 'package:flutter/material.dart';
 import '../models/models.dart';
-import '../services/auth_service.dart';
-import '../services/database_service.dart';
+import '../services/database_service_firebase.dart';
 
-class AuthController {
-  final AuthService _authService = FirebaseAuthService();
-  final DatabaseService _databaseService = FirestoreService();
+class AuthController extends ChangeNotifier {
+  final FirestoreService _service = FirestoreService();
 
   User? _currentUser;
   bool _isLoading = false;

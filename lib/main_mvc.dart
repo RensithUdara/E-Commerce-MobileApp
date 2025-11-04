@@ -1,5 +1,5 @@
 // Updated main.dart with MVC Architecture
-// 
+//
 // This file has been restructured to follow MVC principles:
 // - Clean separation of concerns
 // - Proper dependency injection setup
@@ -12,25 +12,24 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'config/config.dart';
 // MVC Architecture imports
 import 'controllers/controllers.dart';
-import 'config/config.dart';
 import 'mvc_structure.dart'; // Documentation file
+// Legacy provider imports (will be migrated to controllers)
+import 'screens/cart_screen/cart_provider.dart';
 import 'screens/firebase_options/firebase_options.dart';
 import 'splash_screen.dart';
 
-// Legacy provider imports (will be migrated to controllers)
-import 'screens/cart_screen/cart_provider.dart';
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   try {
     // Initialize Firebase
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
-    
+
     runApp(const GemHubApp());
   } catch (e) {
     // Handle initialization failure with error app
@@ -47,7 +46,7 @@ class GemHubApp extends StatelessWidget {
       providers: [
         // Legacy providers (to be migrated)
         ChangeNotifierProvider(create: (_) => CartProvider()),
-        
+
         // MVC Controllers as providers (when implementing state management)
         // Provider(create: (_) => AuthController()),
         // Provider(create: (_) => ProductController()),
@@ -58,13 +57,13 @@ class GemHubApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'GemHub - MVC Architecture',
-        
+
         // Use custom theme when ready
         theme: ThemeData.light(useMaterial3: true),
-        
+
         // Initial route
         home: const SplashScreen(),
-        
+
         // Route management will be implemented here
         // onGenerateRoute: RouteManager.generateRoute,
         // onUnknownRoute: RouteManager.unknownRoute,
@@ -75,7 +74,7 @@ class GemHubApp extends StatelessWidget {
 
 class ErrorApp extends StatelessWidget {
   final String error;
-  
+
   const ErrorApp({super.key, required this.error});
 
   @override

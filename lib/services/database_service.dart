@@ -117,27 +117,27 @@ class FirestoreService implements DatabaseService {
   }
 
   @override
-  Future<void> createOrder(Order order) async {
+  Future<void> createOrder(order_model.Order order) async {
     throw UnimplementedError();
   }
 
   @override
-  Future<Order?> getOrder(String orderId) async {
+  Future<order_model.Order?> getOrder(String orderId) async {
     throw UnimplementedError();
   }
 
   @override
-  Future<List<Order>> getUserOrders(String userId) async {
+  Future<List<order_model.Order>> getUserOrders(String userId) async {
     throw UnimplementedError();
   }
 
   @override
-  Future<List<Order>> getSellerOrders(String sellerId) async {
+  Future<List<order_model.Order>> getSellerOrders(String sellerId) async {
     throw UnimplementedError();
   }
 
   @override
-  Future<void> updateOrder(Order order) async {
+  Future<void> updateOrder(order_model.Order order) async {
     throw UnimplementedError();
   }
 

@@ -3,7 +3,7 @@ import '../services/services.dart';
 
 class CartController {
   final DatabaseService _databaseService = FirestoreService();
-  
+
   Cart? _cart;
   bool _isLoading = false;
   String? _errorMessage;
@@ -30,7 +30,7 @@ class CartController {
       _setError(null);
 
       _cart = await _databaseService.getCart(userId);
-      
+
       // Create empty cart if none exists
       if (_cart == null) {
         _cart = Cart(
@@ -42,7 +42,7 @@ class CartController {
         );
         await _databaseService.createCart(_cart!);
       }
-      
+
       _setLoading(false);
     } catch (e) {
       _setError(e.toString());
@@ -118,7 +118,8 @@ class CartController {
       );
 
       if (itemIndex != -1) {
-        final updatedItem = _cart!.items[itemIndex].copyWith(quantity: quantity);
+        final updatedItem =
+            _cart!.items[itemIndex].copyWith(quantity: quantity);
         _cart!.items[itemIndex] = updatedItem;
         await _databaseService.updateCart(_cart!);
         return true;

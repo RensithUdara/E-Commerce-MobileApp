@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-
-import '../models/models.dart';
+import '../models/models.dart' hide Order;
+import '../models/order_model.dart' as order_model;
 
 abstract class DatabaseService {
   // User operations
@@ -23,11 +23,11 @@ abstract class DatabaseService {
   Future<void> deleteCart(String userId);
 
   // Order operations
-  Future<void> createOrder(Order order);
-  Future<Order?> getOrder(String orderId);
-  Future<List<Order>> getUserOrders(String userId);
-  Future<List<Order>> getSellerOrders(String sellerId);
-  Future<void> updateOrder(Order order);
+  Future<void> createOrder(order_model.Order order);
+  Future<order_model.Order?> getOrder(String orderId);
+  Future<List<order_model.Order>> getUserOrders(String userId);
+  Future<List<order_model.Order>> getSellerOrders(String sellerId);
+  Future<void> updateOrder(order_model.Order order);
 
   // Auction operations
   Future<void> createAuction(Auction auction);

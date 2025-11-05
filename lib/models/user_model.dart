@@ -6,6 +6,7 @@ class User {
   final String? address;
   final String? profileImageUrl;
   final UserRole role;
+  final bool isActive;
   final DateTime createdAt;
   final DateTime updatedAt;
 
@@ -17,6 +18,7 @@ class User {
     this.address,
     this.profileImageUrl,
     this.role = UserRole.customer,
+    this.isActive = true,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -34,6 +36,7 @@ class User {
             role.toString().split('.').last == (data['role'] ?? 'customer'),
         orElse: () => UserRole.customer,
       ),
+      isActive: data['isActive'] ?? true,
       createdAt: data['createdAt'] != null
           ? DateTime.parse(data['createdAt'])
           : DateTime.now(),
@@ -51,6 +54,7 @@ class User {
       'address': address,
       'profileImageUrl': profileImageUrl,
       'role': role.toString().split('.').last,
+      'isActive': isActive,
       'createdAt': createdAt.toIso8601String(),
       'updatedAt': updatedAt.toIso8601String(),
     };
@@ -64,6 +68,7 @@ class User {
     String? address,
     String? profileImageUrl,
     UserRole? role,
+    bool? isActive,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {
@@ -75,6 +80,7 @@ class User {
       address: address ?? this.address,
       profileImageUrl: profileImageUrl ?? this.profileImageUrl,
       role: role ?? this.role,
+      isActive: isActive ?? this.isActive,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
     );

@@ -39,7 +39,7 @@ class AuthController extends ChangeNotifier {
       _setError(null);
 
       final authResult =
-      final authResult = await _authService.signUpWithEmailPassword(email, password);
+          await _authService.signUpWithEmailPassword(email, password);
 
       if (authResult != null) {
         final user = User(
@@ -76,10 +76,10 @@ class AuthController extends ChangeNotifier {
       _setError(null);
 
       final authResult =
-          await _service.signInWithEmailPassword(email, password);
+          await _authService.signInWithEmailPassword(email, password);
 
       if (authResult != null) {
-        final user = await _service.getUser(authResult.uid);
+        final user = await _databaseService.getUser(authResult.uid);
         _currentUser = user;
         _setLoading(false);
         return true;

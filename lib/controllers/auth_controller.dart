@@ -36,7 +36,8 @@ class AuthController extends ChangeNotifier {
       _setLoading(true);
       _setError(null);
 
-      final authResult = await _service.signUpWithEmailPassword(email, password);
+      final authResult =
+          await _service.signUpWithEmailPassword(email, password);
 
       if (authResult != null) {
         final user = User(

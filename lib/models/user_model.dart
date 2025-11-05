@@ -36,6 +36,7 @@ class User {
             role.toString().split('.').last == (data['role'] ?? 'customer'),
         orElse: () => UserRole.customer,
       ),
+      isActive: data['isActive'] ?? true,
       createdAt: data['createdAt'] != null
           ? DateTime.parse(data['createdAt'])
           : DateTime.now(),

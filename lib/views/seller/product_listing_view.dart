@@ -471,7 +471,8 @@ class _ProductListingViewState extends State<ProductListingView> {
                 hintText: 'Enter product description',
                 border: OutlineInputBorder(),
               ),
-              validator: Validators.required,
+              validator: (value) =>
+                  Validators.validateRequired(value, 'Description'),
               maxLines: 4,
               maxLength: 500,
             ),

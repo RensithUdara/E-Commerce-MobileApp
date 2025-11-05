@@ -6,6 +6,7 @@ class User {
   final String? address;
   final String? profileImageUrl;
   final UserRole role;
+  final bool isActive;
   final DateTime createdAt;
   final DateTime updatedAt;
 

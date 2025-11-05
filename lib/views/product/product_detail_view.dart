@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
-import '../../controllers/cart_controller.dart';
 import '../../controllers/auth_controller.dart';
+import '../../controllers/cart_controller.dart';
 import '../../models/product_model.dart';
-import '../../models/user_model.dart';
 import '../../widgets/common/loading_widget.dart';
 
 class ProductDetailView extends StatefulWidget {
@@ -49,7 +48,8 @@ class _ProductDetailViewState extends State<ProductDetailView> {
       if (success) {
         _showSuccessSnackBar();
       } else {
-        _showErrorSnackBar(cartController.errorMessage ?? 'Failed to add to cart');
+        _showErrorSnackBar(
+            cartController.errorMessage ?? 'Failed to add to cart');
       }
     }
   }
@@ -297,7 +297,9 @@ class _ProductDetailViewState extends State<ProductDetailView> {
           'Available: ${widget.product.quantity} ${widget.product.unit}${widget.product.quantity != 1 ? 's' : ''}',
           style: TextStyle(
             fontSize: 14,
-            color: widget.product.quantity > 0 ? Colors.green.shade600 : Colors.red.shade600,
+            color: widget.product.quantity > 0
+                ? Colors.green.shade600
+                : Colors.red.shade600,
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -378,9 +380,8 @@ class _ProductDetailViewState extends State<ProductDetailView> {
               child: Row(
                 children: [
                   IconButton(
-                    onPressed: quantity > 1
-                        ? () => setState(() => quantity--)
-                        : null,
+                    onPressed:
+                        quantity > 1 ? () => setState(() => quantity--) : null,
                     icon: const Icon(Icons.remove),
                   ),
                   Container(
@@ -523,14 +524,16 @@ class _ProductDetailViewState extends State<ProductDetailView> {
         child: Consumer<CartController>(
           builder: (context, cartController, child) {
             final isAddingToCart = cartController.isLoading;
-            final canAddToCart = widget.product.status == ProductStatus.active &&
-                widget.product.quantity >= quantity;
+            final canAddToCart =
+                widget.product.status == ProductStatus.active &&
+                    widget.product.quantity >= quantity;
 
             return Row(
               children: [
                 Expanded(
                   child: ElevatedButton.icon(
-                    onPressed: canAddToCart && !isAddingToCart ? _addToCart : null,
+                    onPressed:
+                        canAddToCart && !isAddingToCart ? _addToCart : null,
                     icon: isAddingToCart
                         ? SizedBox(
                             width: 20,
@@ -539,8 +542,8 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                           )
                         : const Icon(Icons.shopping_cart),
                     label: Text(
-                      isAddingToCart 
-                          ? 'Adding...' 
+                      isAddingToCart
+                          ? 'Adding...'
                           : canAddToCart
                               ? 'Add to Cart'
                               : widget.product.status != ProductStatus.active
@@ -548,8 +551,8 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                                   : 'Out of Stock',
                     ),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: canAddToCart 
-                          ? Colors.blue.shade600 
+                      backgroundColor: canAddToCart
+                          ? Colors.blue.shade600
                           : Colors.grey.shade400,
                       foregroundColor: Colors.white,
                       minimumSize: const Size.fromHeight(48),

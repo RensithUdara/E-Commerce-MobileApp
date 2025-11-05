@@ -17,7 +17,7 @@ import 'controllers/controllers.dart';
 // Legacy provider imports (will be migrated to controllers)
 import 'screens/cart_screen/cart_provider.dart';
 import 'screens/firebase_options/firebase_options.dart';
-import 'splash_screen.dart';
+import 'views/auth/splash_view_mvc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

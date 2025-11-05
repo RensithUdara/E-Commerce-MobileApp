@@ -49,7 +49,7 @@ class ProductCardView extends StatelessWidget {
                 ),
               ),
             ),
-            
+
             // Product Details
             Expanded(
               flex: 2,
@@ -68,9 +68,9 @@ class ProductCardView extends StatelessWidget {
                         fontSize: 14,
                       ),
                     ),
-                    
+
                     const SizedBox(height: 4),
-                    
+
                     // Category
                     Text(
                       product.category,
@@ -79,9 +79,9 @@ class ProductCardView extends StatelessWidget {
                         color: Colors.grey.shade600,
                       ),
                     ),
-                    
+
                     const Spacer(),
-                    
+
                     // Price and Actions Row
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -111,7 +111,6 @@ class ProductCardView extends StatelessWidget {
                             ],
                           ),
                         ),
-                        
                         if (showActions) ...[
                           // Status indicator or favorite button
                           _buildStatusIndicator(),
@@ -195,7 +194,7 @@ class ProductCardView extends StatelessWidget {
             color: Colors.green.shade600,
           ),
         );
-        
+
       case ProductStatus.inactive:
         return Container(
           padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
@@ -210,7 +209,7 @@ class ProductCardView extends StatelessWidget {
             color: Colors.grey.shade600,
           ),
         );
-        
+
       case ProductStatus.outOfStock:
         return Container(
           padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
@@ -225,7 +224,7 @@ class ProductCardView extends StatelessWidget {
             color: Colors.red.shade600,
           ),
         );
-        
+
       default:
         return const SizedBox.shrink();
     }

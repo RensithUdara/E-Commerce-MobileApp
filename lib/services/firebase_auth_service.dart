@@ -3,24 +3,29 @@ import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 abstract class AuthService {
   firebase_auth.User? get currentUser;
   Stream<firebase_auth.User?> get authStateChanges;
-  
-  Future<firebase_auth.User?> signInWithEmailPassword(String email, String password);
-  Future<firebase_auth.User?> signUpWithEmailPassword(String email, String password);
+
+  Future<firebase_auth.User?> signInWithEmailPassword(
+      String email, String password);
+  Future<firebase_auth.User?> signUpWithEmailPassword(
+      String email, String password);
   Future<void> signOut();
   Future<void> resetPassword(String email);
 }
 
 class FirebaseAuthService implements AuthService {
-  final firebase_auth.FirebaseAuth _firebaseAuth = firebase_auth.FirebaseAuth.instance;
+  final firebase_auth.FirebaseAuth _firebaseAuth =
+      firebase_auth.FirebaseAuth.instance;
 
   @override
   firebase_auth.User? get currentUser => _firebaseAuth.currentUser;
 
   @override
-  Stream<firebase_auth.User?> get authStateChanges => _firebaseAuth.authStateChanges();
+  Stream<firebase_auth.User?> get authStateChanges =>
+      _firebaseAuth.authStateChanges();
 
   @override
-  Future<firebase_auth.User?> signInWithEmailPassword(String email, String password) async {
+  Future<firebase_auth.User?> signInWithEmailPassword(
+      String email, String password) async {
     try {
       final credential = await _firebaseAuth.signInWithEmailAndPassword(
         email: email,
@@ -35,7 +40,8 @@ class FirebaseAuthService implements AuthService {
   }
 
   @override
-  Future<firebase_auth.User?> signUpWithEmailPassword(String email, String password) async {
+  Future<firebase_auth.User?> signUpWithEmailPassword(
+      String email, String password) async {
     try {
       final credential = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,

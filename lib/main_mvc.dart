@@ -65,7 +65,7 @@ class GemHubApp extends StatelessWidget {
         theme: ThemeData.light(useMaterial3: true),
 
         // Initial route
-        home: const SplashScreen(),
+        home: const SplashViewMVC(),
 
         // Route management will be implemented here
         // onGenerateRoute: RouteManager.generateRoute,

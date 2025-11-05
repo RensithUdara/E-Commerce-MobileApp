@@ -47,7 +47,12 @@ class GemHubApp extends StatelessWidget {
         // Legacy providers (to be migrated)
         ChangeNotifierProvider(create: (_) => CartProvider()),
 
-        // MVC Controllers as providers (when implementing state management)
+        // MVC Controllers as providers
+        ChangeNotifierProvider(create: (_) => AuthController()),
+        ChangeNotifierProvider(create: (_) => ProductController()),
+        ChangeNotifierProvider(create: (_) => CartController()),
+        ChangeNotifierProvider(create: (_) => OrderController()),
+        ChangeNotifierProvider(create: (_) => AuctionController()),
         // Provider(create: (_) => AuthController()),
         // Provider(create: (_) => ProductController()),
         // Provider(create: (_) => CartController()),

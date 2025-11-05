@@ -439,7 +439,7 @@ class _ProductListingViewState extends State<ProductListingView> {
                 hintText: 'Enter product title',
                 border: OutlineInputBorder(),
               ),
-              validator: Validators.required,
+              validator: Validators.validateProductTitle,
               maxLength: 100,
             ),
             const SizedBox(height: 16),

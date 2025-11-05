@@ -1,9 +1,11 @@
+import 'package:flutter/material.dart';
+
 import '../models/models.dart';
 import '../services/services.dart';
 
-class ProductController {
+class ProductController extends ChangeNotifier {
   final DatabaseService _databaseService = FirestoreService();
-  
+
   List<Product> _products = [];
   List<Product> _filteredProducts = [];
   bool _isLoading = false;
@@ -11,7 +13,8 @@ class ProductController {
   String _searchQuery = '';
   String? _selectedCategory;
 
-  List<Product> get products => _filteredProducts.isNotEmpty ? _filteredProducts : _products;
+  List<Product> get products =>
+      _filteredProducts.isNotEmpty ? _filteredProducts : _products;
   bool get isLoading => _isLoading;
   String? get errorMessage => _errorMessage;
   String get searchQuery => _searchQuery;
@@ -19,10 +22,12 @@ class ProductController {
 
   void _setLoading(bool loading) {
     _isLoading = loading;
+    notifyListeners();
   }
 
   void _setError(String? error) {
     _errorMessage = error;
+    notifyListeners();
   }
 
   Future<void> fetchProducts({String? category, String? sellerId}) async {
@@ -30,7 +35,8 @@ class ProductController {
       _setLoading(true);
       _setError(null);
 
-      _products = await _databaseService.getProducts(category: category, sellerId: sellerId);
+      _products = await _databaseService.getProducts(
+          category: category, sellerId: sellerId);
       _applyFilters();
       _setLoading(false);
     } catch (e) {
@@ -132,12 +138,14 @@ class ProductController {
 
   void _applyFilters() {
     _filteredProducts = _products.where((product) {
-      bool matchesSearch = _searchQuery.isEmpty || 
+      bool matchesSearch = _searchQuery.isEmpty ||
           product.title.toLowerCase().contains(_searchQuery.toLowerCase()) ||
-          product.description.toLowerCase().contains(_searchQuery.toLowerCase());
-      
-      bool matchesCategory = _selectedCategory == null || 
-          product.category == _selectedCategory;
+          product.description
+              .toLowerCase()
+              .contains(_searchQuery.toLowerCase());
+
+      bool matchesCategory =
+          _selectedCategory == null || product.category == _selectedCategory;
 
       return matchesSearch && matchesCategory;
     }).toList();

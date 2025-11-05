@@ -12,10 +12,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'config/config.dart';
 // MVC Architecture imports
 import 'controllers/controllers.dart';
-import 'mvc_structure.dart'; // Documentation file
 // Legacy provider imports (will be migrated to controllers)
 import 'screens/cart_screen/cart_provider.dart';
 import 'screens/firebase_options/firebase_options.dart';
@@ -47,7 +45,12 @@ class GemHubApp extends StatelessWidget {
         // Legacy providers (to be migrated)
         ChangeNotifierProvider(create: (_) => CartProvider()),
 
-        // MVC Controllers as providers (when implementing state management)
+        // MVC Controllers as providers
+        ChangeNotifierProvider(create: (_) => AuthController()),
+        ChangeNotifierProvider(create: (_) => ProductController()),
+        ChangeNotifierProvider(create: (_) => CartController()),
+        ChangeNotifierProvider(create: (_) => OrderController()),
+        ChangeNotifierProvider(create: (_) => AuctionController()),
         // Provider(create: (_) => AuthController()),
         // Provider(create: (_) => ProductController()),
         // Provider(create: (_) => CartController()),

@@ -1,7 +1,9 @@
+import 'package:flutter/material.dart';
+
 import '../models/models.dart';
 import '../services/services.dart';
 
-class AuctionController {
+class AuctionController extends ChangeNotifier {
   final DatabaseService _databaseService = FirestoreService();
 
   List<Auction> _auctions = [];

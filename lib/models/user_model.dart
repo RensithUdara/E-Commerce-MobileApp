@@ -18,6 +18,7 @@ class User {
     this.address,
     this.profileImageUrl,
     this.role = UserRole.customer,
+    this.isActive = true,
     required this.createdAt,
     required this.updatedAt,
   });

@@ -1,7 +1,8 @@
+import 'package:flutter/material.dart';
 import '../models/models.dart';
 import '../services/services.dart';
 
-class ProductController {
+class ProductController extends ChangeNotifier {
   final DatabaseService _databaseService = FirestoreService();
   
   List<Product> _products = [];
@@ -19,10 +20,12 @@ class ProductController {
 
   void _setLoading(bool loading) {
     _isLoading = loading;
+    notifyListeners();
   }
 
   void _setError(String? error) {
     _errorMessage = error;
+    notifyListeners();
   }
 
   Future<void> fetchProducts({String? category, String? sellerId}) async {

@@ -128,9 +128,9 @@ class ProductCardView extends StatelessWidget {
   }
 
   Widget _buildProductImage() {
-    if (product.images.isNotEmpty) {
+    if (product.imageUrls.isNotEmpty) {
       return Image.network(
-        product.images.first,
+        product.imageUrls.first,
         fit: BoxFit.cover,
         errorBuilder: (context, error, stackTrace) {
           return _buildPlaceholderImage();

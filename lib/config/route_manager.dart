@@ -1,41 +1,63 @@
+import 'package:flutter/material.dart';
+
+import '../Seller/seller_home_page.dart';
+import '../home_screen.dart';
+import '../screens/auth_screens/forgot_password_screen.dart';
+import '../screens/auth_screens/signup_screen.dart';
+import '../views/auth/login_view.dart';
+import '../views/auth/splash_view_mvc.dart';
 import 'routes.dart';
 
 class RouteManager {
-  static final Map<String, dynamic> _routeData = {};
+  static Route<dynamic>? generateRoute(RouteSettings settings) {
+    switch (settings.name) {
+      case AppRoutes.splash:
+        return MaterialPageRoute(
+          builder: (_) => const SplashViewMVC(),
+          settings: settings,
+        );
 
-  // Navigation methods
-  static void navigateTo(String routeName, {Map<String, dynamic>? arguments}) {
-    _routeData[routeName] = arguments ?? {};
-    // This will be implemented with actual Flutter navigation later
-    print('Navigating to: $routeName with arguments: $arguments');
-  }
+      case AppRoutes.login:
+        return MaterialPageRoute(
+          builder: (_) => const LoginScreenMVC(),
+          settings: settings,
+        );
 
-  static void navigateAndReplace(String routeName,
-      {Map<String, dynamic>? arguments}) {
-    _routeData[routeName] = arguments ?? {};
-    // This will be implemented with actual Flutter navigation later
-    print('Navigate and replace to: $routeName with arguments: $arguments');
-  }
+      case AppRoutes.home:
+        return MaterialPageRoute(
+          builder: (_) => const HomeScreen(),
+          settings: settings,
+        );
 
-  static void navigateAndClearStack(String routeName,
-      {Map<String, dynamic>? arguments}) {
-    _routeData[routeName] = arguments ?? {};
-    // This will be implemented with actual Flutter navigation later
-    print('Navigate and clear stack to: $routeName with arguments: $arguments');
-  }
+      case AppRoutes.sellerHome:
+        return MaterialPageRoute(
+          builder: (_) => const SellerHomePage(),
+          settings: settings,
+        );
 
-  static void goBack() {
-    // This will be implemented with actual Flutter navigation later
-    print('Going back');
-  }
+      case AppRoutes.signup:
+        return MaterialPageRoute(
+          builder: (_) => const SignUpScreen(),
+          settings: settings,
+        );
 
-  // Route data management
-  static Map<String, dynamic>? getRouteData(String routeName) {
-    return _routeData[routeName];
-  }
+      case AppRoutes.forgotPassword:
+        return MaterialPageRoute(
+          builder: (_) => const ForgotPasswordScreen(),
+          settings: settings,
+        );
 
-  static void clearRouteData(String routeName) {
-    _routeData.remove(routeName);
+      default:
+        return MaterialPageRoute(
+          builder: (_) => Scaffold(
+            appBar: AppBar(title: const Text('Error')),
+            body: const Center(
+              child: Text('Route not found!'),
+            ),
+          ),
+          settings: settings,
+        );
+    }
   }
 
   // Route validation

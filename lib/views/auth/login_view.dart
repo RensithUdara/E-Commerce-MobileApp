@@ -314,7 +314,7 @@ class _LoginScreenMVCState extends State<LoginScreenMVC> {
                       ),
                       TextButton(
                         onPressed: () {
-                          Navigator.pushNamed(context, AppRoutes.signUp);
+                          Navigator.pushNamed(context, AppRoutes.signup);
                         },
                         child: const Text(
                           'Sign Up',

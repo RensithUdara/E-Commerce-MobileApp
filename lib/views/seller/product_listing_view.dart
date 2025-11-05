@@ -522,7 +522,8 @@ class _ProductListingViewState extends State<ProductListingView> {
                       hintText: 'e.g., piece, kg',
                       border: OutlineInputBorder(),
                     ),
-                    validator: Validators.required,
+                    validator: (value) =>
+                        Validators.validateRequired(value, 'Unit'),
                   ),
                 ),
               ],

@@ -6,9 +6,6 @@ import '../../config/routes.dart';
 import '../../controllers/auth_controller.dart';
 import '../../models/user_model.dart';
 import '../../widget/custom_dialog.dart';
-import '../../Seller/seller_home_page.dart';
-import '../../screens/auth_screens/forgot_password_screen.dart';
-import '../../screens/auth_screens/signup_screen.dart';
 
 class LoginScreenMVC extends StatefulWidget {
   const LoginScreenMVC({super.key});

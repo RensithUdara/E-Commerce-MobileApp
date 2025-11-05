@@ -510,7 +510,7 @@ class _ProductListingViewState extends State<ProductListingView> {
                       border: OutlineInputBorder(),
                     ),
                     keyboardType: TextInputType.number,
-                    validator: Validators.price,
+                    validator: Validators.validatePrice,
                   ),
                 ),
                 const SizedBox(width: 16),

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'routes.dart';
+
+import '../Seller/seller_home_page.dart';
+import '../home_screen.dart';
+import '../screens/auth_screens/forgot_password_screen.dart';
+import '../screens/auth_screens/signup_screen.dart';
 import '../views/auth/login_view.dart';
 import '../views/auth/splash_view_mvc.dart';
-import '../home_screen.dart';
-import '../Seller/seller_home_page.dart';
-import '../screens/auth_screens/signup_screen.dart';
-import '../screens/auth_screens/forgot_password_screen.dart';
+import 'routes.dart';
 
 class RouteManager {
   static Route<dynamic>? generateRoute(RouteSettings settings) {
@@ -15,31 +16,31 @@ class RouteManager {
           builder: (_) => const SplashViewMVC(),
           settings: settings,
         );
-        
+
       case AppRoutes.login:
         return MaterialPageRoute(
           builder: (_) => const LoginScreenMVC(),
           settings: settings,
         );
-        
+
       case AppRoutes.home:
         return MaterialPageRoute(
           builder: (_) => const HomeScreen(),
           settings: settings,
         );
-        
+
       case AppRoutes.sellerHome:
         return MaterialPageRoute(
           builder: (_) => const SellerHomePage(),
           settings: settings,
         );
-        
+
       case AppRoutes.signup:
         return MaterialPageRoute(
           builder: (_) => const SignUpScreen(),
           settings: settings,
         );
-        
+
       case AppRoutes.forgotPassword:
         return MaterialPageRoute(
           builder: (_) => const ForgotPasswordScreen(),

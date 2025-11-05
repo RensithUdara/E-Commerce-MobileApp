@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../controllers/auth_controller.dart';
 import '../../config/routes.dart';
+import '../../controllers/auth_controller.dart';
 import '../../models/user_model.dart';
 
 class SplashViewMVC extends StatefulWidget {
@@ -12,7 +12,7 @@ class SplashViewMVC extends StatefulWidget {
   State<SplashViewMVC> createState() => _SplashViewMVCState();
 }
 
-class _SplashViewMVCState extends State<SplashViewMVC> 
+class _SplashViewMVCState extends State<SplashViewMVC>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
@@ -53,11 +53,12 @@ class _SplashViewMVCState extends State<SplashViewMVC>
   void _checkAuthState() async {
     // Wait for animation to complete
     await Future.delayed(const Duration(seconds: 2));
-    
+
     if (mounted) {
-      final authController = Provider.of<AuthController>(context, listen: false);
+      final authController =
+          Provider.of<AuthController>(context, listen: false);
       await authController.checkAuthState();
-      
+
       if (mounted) {
         _navigateToNextScreen(authController.currentUser);
       }
@@ -134,9 +135,9 @@ class _SplashViewMVCState extends State<SplashViewMVC>
                     ),
                   ),
                 ),
-                
+
                 const SizedBox(height: 32),
-                
+
                 // App title
                 FadeTransition(
                   opacity: _fadeAnimation,
@@ -150,9 +151,9 @@ class _SplashViewMVCState extends State<SplashViewMVC>
                     ),
                   ),
                 ),
-                
+
                 const SizedBox(height: 8),
-                
+
                 // Subtitle
                 FadeTransition(
                   opacity: _fadeAnimation,
@@ -165,9 +166,9 @@ class _SplashViewMVCState extends State<SplashViewMVC>
                     ),
                   ),
                 ),
-                
+
                 const SizedBox(height: 60),
-                
+
                 // Loading indicator
                 FadeTransition(
                   opacity: _fadeAnimation,

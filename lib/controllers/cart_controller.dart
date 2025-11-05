@@ -1,7 +1,8 @@
+import 'package:flutter/material.dart';
 import '../models/models.dart';
 import '../services/services.dart';
 
-class CartController {
+class CartController extends ChangeNotifier {
   final DatabaseService _databaseService = FirestoreService();
 
   Cart? _cart;

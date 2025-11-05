@@ -12,10 +12,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'config/config.dart';
 // MVC Architecture imports
 import 'controllers/controllers.dart';
-import 'mvc_structure.dart'; // Documentation file
 // Legacy provider imports (will be migrated to controllers)
 import 'screens/cart_screen/cart_provider.dart';
 import 'screens/firebase_options/firebase_options.dart';

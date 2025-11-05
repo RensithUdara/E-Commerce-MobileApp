@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../controllers/product_controller.dart';
+import '../../config/routes.dart';
 import '../../controllers/auth_controller.dart';
+import '../../controllers/product_controller.dart';
 import '../../models/product_model.dart';
 import '../../models/user_model.dart';
-import '../../config/routes.dart';
 import '../../widgets/common/loading_widget.dart';
 import 'product_card_view.dart';
 import 'product_detail_view.dart';
@@ -48,7 +48,8 @@ class _ProductListViewState extends State<ProductListView> {
   }
 
   void _loadProducts() {
-    final productController = Provider.of<ProductController>(context, listen: false);
+    final productController =
+        Provider.of<ProductController>(context, listen: false);
     productController.fetchProducts(
       category: widget.category,
       sellerId: widget.sellerId,
@@ -56,17 +57,20 @@ class _ProductListViewState extends State<ProductListView> {
   }
 
   void _onSearchChanged(String query) {
-    final productController = Provider.of<ProductController>(context, listen: false);
+    final productController =
+        Provider.of<ProductController>(context, listen: false);
     productController.searchProducts(query);
   }
 
   void _onCategoryFilter(String? category) {
-    final productController = Provider.of<ProductController>(context, listen: false);
+    final productController =
+        Provider.of<ProductController>(context, listen: false);
     productController.filterByCategory(category);
   }
 
   void _onSortSelected(ProductSortOption sortOption) {
-    final productController = Provider.of<ProductController>(context, listen: false);
+    final productController =
+        Provider.of<ProductController>(context, listen: false);
     productController.sortProducts(sortOption);
   }
 
@@ -104,11 +108,11 @@ class _ProductListViewState extends State<ProductListView> {
   PreferredSizeWidget _buildAppBar() {
     return AppBar(
       title: Text(
-        widget.category != null 
-          ? '${widget.category} Products'
-          : widget.sellerId != null
-            ? 'My Products'
-            : 'Products',
+        widget.category != null
+            ? '${widget.category} Products'
+            : widget.sellerId != null
+                ? 'My Products'
+                : 'Products',
         style: const TextStyle(fontWeight: FontWeight.bold),
       ),
       backgroundColor: Colors.white,
@@ -248,7 +252,8 @@ class _ProductListViewState extends State<ProductListView> {
                   const SizedBox(width: 8),
                   _buildFilterChip(
                     label: 'Gemstones',
-                    isSelected: productController.selectedCategory == 'Gemstones',
+                    isSelected:
+                        productController.selectedCategory == 'Gemstones',
                     onTap: () => _onCategoryFilter('Gemstones'),
                   ),
                   const SizedBox(width: 8),
@@ -260,13 +265,15 @@ class _ProductListViewState extends State<ProductListView> {
                   const SizedBox(width: 8),
                   _buildFilterChip(
                     label: 'Raw Stones',
-                    isSelected: productController.selectedCategory == 'Raw Stones',
+                    isSelected:
+                        productController.selectedCategory == 'Raw Stones',
                     onTap: () => _onCategoryFilter('Raw Stones'),
                   ),
                   const SizedBox(width: 8),
                   _buildFilterChip(
                     label: 'Accessories',
-                    isSelected: productController.selectedCategory == 'Accessories',
+                    isSelected:
+                        productController.selectedCategory == 'Accessories',
                     onTap: () => _onCategoryFilter('Accessories'),
                   ),
                 ],
@@ -276,9 +283,9 @@ class _ProductListViewState extends State<ProductListView> {
           IconButton(
             icon: Icon(
               Icons.filter_list,
-              color: productController.selectedCategory != null 
-                ? Colors.blue.shade600 
-                : Colors.grey.shade600,
+              color: productController.selectedCategory != null
+                  ? Colors.blue.shade600
+                  : Colors.grey.shade600,
             ),
             onPressed: () => productController.clearFilters(),
           ),
@@ -425,7 +432,7 @@ class _ProductListViewState extends State<ProductListView> {
     return Consumer<AuthController>(
       builder: (context, authController, child) {
         // Only show FAB for sellers on their products page
-        if (authController.currentUser?.role == UserRole.seller && 
+        if (authController.currentUser?.role == UserRole.seller &&
             widget.sellerId == authController.currentUser?.id) {
           return FloatingActionButton.extended(
             onPressed: () {

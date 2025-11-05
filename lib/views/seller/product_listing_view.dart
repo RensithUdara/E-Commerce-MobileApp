@@ -1,13 +1,14 @@
 import 'dart:io';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:image_picker/image_picker.dart';
 
-import '../../controllers/product_controller.dart';
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
+
 import '../../controllers/auth_controller.dart';
+import '../../controllers/product_controller.dart';
 import '../../models/product_model.dart';
-import '../../widgets/common/loading_widget.dart';
 import '../../utils/validators.dart';
+import '../../widgets/common/loading_widget.dart';
 
 class ProductListingView extends StatefulWidget {
   final Product? product; // For editing existing product
@@ -25,18 +26,18 @@ class _ProductListingViewState extends State<ProductListingView> {
   final _formKey = GlobalKey<FormState>();
   final List<File> _selectedImages = [];
   final ImagePicker _imagePicker = ImagePicker();
-  
+
   // Controllers
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _pricingController = TextEditingController();
   final TextEditingController _quantityController = TextEditingController();
   final TextEditingController _unitController = TextEditingController();
-  
+
   // Form state
   String? _selectedCategory;
   ProductStatus _selectedStatus = ProductStatus.active;
-  
+
   final List<String> _categories = [
     'Gemstones',
     'Jewelry',
@@ -82,7 +83,7 @@ class _ProductListingViewState extends State<ProductListingView> {
 
     try {
       final List<XFile> images = await _imagePicker.pickMultiImage();
-      
+
       if (images.isNotEmpty) {
         setState(() {
           for (var image in images) {
@@ -119,8 +120,9 @@ class _ProductListingViewState extends State<ProductListingView> {
     }
 
     final authController = Provider.of<AuthController>(context, listen: false);
-    final productController = Provider.of<ProductController>(context, listen: false);
-    
+    final productController =
+        Provider.of<ProductController>(context, listen: false);
+
     if (authController.currentUser == null) {
       _showErrorSnackBar('You must be logged in to create products');
       return;
@@ -135,7 +137,8 @@ class _ProductListingViewState extends State<ProductListingView> {
       category: _selectedCategory!,
       unit: _unitController.text.trim(),
       quantity: int.parse(_quantityController.text.trim()),
-      imageUrls: widget.product?.imageUrls ?? [], // Will be updated with new images
+      imageUrls:
+          widget.product?.imageUrls ?? [], // Will be updated with new images
       sellerId: authController.currentUser!.id,
       status: _selectedStatus,
       createdAt: widget.product?.createdAt ?? DateTime.now(),
@@ -151,17 +154,15 @@ class _ProductListingViewState extends State<ProductListingView> {
 
     if (mounted) {
       if (success) {
-        _showSuccessSnackBar(
-          widget.product != null 
+        _showSuccessSnackBar(widget.product != null
             ? 'Product updated successfully!'
-            : 'Product created successfully!'
-        );
+            : 'Product created successfully!');
         Navigator.pop(context, true);
       } else {
-        _showErrorSnackBar(
-          productController.errorMessage ?? 
-          (widget.product != null ? 'Failed to update product' : 'Failed to create product')
-        );
+        _showErrorSnackBar(productController.errorMessage ??
+            (widget.product != null
+                ? 'Failed to update product'
+                : 'Failed to create product'));
       }
     }
   }
@@ -203,9 +204,9 @@ class _ProductListingViewState extends State<ProductListingView> {
                 child: Text(
                   widget.product != null ? 'Update' : 'Create',
                   style: TextStyle(
-                    color: productController.isLoading 
-                      ? Colors.grey 
-                      : Colors.blue.shade600,
+                    color: productController.isLoading
+                        ? Colors.grey
+                        : Colors.blue.shade600,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -242,9 +243,9 @@ class _ProductListingViewState extends State<ProductListingView> {
                   color: Colors.black26,
                   child: Center(
                     child: LoadingWidget.overlay(
-                      message: widget.product != null 
-                        ? 'Updating product...'
-                        : 'Creating product...',
+                      message: widget.product != null
+                          ? 'Updating product...'
+                          : 'Creating product...',
                     ),
                   ),
                 ),
@@ -331,7 +332,8 @@ class _ProductListingViewState extends State<ProductListingView> {
                     height: 120,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: _selectedImages.length + (_selectedImages.length < 5 ? 1 : 0),
+                      itemCount: _selectedImages.length +
+                          (_selectedImages.length < 5 ? 1 : 0),
                       itemBuilder: (context, index) {
                         if (index == _selectedImages.length) {
                           // Add more button
@@ -458,7 +460,8 @@ class _ProductListingViewState extends State<ProductListingView> {
                   _selectedCategory = value;
                 });
               },
-              validator: (value) => value == null ? 'Please select a category' : null,
+              validator: (value) =>
+                  value == null ? 'Please select a category' : null,
             ),
             const SizedBox(height: 16),
             TextFormField(
@@ -574,7 +577,7 @@ class _ProductListingViewState extends State<ProductListingView> {
                     statusText = 'Out of Stock';
                     break;
                 }
-                
+
                 return DropdownMenuItem(
                   value: status,
                   child: Text(statusText),

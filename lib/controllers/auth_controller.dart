@@ -74,7 +74,6 @@ class AuthController extends ChangeNotifier {
       _setLoading(true);
       _setError(null);
 
-      final authResult =
       final authResult = await _authService.signInWithEmailPassword(email, password);
 
       if (authResult != null) {

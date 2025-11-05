@@ -443,7 +443,7 @@ class _ProductListViewState extends State<ProductListView> {
             backgroundColor: Colors.blue.shade600,
           );
         }
-        return null;
+        return const SizedBox.shrink();
       },
     );
   }

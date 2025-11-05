@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../config/routes.dart';
 import '../../controllers/auth_controller.dart';
 import '../../models/user_model.dart';
-import '../../config/routes.dart';
 import '../../widget/custom_dialog.dart';
+import '../seller/seller_home_page.dart';
 import 'forgot_password_screen.dart';
 import 'signup_screen.dart';
-import '../seller/seller_home_page.dart';
 
 class LoginScreenMVC extends StatefulWidget {
   const LoginScreenMVC({super.key});
@@ -73,7 +73,7 @@ class _LoginScreenMVCState extends State<LoginScreenMVC> {
     }
 
     final authController = Provider.of<AuthController>(context, listen: false);
-    
+
     final success = await authController.signIn(
       email: emailController.text.trim(),
       password: passwordController.text.trim(),
@@ -85,7 +85,8 @@ class _LoginScreenMVCState extends State<LoginScreenMVC> {
     } else {
       _showCustomDialog(
         title: 'Login Failed',
-        message: authController.errorMessage ?? 'Login failed. Please try again.',
+        message:
+            authController.errorMessage ?? 'Login failed. Please try again.',
         isError: true,
       );
       authController.clearError();
@@ -103,7 +104,8 @@ class _LoginScreenMVCState extends State<LoginScreenMVC> {
         } else {
           _showCustomDialog(
             title: 'Account Disabled',
-            message: 'Your seller account is disabled. Please wait for Admin approval.',
+            message:
+                'Your seller account is disabled. Please wait for Admin approval.',
             isError: true,
           );
           Provider.of<AuthController>(context, listen: false).signOut();
@@ -158,7 +160,7 @@ class _LoginScreenMVCState extends State<LoginScreenMVC> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   const SizedBox(height: 60),
-                  
+
                   // Logo and Title
                   Column(
                     children: [
@@ -194,9 +196,9 @@ class _LoginScreenMVCState extends State<LoginScreenMVC> {
                       ),
                     ],
                   ),
-                  
+
                   const SizedBox(height: 50),
-                  
+
                   // Email Field
                   TextFormField(
                     controller: emailController,
@@ -217,9 +219,9 @@ class _LoginScreenMVCState extends State<LoginScreenMVC> {
                       ),
                     ),
                   ),
-                  
+
                   const SizedBox(height: 20),
-                  
+
                   // Password Field
                   TextFormField(
                     controller: passwordController,
@@ -229,7 +231,9 @@ class _LoginScreenMVCState extends State<LoginScreenMVC> {
                       prefixIcon: const Icon(Icons.lock_outline),
                       suffixIcon: IconButton(
                         icon: Icon(
-                          isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                          isPasswordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off,
                         ),
                         onPressed: () {
                           setState(() {
@@ -250,9 +254,9 @@ class _LoginScreenMVCState extends State<LoginScreenMVC> {
                       ),
                     ),
                   ),
-                  
+
                   const SizedBox(height: 16),
-                  
+
                   // Remember Me and Forgot Password
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -276,9 +280,9 @@ class _LoginScreenMVCState extends State<LoginScreenMVC> {
                       ),
                     ],
                   ),
-                  
+
                   const SizedBox(height: 32),
-                  
+
                   // Login Button
                   ElevatedButton(
                     onPressed: authController.isLoading ? null : _validateLogin,
@@ -300,9 +304,9 @@ class _LoginScreenMVCState extends State<LoginScreenMVC> {
                             ),
                           ),
                   ),
-                  
+
                   const SizedBox(height: 24),
-                  
+
                   // Sign Up Link
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

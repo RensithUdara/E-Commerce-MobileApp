@@ -105,11 +105,13 @@ class ProductController extends ChangeNotifier {
   void searchProducts(String query) {
     _searchQuery = query;
     _applyFilters();
+    notifyListeners();
   }
 
   void filterByCategory(String? category) {
     _selectedCategory = category;
     _applyFilters();
+    notifyListeners();
   }
 
   void sortProducts(ProductSortOption sortOption) {
@@ -134,6 +136,7 @@ class ProductController extends ChangeNotifier {
         break;
     }
     _applyFilters();
+    notifyListeners();
   }
 
   void _applyFilters() {
@@ -155,6 +158,7 @@ class ProductController extends ChangeNotifier {
     _searchQuery = '';
     _selectedCategory = null;
     _applyFilters();
+    notifyListeners();
   }
 
   void clearError() {

@@ -398,9 +398,9 @@ class _OrderDetailViewState extends State<OrderDetailView> {
               ),
             _buildTimelineItem(
               'Order Delivered',
-              order!.status == OrderStatus.delivered 
-                ? _getStatusDate(OrderStatus.delivered)
-                : 'Estimated: ${order!.deliveryDate ?? 'TBD'}',
+              order!.status == OrderStatus.delivered
+                  ? _getStatusDate(OrderStatus.delivered)
+                  : 'Estimated: ${order!.deliveryDate ?? 'TBD'}',
               order!.status == OrderStatus.delivered,
               Icons.home,
               isLast: true,
@@ -483,11 +483,7 @@ class _OrderDetailViewState extends State<OrderDetailView> {
         textColor = Colors.orange[800]!;
         label = 'Pending';
         break;
-      case OrderStatus.confirmed:
-        backgroundColor = Colors.blue[100]!;
-        textColor = Colors.blue[800]!;
-        label = 'Confirmed';
-        break;
+
       case OrderStatus.processing:
         backgroundColor = Colors.purple[100]!;
         textColor = Colors.purple[800]!;

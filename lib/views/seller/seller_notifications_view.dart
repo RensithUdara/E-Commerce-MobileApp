@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../../controllers/auth_controller.dart';
+
 import '../../widgets/common/loading_widget.dart';
 
 class SellerNotificationsView extends StatefulWidget {
-  const SellerNotificationsView({Key? key}) : super(key: key);
+  const SellerNotificationsView({super.key});
 
   @override
-  State<SellerNotificationsView> createState() => _SellerNotificationsViewState();
+  State<SellerNotificationsView> createState() =>
+      _SellerNotificationsViewState();
 }
 
 class _SellerNotificationsViewState extends State<SellerNotificationsView>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
-  
+
   // Mock notifications data - in real app, this would come from a controller
   List<NotificationItem> _notifications = [];
   bool _isLoading = false;
@@ -53,7 +53,8 @@ class _SellerNotificationsViewState extends State<SellerNotificationsView>
             NotificationItem(
               id: '1',
               title: 'New Bid Received',
-              message: 'Someone placed a bid of Rs. 15,000 on your "Vintage Watch" auction',
+              message:
+                  'Someone placed a bid of Rs. 15,000 on your "Vintage Watch" auction',
               type: NotificationType.bid,
               timestamp: DateTime.now().subtract(const Duration(minutes: 10)),
               isRead: false,
@@ -61,7 +62,8 @@ class _SellerNotificationsViewState extends State<SellerNotificationsView>
             NotificationItem(
               id: '2',
               title: 'Product Sold',
-              message: 'Your product "Diamond Ring" has been sold for Rs. 25,000',
+              message:
+                  'Your product "Diamond Ring" has been sold for Rs. 25,000',
               type: NotificationType.sale,
               timestamp: DateTime.now().subtract(const Duration(hours: 2)),
               isRead: false,
@@ -230,7 +232,8 @@ class _SellerNotificationsViewState extends State<SellerNotificationsView>
                 notification.title,
                 style: TextStyle(
                   fontSize: 16,
-                  fontWeight: notification.isRead ? FontWeight.w500 : FontWeight.bold,
+                  fontWeight:
+                      notification.isRead ? FontWeight.w500 : FontWeight.bold,
                 ),
               ),
             ),
@@ -442,7 +445,8 @@ class _SellerNotificationsViewState extends State<SellerNotificationsView>
               );
             },
             style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-            child: const Text('Clear All', style: TextStyle(color: Colors.white)),
+            child:
+                const Text('Clear All', style: TextStyle(color: Colors.white)),
           ),
         ],
       ),

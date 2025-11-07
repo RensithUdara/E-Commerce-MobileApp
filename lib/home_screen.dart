@@ -342,7 +342,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
                     child: const Text(
-                      'Popular Gems',
+                      'Popular Produc',
                       style:
                           TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),

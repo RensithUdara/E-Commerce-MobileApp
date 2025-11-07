@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 
 import '../models/models.dart';
 import '../models/order_model.dart' as order_model;
-import '../services/database_service.dart';
+import '../services/services.dart';
 
 class SellerController extends ChangeNotifier {
   // Use a concrete implementation or dependency injection in real app

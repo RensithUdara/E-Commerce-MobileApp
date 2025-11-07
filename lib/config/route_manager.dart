@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:gemhub/views/buyer/product/product_list_view.dart';
-import 'package:gemhub/views/seller/products/product_listing_view.dart';
-import 'package:gemhub/views/seller/products/seller_products_view.dart';
 
-import '../Seller/seller_home_page.dart';
-import '../home_screen.dart';
-import '../screens/auth_screens/forgot_password_screen.dart';
-import '../screens/auth_screens/signup_screen.dart';
+// MVC Views imports
+import '../views/auth/forgot_password_view.dart';
 import '../views/auth/login_view.dart';
+import '../views/auth/signup_view.dart';
 import '../views/auth/splash_view_mvc.dart';
 import '../views/buyer/cart/cart_view.dart';
 import '../views/buyer/cart/checkout_view.dart';
+import '../views/buyer/home/home_view.dart';
 import '../views/buyer/order/order_detail_view.dart';
 import '../views/buyer/order/order_history_view.dart';
+import '../views/buyer/product/product_list_view.dart';
+import '../views/buyer/profile/buyer_profile_view.dart';
+import '../views/seller/dashboard/seller_home_view.dart';
+import '../views/seller/products/product_listing_view.dart';
+import '../views/seller/products/seller_products_view.dart';
 import 'routes.dart';
 
 class RouteManager {
@@ -32,25 +34,31 @@ class RouteManager {
 
       case AppRoutes.home:
         return MaterialPageRoute(
-          builder: (_) => const HomeScreen(),
+          builder: (_) => const HomeScreenMVC(),
           settings: settings,
         );
 
       case AppRoutes.sellerHome:
         return MaterialPageRoute(
-          builder: (_) => const SellerHomePage(),
+          builder: (_) => const SellerHomeView(),
           settings: settings,
         );
 
       case AppRoutes.signup:
         return MaterialPageRoute(
-          builder: (_) => const SignUpScreen(),
+          builder: (_) => const SignUpViewMVC(),
           settings: settings,
         );
 
       case AppRoutes.forgotPassword:
         return MaterialPageRoute(
-          builder: (_) => const ForgotPasswordScreen(),
+          builder: (_) => const ForgotPasswordViewMVC(),
+          settings: settings,
+        );
+
+      case AppRoutes.profile:
+        return MaterialPageRoute(
+          builder: (_) => const BuyerProfileView(),
           settings: settings,
         );
 
@@ -94,6 +102,12 @@ class RouteManager {
         final orderId = settings.arguments as String?;
         return MaterialPageRoute(
           builder: (_) => OrderDetailView(orderId: orderId ?? ''),
+          settings: settings,
+        );
+
+      case AppRoutes.sellerProfile:
+        return MaterialPageRoute(
+          builder: (_) => const SellerProfileView(),
           settings: settings,
         );
 

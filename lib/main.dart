@@ -1,10 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:gemhub/screens/cart_screen/cart_provider.dart'; // Import CartProvider
-import 'package:gemhub/screens/firebase_options/firebase_options.dart';
-import 'package:gemhub/splash_screen.dart';
 import 'package:provider/provider.dart';
+
+import 'config/route_manager.dart';
+import 'config/routes.dart';
+import 'controllers/controllers.dart';
+import 'screens/firebase_options/firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,8 +17,12 @@ void main() async {
     runApp(
       MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (_) => CartProvider()),
-          // Add other providers here if needed (e.g., BannerProvider)
+          ChangeNotifierProvider(create: (_) => AuthController()),
+          ChangeNotifierProvider(create: (_) => ProductController()),
+          ChangeNotifierProvider(create: (_) => CartController()),
+          ChangeNotifierProvider(create: (_) => OrderController()),
+          ChangeNotifierProvider(create: (_) => AuctionController()),
+          ChangeNotifierProvider(create: (_) => SellerController()),
         ],
         child: const MyApp(),
       ),
@@ -70,8 +76,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'GemHub Mobile App',
-      theme: ThemeData.light(useMaterial3: true), // Material 3 enabled
-      home: const SplashScreen(),
+      theme: ThemeData.light(useMaterial3: true),
+      initialRoute: AppRoutes.splash,
+      onGenerateRoute: RouteManager.generateRoute,
     );
   }
 }

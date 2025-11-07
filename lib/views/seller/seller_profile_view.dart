@@ -58,9 +58,9 @@ class _SellerProfileViewState extends State<SellerProfileView>
     final user = authController.currentUser;
 
     if (user != null) {
-      _nameController.text = user.name;
+      _nameController.text = user.name ?? '';
       _emailController.text = user.email;
-      _phoneController.text = user.phone ?? '';
+      _phoneController.text = user.phoneNumber ?? '';
       _addressController.text = user.address ?? '';
       // Bio field would need to be added to User model in real app
       _bioController.text =

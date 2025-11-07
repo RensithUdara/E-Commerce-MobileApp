@@ -186,7 +186,7 @@ class _BuyerProfileViewState extends State<BuyerProfileView>
           Provider.of<AuthController>(context, listen: false);
       await authController.signOut();
       if (mounted) {
-        Navigator.of(context).pushReplacementNamed('/login');
+        Navigator.of(context).pushReplacementNamed(AppRoutes.login);
       }
     }
   }

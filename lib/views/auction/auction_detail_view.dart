@@ -1,17 +1,18 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
+import '../../config/routes.dart';
 import '../../controllers/auction_controller.dart';
 import '../../controllers/auth_controller.dart';
 import '../../models/models.dart';
-import '../../config/routes.dart';
 import '../../widgets/common/loading_widget.dart';
 
 class AuctionDetailView extends StatefulWidget {
   final String auctionId;
-  
+
   const AuctionDetailView({super.key, required this.auctionId});
 
   @override
@@ -30,7 +31,7 @@ class _AuctionDetailViewState extends State<AuctionDetailView> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _loadAuctionDetails();
     });
-    
+
     // Update countdown timer every second
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (mounted) {
@@ -47,13 +48,16 @@ class _AuctionDetailViewState extends State<AuctionDetailView> {
   }
 
   Future<void> _loadAuctionDetails() async {
-    final auctionController = Provider.of<AuctionController>(context, listen: false);
+    final auctionController =
+        Provider.of<AuctionController>(context, listen: false);
     final fetchedAuction = await auctionController.getAuction(widget.auctionId);
-    
+
     if (fetchedAuction != null && mounted) {
       setState(() {
         auction = fetchedAuction;
-        _bidController.text = (fetchedAuction.currentBid + fetchedAuction.minimumBidIncrement).toStringAsFixed(2);
+        _bidController.text =
+            (fetchedAuction.currentBid + fetchedAuction.minimumBidIncrement)
+                .toStringAsFixed(2);
       });
     }
   }
@@ -62,7 +66,8 @@ class _AuctionDetailViewState extends State<AuctionDetailView> {
     if (auction == null) return;
 
     final authController = Provider.of<AuthController>(context, listen: false);
-    final auctionController = Provider.of<AuctionController>(context, listen: false);
+    final auctionController =
+        Provider.of<AuctionController>(context, listen: false);
 
     if (authController.currentUser == null) {
       _showLoginDialog();
@@ -81,7 +86,8 @@ class _AuctionDetailViewState extends State<AuctionDetailView> {
     }
 
     if (bidAmount < auction!.currentBid + auction!.minimumBidIncrement) {
-      _showErrorSnackBar('Bid must be at least Rs. ${(auction!.currentBid + auction!.minimumBidIncrement).toStringAsFixed(2)}');
+      _showErrorSnackBar(
+          'Bid must be at least Rs. ${(auction!.currentBid + auction!.minimumBidIncrement).toStringAsFixed(2)}');
       return;
     }
 
@@ -99,11 +105,14 @@ class _AuctionDetailViewState extends State<AuctionDetailView> {
       if (success && mounted) {
         _showSuccessSnackBar('Bid placed successfully!');
         await _loadAuctionDetails(); // Refresh auction data
-        
+
         // Update bid controller with next minimum bid
-        _bidController.text = (auction!.currentBid + auction!.minimumBidIncrement).toStringAsFixed(2);
+        _bidController.text =
+            (auction!.currentBid + auction!.minimumBidIncrement)
+                .toStringAsFixed(2);
       } else if (mounted) {
-        _showErrorSnackBar(auctionController.errorMessage ?? 'Failed to place bid');
+        _showErrorSnackBar(
+            auctionController.errorMessage ?? 'Failed to place bid');
       }
     } catch (e) {
       if (mounted) {
@@ -203,7 +212,7 @@ class _AuctionDetailViewState extends State<AuctionDetailView> {
   }
 
   Widget _buildImageSection() {
-    return Container(
+    return SizedBox(
       height: 300,
       width: double.infinity,
       child: Stack(
@@ -213,18 +222,17 @@ class _AuctionDetailViewState extends State<AuctionDetailView> {
             height: 300,
             width: double.infinity,
             fit: BoxFit.cover,
-            errorBuilder: (context, error, stackTrace) =>
-                Container(
-                  height: 300,
-                  decoration: BoxDecoration(
-                    color: Colors.grey[200],
-                  ),
-                  child: const Icon(
-                    Icons.image,
-                    size: 50,
-                    color: Colors.grey,
-                  ),
-                ),
+            errorBuilder: (context, error, stackTrace) => Container(
+              height: 300,
+              decoration: BoxDecoration(
+                color: Colors.grey[200],
+              ),
+              child: const Icon(
+                Icons.image,
+                size: 50,
+                color: Colors.grey,
+              ),
+            ),
           ),
           // Status overlay
           Positioned(
@@ -273,7 +281,7 @@ class _AuctionDetailViewState extends State<AuctionDetailView> {
             ),
           ),
           const SizedBox(height: 16),
-          
+
           // Price information
           Row(
             children: [
@@ -295,7 +303,7 @@ class _AuctionDetailViewState extends State<AuctionDetailView> {
             ],
           ),
           const SizedBox(height: 12),
-          
+
           Row(
             children: [
               Expanded(
@@ -316,7 +324,7 @@ class _AuctionDetailViewState extends State<AuctionDetailView> {
             ],
           ),
           const SizedBox(height: 16),
-          
+
           // Time remaining
           _buildTimeRemainingCard(),
         ],
@@ -360,7 +368,7 @@ class _AuctionDetailViewState extends State<AuctionDetailView> {
   Widget _buildTimeRemainingCard() {
     final timeRemaining = _getTimeRemaining();
     final isExpired = timeRemaining['expired'] as bool;
-    
+
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(16),
@@ -441,7 +449,6 @@ class _AuctionDetailViewState extends State<AuctionDetailView> {
             ),
           ),
           const SizedBox(height: 12),
-          
           Row(
             children: [
               Expanded(
@@ -449,14 +456,16 @@ class _AuctionDetailViewState extends State<AuctionDetailView> {
                   controller: _bidController,
                   keyboardType: TextInputType.number,
                   inputFormatters: [
-                    FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+                    FilteringTextInputFormatter.allow(
+                        RegExp(r'^\d+\.?\d{0,2}')),
                   ],
                   decoration: InputDecoration(
                     labelText: 'Bid Amount (Rs.)',
                     prefixIcon: const Icon(Icons.attach_money),
                     border: const OutlineInputBorder(),
                     hintText: 'Enter your bid amount',
-                    helperText: 'Minimum: Rs. ${(auction!.currentBid + auction!.minimumBidIncrement).toStringAsFixed(2)}',
+                    helperText:
+                        'Minimum: Rs. ${(auction!.currentBid + auction!.minimumBidIncrement).toStringAsFixed(2)}',
                   ),
                 ),
               ),
@@ -525,19 +534,21 @@ class _AuctionDetailViewState extends State<AuctionDetailView> {
             ),
           ),
           const SizedBox(height: 12),
-          
           ListView.separated(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: sortedBids.length > 10 ? 10 : sortedBids.length, // Show max 10 bids
+            itemCount: sortedBids.length > 10
+                ? 10
+                : sortedBids.length, // Show max 10 bids
             separatorBuilder: (context, index) => const Divider(),
             itemBuilder: (context, index) {
               final bid = sortedBids[index];
               final isHighestBid = index == 0;
-              
+
               return ListTile(
                 leading: CircleAvatar(
-                  backgroundColor: isHighestBid ? Colors.green : Colors.grey[300],
+                  backgroundColor:
+                      isHighestBid ? Colors.green : Colors.grey[300],
                   child: Icon(
                     isHighestBid ? Icons.emoji_events : Icons.gavel,
                     color: isHighestBid ? Colors.white : Colors.grey[600],
@@ -546,7 +557,8 @@ class _AuctionDetailViewState extends State<AuctionDetailView> {
                 title: Text(
                   'Rs. ${bid.amount.toStringAsFixed(2)}',
                   style: TextStyle(
-                    fontWeight: isHighestBid ? FontWeight.bold : FontWeight.normal,
+                    fontWeight:
+                        isHighestBid ? FontWeight.bold : FontWeight.normal,
                     color: isHighestBid ? Colors.green : null,
                   ),
                 ),
@@ -558,7 +570,8 @@ class _AuctionDetailViewState extends State<AuctionDetailView> {
                 ),
                 trailing: isHighestBid
                     ? Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 4),
                         decoration: BoxDecoration(
                           color: Colors.green,
                           borderRadius: BorderRadius.circular(12),
@@ -576,7 +589,6 @@ class _AuctionDetailViewState extends State<AuctionDetailView> {
               );
             },
           ),
-          
           if (sortedBids.length > 10)
             Padding(
               padding: const EdgeInsets.only(top: 8),
@@ -602,16 +614,16 @@ class _AuctionDetailViewState extends State<AuctionDetailView> {
   Map<String, dynamic> _getTimeRemaining() {
     final now = DateTime.now();
     final difference = auction!.endTime.difference(now);
-    
+
     if (difference.isNegative) {
       return {'expired': true};
     }
-    
+
     final days = difference.inDays;
     final hours = difference.inHours % 24;
     final minutes = difference.inMinutes % 60;
     final seconds = difference.inSeconds % 60;
-    
+
     return {
       'expired': false,
       'days': days,
@@ -623,12 +635,12 @@ class _AuctionDetailViewState extends State<AuctionDetailView> {
 
   String _formatTimeRemaining(Map<String, dynamic> timeRemaining) {
     if (timeRemaining['expired'] == true) return 'Expired';
-    
+
     final days = timeRemaining['days'] as int;
     final hours = timeRemaining['hours'] as int;
     final minutes = timeRemaining['minutes'] as int;
     final seconds = timeRemaining['seconds'] as int;
-    
+
     if (days > 0) {
       return '${days}d ${hours}h ${minutes}m';
     } else if (hours > 0) {
@@ -642,17 +654,28 @@ class _AuctionDetailViewState extends State<AuctionDetailView> {
 
   String _formatDate(DateTime date) {
     final months = [
-      '', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+      '',
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec'
     ];
-    
+
     return '${date.day} ${months[date.month]} ${date.year}';
   }
 
   String _formatBidTime(DateTime timestamp) {
     final now = DateTime.now();
     final difference = now.difference(timestamp);
-    
+
     if (difference.inDays > 0) {
       return '${difference.inDays}d ago';
     } else if (difference.inHours > 0) {

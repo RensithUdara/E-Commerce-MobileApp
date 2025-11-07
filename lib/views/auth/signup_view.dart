@@ -19,7 +19,8 @@ class _SignUpViewMVCState extends State<SignUpViewMVC> {
   final TextEditingController addressController = TextEditingController();
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController phoneNumberController = TextEditingController();
   final TextEditingController nicController = TextEditingController();
@@ -43,7 +44,7 @@ class _SignUpViewMVCState extends State<SignUpViewMVC> {
 
   Future<void> _handleSignUp() async {
     if (!_formKey.currentState!.validate()) return;
-    
+
     if (passwordController.text != confirmPasswordController.text) {
       _showCustomDialog(
         title: 'Error',
@@ -54,11 +55,13 @@ class _SignUpViewMVCState extends State<SignUpViewMVC> {
     }
 
     final authController = Provider.of<AuthController>(context, listen: false);
-    
+
     final success = await authController.signUp(
       email: emailController.text.trim(),
       password: passwordController.text.trim(),
-      name: isBuyer ? usernameController.text.trim() : displayNameController.text.trim(),
+      name: isBuyer
+          ? usernameController.text.trim()
+          : displayNameController.text.trim(),
       phoneNumber: phoneNumberController.text.trim(),
       role: isBuyer ? UserRole.customer : UserRole.seller,
     );
@@ -68,19 +71,23 @@ class _SignUpViewMVCState extends State<SignUpViewMVC> {
         _showCustomDialog(
           title: 'Success',
           message: 'Account created successfully! You can now sign in.',
-          onConfirm: () => Navigator.pushReplacementNamed(context, AppRoutes.login),
+          onConfirm: () =>
+              Navigator.pushReplacementNamed(context, AppRoutes.login),
         );
       } else {
         _showCustomDialog(
           title: 'Seller Account Created',
-          message: 'Your seller account has been created but is currently disabled. Please send your NIC photo and business registration to:\n\nWhatsApp: +94761155638\nEmail: gemhubmobile@gmail.com\n\nThe Admin will review and enable your account.',
-          onConfirm: () => Navigator.pushReplacementNamed(context, AppRoutes.login),
+          message:
+              'Your seller account has been created but is currently disabled. Please send your NIC photo and business registration to:\n\nWhatsApp: +94761155638\nEmail: gemhubmobile@gmail.com\n\nThe Admin will review and enable your account.',
+          onConfirm: () =>
+              Navigator.pushReplacementNamed(context, AppRoutes.login),
         );
       }
     } else {
       _showCustomDialog(
         title: 'Sign Up Failed',
-        message: authController.errorMessage ?? 'Failed to create account. Please try again.',
+        message: authController.errorMessage ??
+            'Failed to create account. Please try again.',
         isError: true,
       );
       authController.clearError();
@@ -140,7 +147,9 @@ class _SignUpViewMVCState extends State<SignUpViewMVC> {
       child: TextFormField(
         controller: controller,
         obscureText: isPassword
-            ? (label == 'Password' ? !isPasswordVisible : !isConfirmPasswordVisible)
+            ? (label == 'Password'
+                ? !isPasswordVisible
+                : !isConfirmPasswordVisible)
             : false,
         keyboardType: keyboardType,
         validator: (value) {
@@ -166,7 +175,9 @@ class _SignUpViewMVCState extends State<SignUpViewMVC> {
           suffixIcon: isPassword
               ? IconButton(
                   icon: Icon(
-                    (label == 'Password' ? isPasswordVisible : isConfirmPasswordVisible)
+                    (label == 'Password'
+                            ? isPasswordVisible
+                            : isConfirmPasswordVisible)
                         ? Icons.visibility
                         : Icons.visibility_off,
                   ),
@@ -230,20 +241,28 @@ class _SignUpViewMVCState extends State<SignUpViewMVC> {
                     _roleSelector(),
 
                     // Form Fields
-                    if (!isBuyer) _customTextField('Name', displayNameController),
-                    if (!isBuyer) _customTextField('Address', addressController),
+                    if (!isBuyer)
+                      _customTextField('Name', displayNameController),
+                    if (!isBuyer)
+                      _customTextField('Address', addressController),
                     if (!isBuyer) _customTextField('NIC Number', nicController),
                     _customTextField('Username', usernameController),
-                    _customTextField('Email', emailController, keyboardType: TextInputType.emailAddress),
-                    _customTextField('Phone Number', phoneNumberController, keyboardType: TextInputType.phone),
-                    _customTextField('Password', passwordController, isPassword: true),
-                    _customTextField('Confirm Password', confirmPasswordController, isPassword: true),
+                    _customTextField('Email', emailController,
+                        keyboardType: TextInputType.emailAddress),
+                    _customTextField('Phone Number', phoneNumberController,
+                        keyboardType: TextInputType.phone),
+                    _customTextField('Password', passwordController,
+                        isPassword: true),
+                    _customTextField(
+                        'Confirm Password', confirmPasswordController,
+                        isPassword: true),
 
                     const SizedBox(height: 30),
 
                     // Sign Up Button
                     ElevatedButton(
-                      onPressed: authController.isLoading ? null : _handleSignUp,
+                      onPressed:
+                          authController.isLoading ? null : _handleSignUp,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue.shade600,
                         foregroundColor: Colors.white,
@@ -275,7 +294,8 @@ class _SignUpViewMVCState extends State<SignUpViewMVC> {
                         ),
                         TextButton(
                           onPressed: () {
-                            Navigator.pushReplacementNamed(context, AppRoutes.login);
+                            Navigator.pushReplacementNamed(
+                                context, AppRoutes.login);
                           },
                           child: const Text(
                             'Sign In',

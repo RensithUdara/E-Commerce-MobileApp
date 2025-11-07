@@ -578,6 +578,9 @@ class _ProductListingViewState extends State<ProductListingView> {
                   case ProductStatus.outOfStock:
                     statusText = 'Out of Stock';
                     break;
+                  case ProductStatus.deleted:
+                    statusText = 'Deleted';
+                    break;
                 }
 
                 return DropdownMenuItem(

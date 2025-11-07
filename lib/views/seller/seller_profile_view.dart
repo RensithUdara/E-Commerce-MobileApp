@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../../controllers/auth_controller.dart';
 import '../../controllers/seller_controller.dart';
 import '../../widgets/common/loading_widget.dart';
 
 class SellerProfileView extends StatefulWidget {
-  const SellerProfileView({Key? key}) : super(key: key);
+  const SellerProfileView({super.key});
 
   @override
   State<SellerProfileView> createState() => _SellerProfileViewState();
@@ -15,14 +16,14 @@ class _SellerProfileViewState extends State<SellerProfileView>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
-  
+
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _phoneController = TextEditingController();
   final _addressController = TextEditingController();
   final _bioController = TextEditingController();
-  
+
   bool _isEditing = false;
   bool _isUpdating = false;
 
@@ -55,14 +56,15 @@ class _SellerProfileViewState extends State<SellerProfileView>
   void _loadUserData() {
     final authController = Provider.of<AuthController>(context, listen: false);
     final user = authController.currentUser;
-    
+
     if (user != null) {
       _nameController.text = user.name;
       _emailController.text = user.email;
       _phoneController.text = user.phone ?? '';
       _addressController.text = user.address ?? '';
       // Bio field would need to be added to User model in real app
-      _bioController.text = 'Passionate seller of quality jewelry and gemstones.';
+      _bioController.text =
+          'Passionate seller of quality jewelry and gemstones.';
     }
   }
 
@@ -99,10 +101,10 @@ class _SellerProfileViewState extends State<SellerProfileView>
             children: [
               // Profile Header
               _buildProfileHeader(),
-              
+
               // Statistics Cards
               _buildStatsSection(),
-              
+
               // Profile Form
               _buildProfileForm(),
             ],
@@ -148,7 +150,7 @@ class _SellerProfileViewState extends State<SellerProfileView>
             ),
           ),
           const SizedBox(height: 16),
-          
+
           // Name and Title
           Consumer<AuthController>(
             builder: (context, authController, child) {
@@ -221,7 +223,8 @@ class _SellerProfileViewState extends State<SellerProfileView>
     );
   }
 
-  Widget _buildStatCard(String title, String value, IconData icon, Color color) {
+  Widget _buildStatCard(
+      String title, String value, IconData icon, Color color) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -349,7 +352,7 @@ class _SellerProfileViewState extends State<SellerProfileView>
               enabled: _isEditing,
               maxLines: 3,
             ),
-            
+
             if (_isEditing) ...[
               const SizedBox(height: 24),
               Row(
@@ -378,7 +381,8 @@ class _SellerProfileViewState extends State<SellerProfileView>
                           ? Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                LoadingWidget.circular(size: 16, color: Colors.white),
+                                LoadingWidget.circular(
+                                    size: 16, color: Colors.white),
                                 const SizedBox(width: 8),
                                 const Text('Saving...'),
                               ],
@@ -450,11 +454,12 @@ class _SellerProfileViewState extends State<SellerProfileView>
 
     try {
       // In a real app, you would update the user profile through AuthController
-      final authController = Provider.of<AuthController>(context, listen: false);
-      
+      final authController =
+          Provider.of<AuthController>(context, listen: false);
+
       // Simulate API call
       await Future.delayed(const Duration(seconds: 1));
-      
+
       // Show success message
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -462,7 +467,7 @@ class _SellerProfileViewState extends State<SellerProfileView>
           backgroundColor: Colors.green,
         ),
       );
-      
+
       setState(() {
         _isEditing = false;
       });

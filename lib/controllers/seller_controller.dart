@@ -89,8 +89,7 @@ class SellerController extends ChangeNotifier {
       final totalOrders = _sellerOrders.length;
       final totalRevenue = _sellerOrders
           .where((order) => order.status == OrderStatus.delivered)
-          .fold(0.0, (sum, order) => sum + order.total);
-
+          .fold(0.0, (sum, order) => sum + order.totalAmount);
       _sellerStats = {
         'totalProducts': totalProducts,
         'totalAuctions': totalAuctions,
@@ -124,7 +123,7 @@ class SellerController extends ChangeNotifier {
     try {
       _setLoading(true);
       _setError(null);
-      
+
       final product = Product(
         id: '', // Will be set by database
         title: title,
@@ -139,7 +138,7 @@ class SellerController extends ChangeNotifier {
         createdAt: DateTime.now(),
         updatedAt: DateTime.now(),
       );
-      
+
       await _databaseService.createProduct(product);
       await fetchSellerProducts(sellerId); // Refresh products
       _setLoading(false);
@@ -149,7 +148,8 @@ class SellerController extends ChangeNotifier {
       _setLoading(false);
       return false;
     }
-  }  // Update product
+  } // Update product
+
   Future<bool> updateProduct(Product product) async {
     try {
       _setLoading(true);

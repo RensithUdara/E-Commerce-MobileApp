@@ -36,17 +36,12 @@ class _OrderDetailViewState extends State<OrderDetailView> {
         id: '',
         userId: '',
         items: [],
-        subtotal: 0,
-        deliveryFee: 0,
         totalAmount: 0,
         status: OrderStatus.pending,
-        deliveryAddress: DeliveryAddress(
-          name: '',
-          phone: '',
-          email: '',
-          address: '',
-        ),
-        orderDate: DateTime.now(),
+        shippingAddress: '',
+        paymentMethod: PaymentMethod.card,
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now(),
       ),
     );
 
@@ -159,7 +154,7 @@ class _OrderDetailViewState extends State<OrderDetailView> {
                       ),
                     ),
                     Text(
-                      _formatDate(order!.orderDate),
+                      _formatDate(order!.createdAt),
                       style: const TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
@@ -167,19 +162,19 @@ class _OrderDetailViewState extends State<OrderDetailView> {
                     ),
                   ],
                 ),
-                if (order!.estimatedDelivery != null)
+                if (order!.deliveryDate != null)
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
-                        'Estimated Delivery',
+                        'Delivery Date',
                         style: TextStyle(
                           fontSize: 12,
                           color: Colors.grey[600],
                         ),
                       ),
                       Text(
-                        _formatDate(order!.estimatedDelivery!),
+                        order!.deliveryDate!,
                         style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
@@ -216,7 +211,7 @@ class _OrderDetailViewState extends State<OrderDetailView> {
     );
   }
 
-  Widget _buildOrderItem(CartItem item) {
+  Widget _buildOrderItem(OrderItem item) {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(12),
@@ -306,61 +301,9 @@ class _OrderDetailViewState extends State<OrderDetailView> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    order!.deliveryAddress.name,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    order!.deliveryAddress.phone,
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey[600],
-                    ),
-                  ),
-                  if (order!.deliveryAddress.email.isNotEmpty) ...[
-                    const SizedBox(height: 2),
-                    Text(
-                      order!.deliveryAddress.email,
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey[600],
-                      ),
-                    ),
-                  ],
-                  const SizedBox(height: 8),
-                  Text(
-                    order!.deliveryAddress.address,
+                    order!.shippingAddress,
                     style: const TextStyle(fontSize: 14),
                   ),
-                  if (order!.deliveryAddress.notes?.isNotEmpty == true) ...[
-                    const SizedBox(height: 8),
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: Colors.blue[50],
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Icon(Icons.note, size: 16, color: Colors.blue[700]),
-                          const SizedBox(width: 8),
-                          Expanded(
-                            child: Text(
-                              order!.deliveryAddress.notes!,
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.blue[700],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
                 ],
               ),
             ),
@@ -384,34 +327,10 @@ class _OrderDetailViewState extends State<OrderDetailView> {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('Subtotal', style: TextStyle(color: Colors.grey[600])),
-                Text('Rs. ${order!.subtotal.toStringAsFixed(2)}'),
-              ],
+            Text(
+              'Payment Method: ${_getPaymentMethodText(order!.paymentMethod)}',
+              style: TextStyle(color: Colors.grey[600], fontSize: 14),
             ),
-            const SizedBox(height: 8),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('Delivery Fee', style: TextStyle(color: Colors.grey[600])),
-                Text('Rs. ${order!.deliveryFee.toStringAsFixed(2)}'),
-              ],
-            ),
-            if (order!.discount > 0) ...[
-              const SizedBox(height: 8),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('Discount', style: TextStyle(color: Colors.grey[600])),
-                  Text(
-                    '- Rs. ${order!.discount.toStringAsFixed(2)}',
-                    style: const TextStyle(color: Colors.green),
-                  ),
-                ],
-              ),
-            ],
             const Divider(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -452,16 +371,16 @@ class _OrderDetailViewState extends State<OrderDetailView> {
             const SizedBox(height: 16),
             _buildTimelineItem(
               'Order Placed',
-              _formatDateTime(order!.orderDate),
+              _formatDateTime(order!.createdAt),
               true,
               Icons.shopping_cart,
             ),
-            if (order!.status.index >= OrderStatus.confirmed.index)
+            if (order!.status.index >= OrderStatus.processing.index)
               _buildTimelineItem(
-                'Order Confirmed',
-                _getStatusDate(OrderStatus.confirmed),
+                'Order Processing',
+                _getStatusDate(OrderStatus.processing),
                 true,
-                Icons.check_circle,
+                Icons.settings,
               ),
             if (order!.status.index >= OrderStatus.processing.index)
               _buildTimelineItem(
@@ -481,8 +400,7 @@ class _OrderDetailViewState extends State<OrderDetailView> {
               'Order Delivered',
               order!.status == OrderStatus.delivered
                   ? _getStatusDate(OrderStatus.delivered)
-                  : _formatDateTime(order!.estimatedDelivery ??
-                      DateTime.now().add(const Duration(days: 7))),
+                  : 'Estimated: ${order!.deliveryDate ?? 'TBD'}',
               order!.status == OrderStatus.delivered,
               Icons.home,
               isLast: true,
@@ -565,11 +483,7 @@ class _OrderDetailViewState extends State<OrderDetailView> {
         textColor = Colors.orange[800]!;
         label = 'Pending';
         break;
-      case OrderStatus.confirmed:
-        backgroundColor = Colors.blue[100]!;
-        textColor = Colors.blue[800]!;
-        label = 'Confirmed';
-        break;
+
       case OrderStatus.processing:
         backgroundColor = Colors.purple[100]!;
         textColor = Colors.purple[800]!;
@@ -652,16 +566,27 @@ class _OrderDetailViewState extends State<OrderDetailView> {
   String _getStatusDate(OrderStatus status) {
     // For demo purposes, we'll estimate dates based on order date
     switch (status) {
-      case OrderStatus.confirmed:
-        return _formatDateTime(order!.orderDate.add(const Duration(hours: 2)));
       case OrderStatus.processing:
-        return _formatDateTime(order!.orderDate.add(const Duration(days: 1)));
+        return _formatDateTime(order!.createdAt.add(const Duration(days: 1)));
       case OrderStatus.shipped:
-        return _formatDateTime(order!.orderDate.add(const Duration(days: 2)));
+        return _formatDateTime(order!.createdAt.add(const Duration(days: 2)));
       case OrderStatus.delivered:
-        return _formatDateTime(order!.orderDate.add(const Duration(days: 5)));
+        return _formatDateTime(order!.createdAt.add(const Duration(days: 5)));
       default:
-        return _formatDateTime(order!.orderDate);
+        return _formatDateTime(order!.createdAt);
+    }
+  }
+
+  String _getPaymentMethodText(PaymentMethod method) {
+    switch (method) {
+      case PaymentMethod.card:
+        return 'Credit/Debit Card';
+      case PaymentMethod.cash:
+        return 'Cash on Delivery';
+      case PaymentMethod.bankTransfer:
+        return 'Bank Transfer';
+      default:
+        return 'Unknown';
     }
   }
 }

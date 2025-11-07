@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../config/routes.dart';
-import '../../controllers/auth_controller.dart';
-import '../../controllers/seller_controller.dart';
-import '../../models/models.dart';
-import '../../widgets/common/loading_widget.dart';
+import '../../../config/routes.dart';
+import '../../../controllers/auth_controller.dart';
+import '../../../controllers/seller_controller.dart';
+import '../../../models/models.dart';
+import '../../../widgets/common/loading_widget.dart';
 
 class SellerHomeView extends StatefulWidget {
   const SellerHomeView({super.key});

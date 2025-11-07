@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../controllers/seller_controller.dart';
-import '../../controllers/auth_controller.dart';
-import '../../widgets/common/loading_widget.dart';
+
 import '../../config/routes.dart';
-import 'seller_profile_view.dart';
-import 'seller_notifications_view.dart';
-import 'seller_products_view.dart';
+import '../../controllers/auth_controller.dart';
+import '../../controllers/seller_controller.dart';
+import '../../widgets/common/loading_widget.dart';
 import 'seller_auctions_view.dart';
+import 'seller_notifications_view.dart';
 import 'seller_orders_view.dart';
+import 'seller_products_view.dart';
+import 'seller_profile_view.dart';
 
 class SellerHomeView extends StatefulWidget {
-  const SellerHomeView({Key? key}) : super(key: key);
+  const SellerHomeView({super.key});
 
   @override
   State<SellerHomeView> createState() => _SellerHomeViewState();
@@ -86,8 +87,9 @@ class _SellerHomeViewState extends State<SellerHomeView>
 
   void _initializeSellerData() {
     final authController = Provider.of<AuthController>(context, listen: false);
-    final sellerController = Provider.of<SellerController>(context, listen: false);
-    
+    final sellerController =
+        Provider.of<SellerController>(context, listen: false);
+
     if (authController.currentUser != null) {
       sellerController.initializeSellerData(authController.currentUser!.id);
     }
@@ -178,7 +180,8 @@ class _SellerHomeViewState extends State<SellerHomeView>
               ),
               ElevatedButton(
                 onPressed: () async {
-                  final authController = Provider.of<AuthController>(context, listen: false);
+                  final authController =
+                      Provider.of<AuthController>(context, listen: false);
                   await authController.signOut();
                   Navigator.of(context).pop(true);
                   Navigator.pushNamedAndRemoveUntil(
@@ -217,7 +220,8 @@ class _SellerHomeViewState extends State<SellerHomeView>
           ),
           ElevatedButton(
             onPressed: () async {
-              final authController = Provider.of<AuthController>(context, listen: false);
+              final authController =
+                  Provider.of<AuthController>(context, listen: false);
               await authController.signOut();
               Navigator.pop(context);
               Navigator.pushNamedAndRemoveUntil(
@@ -236,7 +240,7 @@ class _SellerHomeViewState extends State<SellerHomeView>
 }
 
 class SellerDashboardTab extends StatelessWidget {
-  const SellerDashboardTab({Key? key}) : super(key: key);
+  const SellerDashboardTab({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -265,9 +269,11 @@ class SellerDashboardTab extends StatelessWidget {
                 const SizedBox(height: 16),
                 ElevatedButton(
                   onPressed: () {
-                    final authController = Provider.of<AuthController>(context, listen: false);
+                    final authController =
+                        Provider.of<AuthController>(context, listen: false);
                     if (authController.currentUser != null) {
-                      sellerController.initializeSellerData(authController.currentUser!.id);
+                      sellerController
+                          .initializeSellerData(authController.currentUser!.id);
                     }
                   },
                   child: const Text('Retry'),
@@ -374,7 +380,8 @@ class SellerDashboardTab extends StatelessWidget {
     );
   }
 
-  Widget _buildStatCard(String title, String value, IconData icon, Color color) {
+  Widget _buildStatCard(
+      String title, String value, IconData icon, Color color) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -524,8 +531,7 @@ class SellerDashboardTab extends StatelessWidget {
                           'Order #${order.id.substring(0, 8)}',
                           'Rs. ${order.totalAmount.toStringAsFixed(2)}',
                           _getOrderStatusColor(order.status),
-                        ))
-                    .toList(),
+                        )),
             ],
           ),
         ),

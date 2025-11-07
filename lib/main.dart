@@ -19,15 +19,12 @@ void main() async {
 
     // Configure Firebase App Check for development
     await FirebaseAppCheck.instance.activate(
-      androidProvider: kDebugMode 
-          ? AndroidProvider.debug 
-          : AndroidProvider.playIntegrity,
-      appleProvider: kDebugMode 
-          ? AppleProvider.debug 
-          : AppleProvider.appAttest,
+      androidProvider:
+          kDebugMode ? AndroidProvider.debug : AndroidProvider.playIntegrity,
+      appleProvider: kDebugMode ? AppleProvider.debug : AppleProvider.appAttest,
       webProvider: ReCaptchaV3Provider('debug'), // Use debug for development
     );
-    
+
     // Configure Firebase Auth settings for development
     if (kDebugMode) {
       await FirebaseAuth.instance.setSettings(

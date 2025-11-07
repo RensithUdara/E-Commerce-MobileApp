@@ -1,5 +1,7 @@
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -13,6 +15,22 @@ void main() async {
   try {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
+    );
+    
+    // Configure Firebase App Check
+    await FirebaseAppCheck.instance.activate(
+      // For development/testing (use debug provider)
+      androidProvider: kDebugMode 
+          ? AndroidProvider.debug 
+          : AndroidProvider.playIntegrity,
+      // For iOS
+      appleProvider: kDebugMode 
+          ? AppleProvider.debug 
+          : AppleProvider.appAttest,
+      // For web
+      webProvider: kDebugMode 
+          ? ReCaptchaV3Provider('your-recaptcha-site-key') 
+          : ReCaptchaV3Provider('your-recaptcha-site-key'),
     );
     runApp(
       MultiProvider(

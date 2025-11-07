@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../controllers/order_controller.dart';
-import '../../controllers/auth_controller.dart';
 import '../../models/models.dart';
 import '../../widgets/common/loading_widget.dart';
 
 class OrderDetailView extends StatefulWidget {
   final String orderId;
-  
+
   const OrderDetailView({super.key, required this.orderId});
 
   @override
@@ -27,8 +26,9 @@ class _OrderDetailViewState extends State<OrderDetailView> {
   }
 
   void _loadOrderDetails() {
-    final orderController = Provider.of<OrderController>(context, listen: false);
-    
+    final orderController =
+        Provider.of<OrderController>(context, listen: false);
+
     // Find the order in the current orders list
     final foundOrder = orderController.orders.firstWhere(
       (o) => o.id == widget.orderId,
@@ -49,7 +49,7 @@ class _OrderDetailViewState extends State<OrderDetailView> {
         orderDate: DateTime.now(),
       ),
     );
-    
+
     if (foundOrder.id.isNotEmpty) {
       setState(() {
         order = foundOrder;
@@ -233,16 +233,15 @@ class _OrderDetailViewState extends State<OrderDetailView> {
               width: 60,
               height: 60,
               fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) =>
-                  Container(
-                    width: 60,
-                    height: 60,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: const Icon(Icons.image, color: Colors.grey),
-                  ),
+              errorBuilder: (context, error, stackTrace) => Container(
+                width: 60,
+                height: 60,
+                decoration: BoxDecoration(
+                  color: Colors.grey[200],
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: const Icon(Icons.image, color: Colors.grey),
+              ),
             ),
           ),
           const SizedBox(width: 12),
@@ -480,9 +479,10 @@ class _OrderDetailViewState extends State<OrderDetailView> {
               ),
             _buildTimelineItem(
               'Order Delivered',
-              order!.status == OrderStatus.delivered 
-                ? _getStatusDate(OrderStatus.delivered)
-                : _formatDateTime(order!.estimatedDelivery ?? DateTime.now().add(const Duration(days: 7))),
+              order!.status == OrderStatus.delivered
+                  ? _getStatusDate(OrderStatus.delivered)
+                  : _formatDateTime(order!.estimatedDelivery ??
+                      DateTime.now().add(const Duration(days: 7))),
               order!.status == OrderStatus.delivered,
               Icons.home,
               isLast: true,
@@ -611,19 +611,41 @@ class _OrderDetailViewState extends State<OrderDetailView> {
 
   String _formatDate(DateTime date) {
     final months = [
-      '', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+      '',
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec'
     ];
-    
+
     return '${date.day} ${months[date.month]} ${date.year}';
   }
 
   String _formatDateTime(DateTime date) {
     final months = [
-      '', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+      '',
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec'
     ];
-    
+
     return '${date.day} ${months[date.month]} ${date.year} at ${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}';
   }
 

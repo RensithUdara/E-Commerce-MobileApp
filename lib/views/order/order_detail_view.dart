@@ -327,34 +327,10 @@ class _OrderDetailViewState extends State<OrderDetailView> {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('Subtotal', style: TextStyle(color: Colors.grey[600])),
-                Text('Rs. ${order!.subtotal.toStringAsFixed(2)}'),
-              ],
+            Text(
+              'Payment Method: ${_getPaymentMethodText(order!.paymentMethod)}',
+              style: TextStyle(color: Colors.grey[600], fontSize: 14),
             ),
-            const SizedBox(height: 8),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('Delivery Fee', style: TextStyle(color: Colors.grey[600])),
-                Text('Rs. ${order!.deliveryFee.toStringAsFixed(2)}'),
-              ],
-            ),
-            if (order!.discount > 0) ...[
-              const SizedBox(height: 8),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('Discount', style: TextStyle(color: Colors.grey[600])),
-                  Text(
-                    '- Rs. ${order!.discount.toStringAsFixed(2)}',
-                    style: const TextStyle(color: Colors.green),
-                  ),
-                ],
-              ),
-            ],
             const Divider(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -395,16 +371,16 @@ class _OrderDetailViewState extends State<OrderDetailView> {
             const SizedBox(height: 16),
             _buildTimelineItem(
               'Order Placed',
-              _formatDateTime(order!.orderDate),
+              _formatDateTime(order!.createdAt),
               true,
               Icons.shopping_cart,
             ),
-            if (order!.status.index >= OrderStatus.confirmed.index)
+            if (order!.status.index >= OrderStatus.processing.index)
               _buildTimelineItem(
-                'Order Confirmed',
-                _getStatusDate(OrderStatus.confirmed),
+                'Order Processing',
+                _getStatusDate(OrderStatus.processing),
                 true,
-                Icons.check_circle,
+                Icons.settings,
               ),
             if (order!.status.index >= OrderStatus.processing.index)
               _buildTimelineItem(

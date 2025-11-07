@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../controllers/cart_controller.dart';
+import '../../config/routes.dart';
 import '../../controllers/auth_controller.dart';
+import '../../controllers/cart_controller.dart';
 import '../../models/models.dart';
 import '../../widgets/common/loading_widget.dart';
-import '../../config/routes.dart';
 
 class CartView extends StatefulWidget {
   const CartView({super.key});
@@ -19,9 +19,11 @@ class _CartViewState extends State<CartView> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final authController = Provider.of<AuthController>(context, listen: false);
-      final cartController = Provider.of<CartController>(context, listen: false);
-      
+      final authController =
+          Provider.of<AuthController>(context, listen: false);
+      final cartController =
+          Provider.of<CartController>(context, listen: false);
+
       if (authController.currentUser != null) {
         cartController.fetchCart(authController.currentUser!.id);
       }
@@ -76,7 +78,8 @@ class _CartViewState extends State<CartView> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.error_outline, size: 80, color: Colors.grey[400]),
+                    Icon(Icons.error_outline,
+                        size: 80, color: Colors.grey[400]),
                     const SizedBox(height: 16),
                     Text(
                       'Error: ${cartController.errorMessage}',
@@ -86,9 +89,11 @@ class _CartViewState extends State<CartView> {
                     const SizedBox(height: 16),
                     ElevatedButton(
                       onPressed: () {
-                        final authController = Provider.of<AuthController>(context, listen: false);
+                        final authController =
+                            Provider.of<AuthController>(context, listen: false);
                         if (authController.currentUser != null) {
-                          cartController.fetchCart(authController.currentUser!.id);
+                          cartController
+                              .fetchCart(authController.currentUser!.id);
                         }
                       },
                       child: const Text('Retry'),
@@ -112,7 +117,8 @@ class _CartViewState extends State<CartView> {
                     ),
                     const SizedBox(height: 16),
                     ElevatedButton(
-                      onPressed: () => Navigator.pushNamed(context, AppRoutes.products),
+                      onPressed: () =>
+                          Navigator.pushNamed(context, AppRoutes.products),
                       child: const Text('Continue Shopping'),
                     ),
                   ],
@@ -141,7 +147,8 @@ class _CartViewState extends State<CartView> {
     );
   }
 
-  Widget _buildCartItem(BuildContext context, CartItem item, CartController cartController) {
+  Widget _buildCartItem(
+      BuildContext context, CartItem item, CartController cartController) {
     return Dismissible(
       key: Key(item.id),
       background: Container(
@@ -153,29 +160,33 @@ class _CartViewState extends State<CartView> {
       direction: DismissDirection.endToStart,
       confirmDismiss: (direction) async {
         return await showDialog<bool>(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: const Text('Remove Item'),
-              content: Text('Are you sure you want to remove "${item.productName}" from your cart?'),
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.of(context).pop(false),
-                  child: const Text('Cancel'),
-                ),
-                TextButton(
-                  onPressed: () => Navigator.of(context).pop(true),
-                  child: const Text('Remove'),
-                ),
-              ],
-            );
-          },
-        ) ?? false;
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: const Text('Remove Item'),
+                  content: Text(
+                      'Are you sure you want to remove "${item.productName}" from your cart?'),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.of(context).pop(false),
+                      child: const Text('Cancel'),
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.of(context).pop(true),
+                      child: const Text('Remove'),
+                    ),
+                  ],
+                );
+              },
+            ) ??
+            false;
       },
       onDismissed: (_) {
-        final authController = Provider.of<AuthController>(context, listen: false);
+        final authController =
+            Provider.of<AuthController>(context, listen: false);
         if (authController.currentUser != null) {
-          cartController.removeFromCart(authController.currentUser!.id, item.productId);
+          cartController.removeFromCart(
+              authController.currentUser!.id, item.productId);
         }
       },
       child: Card(
@@ -195,16 +206,15 @@ class _CartViewState extends State<CartView> {
                   width: 80,
                   height: 80,
                   fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) =>
-                      Container(
-                        width: 80,
-                        height: 80,
-                        decoration: BoxDecoration(
-                          color: Colors.grey[200],
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: const Icon(Icons.image, color: Colors.grey),
-                      ),
+                  errorBuilder: (context, error, stackTrace) => Container(
+                    width: 80,
+                    height: 80,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[200],
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: const Icon(Icons.image, color: Colors.grey),
+                  ),
                   loadingBuilder: (context, child, loadingProgress) {
                     if (loadingProgress == null) return child;
                     return Container(
@@ -268,16 +278,20 @@ class _CartViewState extends State<CartView> {
                       children: [
                         IconButton(
                           icon: const Icon(Icons.remove, size: 20),
-                          onPressed: item.quantity > 1 ? () {
-                            final authController = Provider.of<AuthController>(context, listen: false);
-                            if (authController.currentUser != null) {
-                              cartController.updateQuantity(
-                                authController.currentUser!.id,
-                                item.productId,
-                                item.quantity - 1,
-                              );
-                            }
-                          } : null,
+                          onPressed: item.quantity > 1
+                              ? () {
+                                  final authController =
+                                      Provider.of<AuthController>(context,
+                                          listen: false);
+                                  if (authController.currentUser != null) {
+                                    cartController.updateQuantity(
+                                      authController.currentUser!.id,
+                                      item.productId,
+                                      item.quantity - 1,
+                                    );
+                                  }
+                                }
+                              : null,
                         ),
                         Text(
                           '${item.quantity}',
@@ -286,7 +300,9 @@ class _CartViewState extends State<CartView> {
                         IconButton(
                           icon: const Icon(Icons.add, size: 20),
                           onPressed: () {
-                            final authController = Provider.of<AuthController>(context, listen: false);
+                            final authController = Provider.of<AuthController>(
+                                context,
+                                listen: false);
                             if (authController.currentUser != null) {
                               cartController.updateQuantity(
                                 authController.currentUser!.id,
@@ -316,7 +332,8 @@ class _CartViewState extends State<CartView> {
     );
   }
 
-  Widget _buildCartSummary(BuildContext context, CartController cartController) {
+  Widget _buildCartSummary(
+      BuildContext context, CartController cartController) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -385,9 +402,11 @@ class _CartViewState extends State<CartView> {
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
-              onPressed: cartController.isEmpty ? null : () {
-                Navigator.pushNamed(context, RouteManager.checkout);
-              },
+              onPressed: cartController.isEmpty
+                  ? null
+                  : () {
+                      Navigator.pushNamed(context, RouteManager.checkout);
+                    },
               child: const Text(
                 'Proceed to Checkout',
                 style: TextStyle(fontSize: 16),

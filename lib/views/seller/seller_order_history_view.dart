@@ -339,7 +339,7 @@ class _SellerOrderHistoryViewState extends State<SellerOrderHistoryView>
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    item.productTitle,
+                                    item.title,
                                     style: const TextStyle(
                                       fontWeight: FontWeight.w500,
                                     ),

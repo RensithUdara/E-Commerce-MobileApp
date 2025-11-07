@@ -404,7 +404,7 @@ class _HomeScreenMVCState extends State<HomeScreenMVC> {
       rightCornerRadius: 32,
       onTap: _onBottomNavTap,
       backgroundColor: Colors.white,
-      activeColor: Colors.blue.shade600,
+      activeColor: const Color.fromARGB(255, 229, 30, 163),
       inactiveColor: Colors.grey.shade600,
       height: 60,
     );

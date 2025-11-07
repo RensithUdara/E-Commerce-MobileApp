@@ -537,7 +537,7 @@ class _ProductListingViewState extends State<ProductListingView> {
                 border: OutlineInputBorder(),
               ),
               keyboardType: TextInputType.number,
-              validator: Validators.quantity,
+              validator: Validators.validateQuantity,
             ),
           ],
         ),
@@ -577,6 +577,9 @@ class _ProductListingViewState extends State<ProductListingView> {
                     break;
                   case ProductStatus.outOfStock:
                     statusText = 'Out of Stock';
+                    break;
+                  case ProductStatus.deleted:
+                    statusText = 'Deleted';
                     break;
                 }
 

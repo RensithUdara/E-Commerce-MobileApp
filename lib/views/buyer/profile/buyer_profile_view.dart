@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
+import '../../../config/routes.dart';
 import '../../../controllers/auth_controller.dart';
 import '../../../widgets/common/loading_widget.dart';
 

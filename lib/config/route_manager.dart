@@ -15,7 +15,6 @@ import '../views/buyer/profile/buyer_profile_view.dart';
 import '../views/seller/dashboard/seller_home_view.dart';
 import '../views/seller/products/product_listing_view.dart';
 import '../views/seller/products/seller_products_view.dart';
-import '../views/seller/profile/seller_profile_view.dart';
 import 'routes.dart';
 
 class RouteManager {
@@ -103,6 +102,12 @@ class RouteManager {
         final orderId = settings.arguments as String?;
         return MaterialPageRoute(
           builder: (_) => OrderDetailView(orderId: orderId ?? ''),
+          settings: settings,
+        );
+
+      case AppRoutes.sellerProfile:
+        return MaterialPageRoute(
+          builder: (_) => const SellerProfileView(),
           settings: settings,
         );
 

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gemhub/views/product/product_list_view.dart';
+import 'package:gemhub/views/seller/product_listing_view.dart';
+import 'package:gemhub/views/seller/seller_products_view.dart';
 
 import '../Seller/seller_home_page.dart';
 import '../home_screen.dart';

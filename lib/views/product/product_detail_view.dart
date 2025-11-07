@@ -308,28 +308,33 @@ class _ProductDetailViewState extends State<ProductDetailView> {
   }
 
   Widget _buildStatusChip() {
-    Color color;
+    Color backgroundColor;
+    Color textColor;
     String text;
     IconData icon;
 
     switch (widget.product.status) {
       case ProductStatus.active:
-        color = Colors.green;
+        backgroundColor = Colors.green[50]!;
+        textColor = Colors.green[700]!;
         text = 'Available';
         icon = Icons.check_circle;
         break;
       case ProductStatus.inactive:
-        color = Colors.grey;
+        backgroundColor = Colors.grey[50]!;
+        textColor = Colors.grey[700]!;
         text = 'Inactive';
         icon = Icons.pause_circle;
         break;
       case ProductStatus.outOfStock:
-        color = Colors.red;
+        backgroundColor = Colors.red[50]!;
+        textColor = Colors.red[700]!;
         text = 'Out of Stock';
         icon = Icons.inventory_2;
         break;
       case ProductStatus.deleted:
-        color = Colors.red;
+        backgroundColor = Colors.red[50]!;
+        textColor = Colors.red[700]!;
         text = 'Deleted';
         icon = Icons.delete;
         break;
@@ -338,7 +343,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
       decoration: BoxDecoration(
-        color: color.shade50,
+        color: backgroundColor,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Row(
@@ -347,13 +352,13 @@ class _ProductDetailViewState extends State<ProductDetailView> {
           Icon(
             icon,
             size: 16,
-            color: color.shade700,
+            color: textColor,
           ),
           const SizedBox(width: 4),
           Text(
             text,
             style: TextStyle(
-              color: color.shade700,
+              color: textColor,
               fontSize: 12,
               fontWeight: FontWeight.w500,
             ),

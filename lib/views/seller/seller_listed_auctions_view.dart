@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:intl/intl.dart';
+
 import '../../controllers/auction_controller.dart';
-import '../../controllers/seller_controller.dart';
 import '../../controllers/auth_controller.dart';
-import '../../widgets/common/loading_widget.dart';
+import '../../controllers/seller_controller.dart';
 import '../../models/auction_model.dart';
+import '../../widgets/common/loading_widget.dart';
 
 class SellerListedAuctionsView extends StatefulWidget {
-  const SellerListedAuctionsView({Key? key}) : super(key: key);
+  const SellerListedAuctionsView({super.key});
 
   @override
-  State<SellerListedAuctionsView> createState() => _SellerListedAuctionsViewState();
+  State<SellerListedAuctionsView> createState() =>
+      _SellerListedAuctionsViewState();
 }
 
 class _SellerListedAuctionsViewState extends State<SellerListedAuctionsView>
@@ -42,8 +43,9 @@ class _SellerListedAuctionsViewState extends State<SellerListedAuctionsView>
 
   void _loadSellerAuctions() {
     final authController = Provider.of<AuthController>(context, listen: false);
-    final sellerController = Provider.of<SellerController>(context, listen: false);
-    
+    final sellerController =
+        Provider.of<SellerController>(context, listen: false);
+
     if (authController.currentUser != null) {
       sellerController.fetchSellerAuctions(authController.currentUser!.id);
     }
@@ -198,7 +200,7 @@ class _SellerListedAuctionsViewState extends State<SellerListedAuctionsView>
   Widget _buildAuctionCard(Auction auction) {
     final timeRemaining = _getTimeRemaining(auction.endTime);
     final statusColor = _getStatusColor(auction.status);
-    
+
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
@@ -432,7 +434,7 @@ class _SellerListedAuctionsViewState extends State<SellerListedAuctionsView>
     }
 
     final duration = endTime.difference(now);
-    
+
     if (duration.inDays > 0) {
       return '${duration.inDays}d ${duration.inHours % 24}h';
     } else if (duration.inHours > 0) {
@@ -486,7 +488,8 @@ class _SellerListedAuctionsViewState extends State<SellerListedAuctionsView>
               await _endAuction(auction.id);
             },
             style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-            child: const Text('End Auction', style: TextStyle(color: Colors.white)),
+            child: const Text('End Auction',
+                style: TextStyle(color: Colors.white)),
           ),
         ],
       ),
@@ -495,9 +498,10 @@ class _SellerListedAuctionsViewState extends State<SellerListedAuctionsView>
 
   Future<void> _endAuction(String auctionId) async {
     try {
-      final auctionController = Provider.of<AuctionController>(context, listen: false);
+      final auctionController =
+          Provider.of<AuctionController>(context, listen: false);
       final success = await auctionController.endAuction(auctionId);
-      
+
       if (success) {
         _loadSellerAuctions(); // Refresh the list
         ScaffoldMessenger.of(context).showSnackBar(
@@ -509,7 +513,8 @@ class _SellerListedAuctionsViewState extends State<SellerListedAuctionsView>
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(auctionController.errorMessage ?? 'Failed to end auction'),
+            content:
+                Text(auctionController.errorMessage ?? 'Failed to end auction'),
             backgroundColor: Colors.red,
           ),
         );

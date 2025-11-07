@@ -17,8 +17,23 @@ void main() async {
       options: DefaultFirebaseOptions.currentPlatform,
     );
 
-    // Configure Firebase services
-    await FirebaseConfig.initializeAll();
+    // Configure Firebase App Check for development
+    await FirebaseAppCheck.instance.activate(
+      androidProvider: kDebugMode 
+          ? AndroidProvider.debug 
+          : AndroidProvider.playIntegrity,
+      appleProvider: kDebugMode 
+          ? AppleProvider.debug 
+          : AppleProvider.appAttest,
+      webProvider: ReCaptchaV3Provider('debug'), // Use debug for development
+    );
+    
+    // Configure Firebase Auth settings for development
+    if (kDebugMode) {
+      await FirebaseAuth.instance.setSettings(
+        appVerificationDisabledForTesting: true,
+      );
+    }
     runApp(
       MultiProvider(
         providers: [

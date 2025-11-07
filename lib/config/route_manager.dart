@@ -15,6 +15,7 @@ import '../views/buyer/profile/buyer_profile_view.dart';
 import '../views/seller/dashboard/seller_home_view.dart';
 import '../views/seller/products/product_listing_view.dart';
 import '../views/seller/products/seller_products_view.dart';
+import '../views/seller/profile/seller_profile_view.dart';
 import 'routes.dart';
 
 class RouteManager {

@@ -190,7 +190,24 @@ class SellerController extends ChangeNotifier {
       _setLoading(true);
       _setError(null);
 
-      await _databaseService.updateOrderStatus(orderId, status);
+      // Get the existing order and update it
+      final existingOrder = await _databaseService.getOrder(orderId);
+      if (existingOrder != null) {
+        final updatedOrder = order_model.Order(
+          id: existingOrder.id,
+          userId: existingOrder.userId,
+          items: existingOrder.items,
+          totalAmount: existingOrder.totalAmount,
+          status: status,
+          shippingAddress: existingOrder.shippingAddress,
+          deliveryDate: existingOrder.deliveryDate,
+          paymentMethod: existingOrder.paymentMethod,
+          createdAt: existingOrder.createdAt,
+          updatedAt: DateTime.now(),
+        );
+        await _databaseService.updateOrder(updatedOrder);
+      }
+      
       await fetchSellerOrders(sellerId); // Refresh orders
       _setLoading(false);
       return true;

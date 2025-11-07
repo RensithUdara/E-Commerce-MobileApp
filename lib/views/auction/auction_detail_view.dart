@@ -56,9 +56,8 @@ class _AuctionDetailViewState extends State<AuctionDetailView> {
     if (fetchedAuction != null && mounted) {
       setState(() {
         auction = fetchedAuction;
-        _bidController.text =
-            (fetchedAuction.currentBid + _minimumBidIncrement)
-                .toStringAsFixed(2);
+        _bidController.text = (fetchedAuction.currentBid + _minimumBidIncrement)
+            .toStringAsFixed(2);
       });
     }
   }

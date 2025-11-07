@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 import 'config/route_manager.dart';
 import 'config/routes.dart';
 import 'controllers/controllers.dart';
-import 'screens/cart_screen/cart_provider.dart';
 import 'screens/firebase_options/firebase_options.dart';
 
 void main() async {

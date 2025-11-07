@@ -47,6 +47,24 @@ class RouteManager {
           settings: settings,
         );
 
+      case AppRoutes.products:
+        return MaterialPageRoute(
+          builder: (_) => ProductListView(),
+          settings: settings,
+        );
+
+      case AppRoutes.productListing:
+        return MaterialPageRoute(
+          builder: (_) => ProductListingView(),
+          settings: settings,
+        );
+
+      case AppRoutes.listedProducts:
+        return MaterialPageRoute(
+          builder: (_) => SellerProductsView(),
+          settings: settings,
+        );
+
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

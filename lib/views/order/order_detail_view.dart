@@ -398,10 +398,9 @@ class _OrderDetailViewState extends State<OrderDetailView> {
               ),
             _buildTimelineItem(
               'Order Delivered',
-              order!.status == OrderStatus.delivered
-                  ? _getStatusDate(OrderStatus.delivered)
-                  : _formatDateTime(order!.estimatedDelivery ??
-                      DateTime.now().add(const Duration(days: 7))),
+              order!.status == OrderStatus.delivered 
+                ? _getStatusDate(OrderStatus.delivered)
+                : 'Estimated: ${order!.deliveryDate ?? 'TBD'}',
               order!.status == OrderStatus.delivered,
               Icons.home,
               isLast: true,

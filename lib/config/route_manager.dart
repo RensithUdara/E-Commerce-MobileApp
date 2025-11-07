@@ -49,19 +49,19 @@ class RouteManager {
 
       case AppRoutes.products:
         return MaterialPageRoute(
-          builder: (_) => const ProductListView(),
+          builder: (_) => ProductListView(),
           settings: settings,
         );
 
       case AppRoutes.productListing:
         return MaterialPageRoute(
-          builder: (_) => const ProductListingView(),
+          builder: (_) => ProductListingView(),
           settings: settings,
         );
 
       case AppRoutes.listedProducts:
         return MaterialPageRoute(
-          builder: (_) => const SellerProductsView(),
+          builder: (_) => SellerProductsView(),
           settings: settings,
         );
 

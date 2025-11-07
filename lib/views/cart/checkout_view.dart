@@ -89,25 +89,19 @@ class _CheckoutViewState extends State<CheckoutView> {
     try {
       await _saveUserDetails();
 
-      final order = Order(
-        id: '',
-        userId: authController.currentUser!.id,
-        items: cartController.items,
-        totalAmount: cartController.totalAmount + deliveryCharge,
-        status: OrderStatus.pending,
-        shippingAddress: ShippingAddress(
-          name: _nameController.text,
-          phone: _mobileController.text,
-          email: _emailController.text,
-          address: _addressController.text,
-          deliveryNote: _deliveryNoteController.text,
-        ),
-        paymentMethod: 'Cash on Delivery',
-        createdAt: DateTime.now(),
-        updatedAt: DateTime.now(),
-      );
+      final shippingInfo =
+          '${_nameController.text}, ${_mobileController.text}, ${_emailController.text}, ${_addressController.text}';
+      if (_deliveryNoteController.text.isNotEmpty) {
+        // shippingInfo += ', Note: ${_deliveryNoteController.text}';
+      }
 
-      final success = await orderController.createOrder(order);
+      final success = await orderController.createOrder(
+        userId: authController.currentUser!.id,
+        cartItems: cartController.items,
+        shippingAddress: shippingInfo,
+        paymentMethod: PaymentMethod.cash,
+        deliveryDate: null,
+      );
 
       if (success) {
         await cartController.clearCart();

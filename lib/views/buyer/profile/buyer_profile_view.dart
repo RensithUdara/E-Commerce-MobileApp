@@ -18,10 +18,10 @@ class _BuyerProfileViewState extends State<BuyerProfileView>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
-  
+
   bool _isEditing = false;
   File? _profileImage;
-  
+
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
@@ -56,7 +56,7 @@ class _BuyerProfileViewState extends State<BuyerProfileView>
   void _loadUserData() {
     final authController = Provider.of<AuthController>(context, listen: false);
     final user = authController.currentUser;
-    
+
     if (user != null) {
       _nameController.text = user.name ?? '';
       _emailController.text = user.email;
@@ -197,7 +197,7 @@ class _BuyerProfileViewState extends State<BuyerProfileView>
     }
 
     final authController = Provider.of<AuthController>(context, listen: false);
-    
+
     // In a real implementation, you would upload the image first
     // For now, we'll simulate image upload
     String? profileImageUrl;
@@ -218,7 +218,7 @@ class _BuyerProfileViewState extends State<BuyerProfileView>
         _isEditing = false;
         _profileImage = null; // Clear selected image after upload
       });
-      
+
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Profile updated successfully'),
@@ -324,7 +324,9 @@ class _BuyerProfileViewState extends State<BuyerProfileView>
                 _isEditing ? Icons.save : Icons.edit,
                 color: Colors.white,
               ),
-              onPressed: _isEditing ? _saveProfile : () => setState(() => _isEditing = true),
+              onPressed: _isEditing
+                  ? _saveProfile
+                  : () => setState(() => _isEditing = true),
             ),
           ],
         ),
@@ -352,14 +354,14 @@ class _BuyerProfileViewState extends State<BuyerProfileView>
                       children: [
                         // Profile Image Section
                         _buildProfileImageSection(authController),
-                        
+
                         const SizedBox(height: 30),
-                        
+
                         // Profile Form Section
                         _buildProfileFormSection(),
-                        
+
                         const SizedBox(height: 30),
-                        
+
                         // Action Buttons Section
                         _buildActionButtonsSection(authController),
                       ],
@@ -400,12 +402,13 @@ class _BuyerProfileViewState extends State<BuyerProfileView>
               backgroundImage: _profileImage != null
                   ? FileImage(_profileImage!)
                   : (authController.currentUser?.profileImageUrl != null
-                      ? NetworkImage(authController.currentUser!.profileImageUrl!)
+                      ? NetworkImage(
+                              authController.currentUser!.profileImageUrl!)
                           as ImageProvider<Object>
                       : null),
               backgroundColor: Colors.grey.shade300,
-              child: _profileImage == null && 
-                     authController.currentUser?.profileImageUrl == null
+              child: _profileImage == null &&
+                      authController.currentUser?.profileImageUrl == null
                   ? Icon(
                       Icons.person,
                       color: Colors.blueAccent.shade700,
@@ -461,7 +464,6 @@ class _BuyerProfileViewState extends State<BuyerProfileView>
               ),
             ),
             const SizedBox(height: 20),
-            
             _buildProfileField(
               label: 'Full Name',
               controller: _nameController,
@@ -473,13 +475,11 @@ class _BuyerProfileViewState extends State<BuyerProfileView>
                 return null;
               },
             ),
-            
             _buildProfileField(
               label: 'Email Address',
               controller: _emailController,
               enabled: false, // Email usually can't be changed
             ),
-            
             _buildProfileField(
               label: 'Phone Number',
               controller: _phoneController,
@@ -491,7 +491,6 @@ class _BuyerProfileViewState extends State<BuyerProfileView>
                 return null;
               },
             ),
-            
             _buildProfileField(
               label: 'Address',
               controller: _addressController,
@@ -574,7 +573,7 @@ class _BuyerProfileViewState extends State<BuyerProfileView>
           ),
           const SizedBox(height: 20),
         ],
-        
+
         // Logout Button
         ElevatedButton.icon(
           style: ElevatedButton.styleFrom(

@@ -405,7 +405,7 @@ class _CartViewState extends State<CartView> {
               onPressed: cartController.isEmpty
                   ? null
                   : () {
-                      Navigator.pushNamed(context, RouteManager.checkout);
+                      Navigator.pushNamed(context, AppRoutes.checkout);
                     },
               child: const Text(
                 'Proceed to Checkout',

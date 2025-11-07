@@ -39,7 +39,7 @@ class SellerController extends ChangeNotifier {
       _setLoading(true);
       _setError(null);
 
-      _sellerProducts = await _databaseService.getSellerProducts(sellerId);
+      _sellerProducts = await _databaseService.getProducts(sellerId: sellerId);
       _setLoading(false);
     } catch (e) {
       _setError(e.toString());
@@ -53,7 +53,10 @@ class SellerController extends ChangeNotifier {
       _setLoading(true);
       _setError(null);
 
-      _sellerAuctions = await _databaseService.getSellerAuctions(sellerId);
+      // Filter auctions by sellerId - this might need custom implementation
+      final allAuctions = await _databaseService.getAuctions();
+      _sellerAuctions =
+          allAuctions.where((auction) => auction.sellerId == sellerId).toList();
       _setLoading(false);
     } catch (e) {
       _setError(e.toString());
@@ -73,9 +76,8 @@ class SellerController extends ChangeNotifier {
       _setError(e.toString());
       _setLoading(false);
     }
-  }
+  } // Fetch seller statistics
 
-  // Fetch seller statistics
   Future<void> fetchSellerStats(String sellerId) async {
     try {
       _setLoading(true);

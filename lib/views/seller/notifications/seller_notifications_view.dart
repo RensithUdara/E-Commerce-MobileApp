@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../widgets/common/loading_widget.dart';
+import '../../../widgets/common/loading_widget.dart';
 
 class SellerNotificationsView extends StatefulWidget {
   const SellerNotificationsView({super.key});

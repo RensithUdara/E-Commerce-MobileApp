@@ -24,6 +24,7 @@ class _AuctionDetailViewState extends State<AuctionDetailView> {
   Timer? _timer;
   Auction? auction;
   bool _isPlacingBid = false;
+  static const double _minimumBidIncrement = 5.0; // Default minimum increment
 
   @override
   void initState() {
@@ -55,9 +56,8 @@ class _AuctionDetailViewState extends State<AuctionDetailView> {
     if (fetchedAuction != null && mounted) {
       setState(() {
         auction = fetchedAuction;
-        _bidController.text =
-            (fetchedAuction.currentBid + fetchedAuction.minimumBidIncrement)
-                .toStringAsFixed(2);
+        _bidController.text = (fetchedAuction.currentBid + _minimumBidIncrement)
+            .toStringAsFixed(2);
       });
     }
   }
@@ -85,9 +85,9 @@ class _AuctionDetailViewState extends State<AuctionDetailView> {
       return;
     }
 
-    if (bidAmount < auction!.currentBid + auction!.minimumBidIncrement) {
+    if (bidAmount < auction!.currentBid + _minimumBidIncrement) {
       _showErrorSnackBar(
-          'Bid must be at least Rs. ${(auction!.currentBid + auction!.minimumBidIncrement).toStringAsFixed(2)}');
+          'Bid must be at least Rs. ${(auction!.currentBid + _minimumBidIncrement).toStringAsFixed(2)}');
       return;
     }
 
@@ -98,7 +98,7 @@ class _AuctionDetailViewState extends State<AuctionDetailView> {
     try {
       final success = await auctionController.placeBid(
         auctionId: auction!.id,
-        bidderId: authController.currentUser!.id,
+        userId: authController.currentUser!.id,
         bidAmount: bidAmount,
       );
 
@@ -108,8 +108,7 @@ class _AuctionDetailViewState extends State<AuctionDetailView> {
 
         // Update bid controller with next minimum bid
         _bidController.text =
-            (auction!.currentBid + auction!.minimumBidIncrement)
-                .toStringAsFixed(2);
+            (auction!.currentBid + _minimumBidIncrement).toStringAsFixed(2);
       } else if (mounted) {
         _showErrorSnackBar(
             auctionController.errorMessage ?? 'Failed to place bid');
@@ -317,7 +316,7 @@ class _AuctionDetailViewState extends State<AuctionDetailView> {
               Expanded(
                 child: _buildInfoCard(
                   'Min. Increment',
-                  'Rs. ${auction!.minimumBidIncrement.toStringAsFixed(2)}',
+                  'Rs. ${_minimumBidIncrement.toStringAsFixed(2)}',
                   Colors.purple,
                 ),
               ),
@@ -465,7 +464,7 @@ class _AuctionDetailViewState extends State<AuctionDetailView> {
                     border: const OutlineInputBorder(),
                     hintText: 'Enter your bid amount',
                     helperText:
-                        'Minimum: Rs. ${(auction!.currentBid + auction!.minimumBidIncrement).toStringAsFixed(2)}',
+                        'Minimum: Rs. ${(auction!.currentBid + _minimumBidIncrement).toStringAsFixed(2)}',
                   ),
                 ),
               ),
@@ -518,7 +517,7 @@ class _AuctionDetailViewState extends State<AuctionDetailView> {
     }
 
     // Sort bids by timestamp (most recent first)
-    final sortedBids = List<AuctionBid>.from(auction!.bids)
+    final sortedBids = List<Bid>.from(auction!.bids)
       ..sort((a, b) => b.timestamp.compareTo(a.timestamp));
 
     return Padding(

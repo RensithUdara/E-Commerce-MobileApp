@@ -237,7 +237,7 @@ class _CartViewState extends State<CartView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      item.productName,
+                      item.title,
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -253,16 +253,6 @@ class _CartViewState extends State<CartView> {
                         color: Colors.grey[600],
                       ),
                     ),
-                    if (item.selectedVariant != null) ...[
-                      const SizedBox(height: 4),
-                      Text(
-                        'Variant: ${item.selectedVariant}',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey[500],
-                        ),
-                      ),
-                    ],
                   ],
                 ),
               ),
@@ -405,7 +395,7 @@ class _CartViewState extends State<CartView> {
               onPressed: cartController.isEmpty
                   ? null
                   : () {
-                      Navigator.pushNamed(context, RouteManager.checkout);
+                      Navigator.pushNamed(context, AppRoutes.checkout);
                     },
               child: const Text(
                 'Proceed to Checkout',

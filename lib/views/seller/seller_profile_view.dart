@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -58,9 +60,9 @@ class _SellerProfileViewState extends State<SellerProfileView>
     final user = authController.currentUser;
 
     if (user != null) {
-      _nameController.text = user.name;
+      _nameController.text = user.name ?? '';
       _emailController.text = user.email;
-      _phoneController.text = user.phone ?? '';
+      _phoneController.text = user.phoneNumber ?? '';
       _addressController.text = user.address ?? '';
       // Bio field would need to be added to User model in real app
       _bioController.text =
@@ -454,8 +456,8 @@ class _SellerProfileViewState extends State<SellerProfileView>
 
     try {
       // In a real app, you would update the user profile through AuthController
-      final authController =
-          Provider.of<AuthController>(context, listen: false);
+      // final authController = Provider.of<AuthController>(context, listen: false);
+      // await authController.updateUserProfile(...);
 
       // Simulate API call
       await Future.delayed(const Duration(seconds: 1));

@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
-import '../../controllers/auth_controller.dart';
-import '../../controllers/product_controller.dart';
-import '../../models/product_model.dart';
-import '../../utils/validators.dart';
-import '../../widgets/common/loading_widget.dart';
+import '../../../controllers/auth_controller.dart';
+import '../../../controllers/product_controller.dart';
+import '../../../models/product_model.dart';
+import '../../../utils/validators.dart';
+import '../../../widgets/common/loading_widget.dart';
 
 class ProductListingView extends StatefulWidget {
   final Product? product; // For editing existing product

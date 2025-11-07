@@ -16,20 +16,17 @@ void main() async {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
-    
+
     // Configure Firebase App Check
     await FirebaseAppCheck.instance.activate(
       // For development/testing (use debug provider)
-      androidProvider: kDebugMode 
-          ? AndroidProvider.debug 
-          : AndroidProvider.playIntegrity,
+      androidProvider:
+          kDebugMode ? AndroidProvider.debug : AndroidProvider.playIntegrity,
       // For iOS
-      appleProvider: kDebugMode 
-          ? AppleProvider.debug 
-          : AppleProvider.appAttest,
+      appleProvider: kDebugMode ? AppleProvider.debug : AppleProvider.appAttest,
       // For web
-      webProvider: kDebugMode 
-          ? ReCaptchaV3Provider('your-recaptcha-site-key') 
+      webProvider: kDebugMode
+          ? ReCaptchaV3Provider('your-recaptcha-site-key')
           : ReCaptchaV3Provider('your-recaptcha-site-key'),
     );
     runApp(

@@ -112,7 +112,8 @@ class _SellerHomeViewState extends State<SellerHomeView>
               onPressed: () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const SellerProfileView(),
+                  builder: (context) =>
+                      const _PlaceholderView(title: 'Profile'),
                 ),
               ),
             ),

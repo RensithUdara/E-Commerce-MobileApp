@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../controllers/cart_controller.dart';
+import '../../config/routes.dart';
 import '../../controllers/auth_controller.dart';
+import '../../controllers/cart_controller.dart';
 import '../../controllers/order_controller.dart';
 import '../../models/models.dart';
 import '../../widgets/common/loading_widget.dart';
-import '../../config/routes.dart';
 
 class CheckoutView extends StatefulWidget {
   const CheckoutView({super.key});
@@ -23,7 +23,7 @@ class _CheckoutViewState extends State<CheckoutView> {
   final TextEditingController _addressController = TextEditingController();
   final TextEditingController _deliveryNoteController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  
+
   final double deliveryCharge = 400.0;
   bool _saveDetails = false;
   bool _isPlacingOrder = false;
@@ -50,7 +50,8 @@ class _CheckoutViewState extends State<CheckoutView> {
       _nameController.text = prefs.getString('name') ?? '';
       _mobileController.text = prefs.getString('mobile') ?? '';
       _emailController.text = prefs.getString('email') ?? '';
-      _addressController.text = prefs.getString('address') ?? '123 Main Street, Colombo';
+      _addressController.text =
+          prefs.getString('address') ?? '123 Main Street, Colombo';
       _deliveryNoteController.text = prefs.getString('deliveryNote') ?? '';
     });
   }
@@ -73,7 +74,8 @@ class _CheckoutViewState extends State<CheckoutView> {
 
     final authController = Provider.of<AuthController>(context, listen: false);
     final cartController = Provider.of<CartController>(context, listen: false);
-    final orderController = Provider.of<OrderController>(context, listen: false);
+    final orderController =
+        Provider.of<OrderController>(context, listen: false);
 
     if (authController.currentUser == null || cartController.isEmpty) {
       _showErrorDialog('Unable to place order. Please try again.');
@@ -109,14 +111,14 @@ class _CheckoutViewState extends State<CheckoutView> {
 
       if (success) {
         await cartController.clearCart();
-        
+
         if (mounted) {
           Navigator.pushNamedAndRemoveUntil(
             context,
             AppRoutes.orderHistory,
             (route) => false,
           );
-          
+
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('Order placed successfully!'),
@@ -125,7 +127,8 @@ class _CheckoutViewState extends State<CheckoutView> {
           );
         }
       } else {
-        _showErrorDialog(orderController.errorMessage ?? 'Failed to place order');
+        _showErrorDialog(
+            orderController.errorMessage ?? 'Failed to place order');
       }
     } catch (e) {
       _showErrorDialog('Failed to place order: $e');
@@ -198,7 +201,8 @@ class _CheckoutViewState extends State<CheckoutView> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.shopping_cart_outlined, size: 80, color: Colors.grey[400]),
+                    Icon(Icons.shopping_cart_outlined,
+                        size: 80, color: Colors.grey[400]),
                     const SizedBox(height: 16),
                     Text(
                       'Your cart is empty',
@@ -272,7 +276,8 @@ class _CheckoutViewState extends State<CheckoutView> {
                           width: 50,
                           height: 50,
                           fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) => Container(
+                          errorBuilder: (context, error, stackTrace) =>
+                              Container(
                             width: 50,
                             height: 50,
                             color: Colors.grey[200],
@@ -287,13 +292,15 @@ class _CheckoutViewState extends State<CheckoutView> {
                           children: [
                             Text(
                               item.title,
-                              style: const TextStyle(fontWeight: FontWeight.w500),
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.w500),
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                             ),
                             Text(
                               'Qty: ${item.quantity} × Rs. ${item.price.toStringAsFixed(2)}',
-                              style: TextStyle(color: Colors.grey[600], fontSize: 12),
+                              style: TextStyle(
+                                  color: Colors.grey[600], fontSize: 12),
                             ),
                           ],
                         ),
@@ -372,7 +379,8 @@ class _CheckoutViewState extends State<CheckoutView> {
                 if (value == null || value.trim().isEmpty) {
                   return 'Please enter your email address';
                 }
-                if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
+                if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                    .hasMatch(value)) {
                   return 'Please enter a valid email address';
                 }
                 return null;

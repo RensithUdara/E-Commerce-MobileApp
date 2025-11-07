@@ -207,7 +207,7 @@ class SellerController extends ChangeNotifier {
         );
         await _databaseService.updateOrder(updatedOrder);
       }
-      
+
       await fetchSellerOrders(sellerId); // Refresh orders
       _setLoading(false);
       return true;

@@ -1,14 +1,11 @@
-// Buyer Views - Organized by functionality
+// Buyer Views - Profile Module
 
-// Auction Views
-export 'auction/auction_views.dart';
-// Cart Views
-export 'cart/cart_views.dart';
-// Home Views
-export 'home/home_views.dart';
-// Order Views
-export 'order/order_views.dart';
-// Product Views
-export 'product/product_views.dart';
 // Profile Views
 export 'profile/profile.dart';
+
+// TODO: Add other buyer modules when they are organized
+// Cart Views: cart/cart_view.dart, cart/checkout_view.dart  
+// Product Views: product/* 
+// Order Views: order/*
+// Auction Views: auction/*
+// Home Views: home/*

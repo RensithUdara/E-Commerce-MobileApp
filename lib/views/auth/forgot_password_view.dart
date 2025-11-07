@@ -26,18 +26,21 @@ class _ForgotPasswordViewMVCState extends State<ForgotPasswordViewMVC> {
     if (!_formKey.currentState!.validate()) return;
 
     final authController = Provider.of<AuthController>(context, listen: false);
-    
+
     try {
       await authController.resetPassword(emailController.text.trim());
       _showCustomDialog(
         title: 'Success',
-        message: 'Password reset email sent successfully! Please check your email inbox.',
-        onConfirm: () => Navigator.pushReplacementNamed(context, AppRoutes.login),
+        message:
+            'Password reset email sent successfully! Please check your email inbox.',
+        onConfirm: () =>
+            Navigator.pushReplacementNamed(context, AppRoutes.login),
       );
     } catch (e) {
       _showCustomDialog(
         title: 'Error',
-        message: 'Failed to send reset email. Please check your email address and try again.',
+        message:
+            'Failed to send reset email. Please check your email address and try again.',
         isError: true,
       );
     }
@@ -72,12 +75,13 @@ class _ForgotPasswordViewMVCState extends State<ForgotPasswordViewMVC> {
             child: Stack(
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 24.0, vertical: 16.0),
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
                         const SizedBox(height: 60),
-                        
+
                         // Logo
                         Container(
                           width: 100,
@@ -150,24 +154,29 @@ class _ForgotPasswordViewMVCState extends State<ForgotPasswordViewMVC> {
                                   },
                                   decoration: InputDecoration(
                                     labelText: 'Email Address',
-                                    prefixIcon: const Icon(Icons.email_outlined),
+                                    prefixIcon:
+                                        const Icon(Icons.email_outlined),
                                     filled: true,
                                     fillColor: Colors.grey.shade50,
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(12),
-                                      borderSide: BorderSide(color: Colors.grey.shade300),
+                                      borderSide: BorderSide(
+                                          color: Colors.grey.shade300),
                                     ),
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(12),
-                                      borderSide: BorderSide(color: Colors.grey.shade300),
+                                      borderSide: BorderSide(
+                                          color: Colors.grey.shade300),
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(12),
-                                      borderSide: BorderSide(color: Colors.blue.shade600),
+                                      borderSide: BorderSide(
+                                          color: Colors.blue.shade600),
                                     ),
                                     errorBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(12),
-                                      borderSide: const BorderSide(color: Colors.red),
+                                      borderSide:
+                                          const BorderSide(color: Colors.red),
                                     ),
                                   ),
                                 ),
@@ -176,7 +185,9 @@ class _ForgotPasswordViewMVCState extends State<ForgotPasswordViewMVC> {
 
                                 // Send Reset Email Button
                                 ElevatedButton(
-                                  onPressed: authController.isLoading ? null : _handlePasswordReset,
+                                  onPressed: authController.isLoading
+                                      ? null
+                                      : _handlePasswordReset,
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.blue.shade600,
                                     foregroundColor: Colors.white,
@@ -186,7 +197,8 @@ class _ForgotPasswordViewMVCState extends State<ForgotPasswordViewMVC> {
                                     ),
                                   ),
                                   child: authController.isLoading
-                                      ? const CircularProgressIndicator(color: Colors.white)
+                                      ? const CircularProgressIndicator(
+                                          color: Colors.white)
                                       : const Text(
                                           'Send Reset Email',
                                           style: TextStyle(
@@ -204,15 +216,18 @@ class _ForgotPasswordViewMVCState extends State<ForgotPasswordViewMVC> {
                                   children: [
                                     Text(
                                       "Remember your password? ",
-                                      style: TextStyle(color: Colors.grey.shade600),
+                                      style: TextStyle(
+                                          color: Colors.grey.shade600),
                                     ),
                                     TextButton(
                                       onPressed: () {
-                                        Navigator.pushReplacementNamed(context, AppRoutes.login);
+                                        Navigator.pushReplacementNamed(
+                                            context, AppRoutes.login);
                                       },
                                       child: const Text(
                                         'Sign In',
-                                        style: TextStyle(fontWeight: FontWeight.w600),
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w600),
                                       ),
                                     ),
                                   ],

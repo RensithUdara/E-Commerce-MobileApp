@@ -165,7 +165,7 @@ class _CartViewState extends State<CartView> {
                 return AlertDialog(
                   title: const Text('Remove Item'),
                   content: Text(
-                      'Are you sure you want to remove "${item.productName}" from your cart?'),
+                      'Are you sure you want to remove "${item.title}" from your cart?'),
                   actions: [
                     TextButton(
                       onPressed: () => Navigator.of(context).pop(false),

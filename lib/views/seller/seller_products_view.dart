@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:intl/intl.dart';
 
-import '../../controllers/product_controller.dart';
 import '../../controllers/auth_controller.dart';
+import '../../controllers/product_controller.dart';
 import '../../models/product_model.dart';
 import '../../widgets/common/loading_widget.dart';
 import '../product/product_card_view.dart';
@@ -26,7 +25,8 @@ class _SellerProductsViewState extends State<SellerProductsView>
     super.initState();
     _tabController = TabController(length: 4, vsync: this);
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final authController = Provider.of<AuthController>(context, listen: false);
+      final authController =
+          Provider.of<AuthController>(context, listen: false);
       _sellerId = authController.currentUser?.id;
       if (_sellerId != null) {
         _loadProducts();
@@ -41,7 +41,8 @@ class _SellerProductsViewState extends State<SellerProductsView>
   }
 
   void _loadProducts() {
-    final productController = Provider.of<ProductController>(context, listen: false);
+    final productController =
+        Provider.of<ProductController>(context, listen: false);
     productController.fetchProducts(sellerId: _sellerId);
   }
 
@@ -110,7 +111,8 @@ class _SellerProductsViewState extends State<SellerProductsView>
             ),
             ListTile(
               leading: const Icon(Icons.delete, color: Colors.red),
-              title: const Text('Delete Product', style: TextStyle(color: Colors.red)),
+              title: const Text('Delete Product',
+                  style: TextStyle(color: Colors.red)),
               onTap: () {
                 Navigator.pop(context);
                 _confirmDeleteProduct(product);
@@ -137,12 +139,13 @@ class _SellerProductsViewState extends State<SellerProductsView>
   }
 
   void _toggleProductStatus(Product product) async {
-    final productController = Provider.of<ProductController>(context, listen: false);
-    
-    final newStatus = product.status == ProductStatus.active 
-        ? ProductStatus.inactive 
+    final productController =
+        Provider.of<ProductController>(context, listen: false);
+
+    final newStatus = product.status == ProductStatus.active
+        ? ProductStatus.inactive
         : ProductStatus.active;
-    
+
     final updatedProduct = Product(
       id: product.id,
       title: product.title,
@@ -161,23 +164,21 @@ class _SellerProductsViewState extends State<SellerProductsView>
     );
 
     final success = await productController.updateProduct(updatedProduct);
-    
+
     if (mounted) {
       if (success) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              'Product ${newStatus == ProductStatus.active ? 'activated' : 'deactivated'} successfully'
-            ),
+                'Product ${newStatus == ProductStatus.active ? 'activated' : 'deactivated'} successfully'),
             backgroundColor: Colors.green,
           ),
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(
-              productController.errorMessage ?? 'Failed to update product status'
-            ),
+            content: Text(productController.errorMessage ??
+                'Failed to update product status'),
             backgroundColor: Colors.red,
           ),
         );
@@ -217,10 +218,11 @@ class _SellerProductsViewState extends State<SellerProductsView>
   }
 
   void _deleteProduct(Product product) async {
-    final productController = Provider.of<ProductController>(context, listen: false);
-    
+    final productController =
+        Provider.of<ProductController>(context, listen: false);
+
     final success = await productController.deleteProduct(product.id);
-    
+
     if (mounted) {
       if (success) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -233,8 +235,7 @@ class _SellerProductsViewState extends State<SellerProductsView>
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              productController.errorMessage ?? 'Failed to delete product'
-            ),
+                productController.errorMessage ?? 'Failed to delete product'),
             backgroundColor: Colors.red,
           ),
         );
@@ -303,7 +304,8 @@ class _SellerProductsViewState extends State<SellerProductsView>
     );
   }
 
-  Widget _buildProductGrid(ProductController productController, ProductStatus? statusFilter) {
+  Widget _buildProductGrid(
+      ProductController productController, ProductStatus? statusFilter) {
     if (productController.isLoading) {
       return Center(child: LoadingWidget.circular(size: 40));
     }
@@ -363,7 +365,9 @@ class _SellerProductsViewState extends State<SellerProductsView>
             ),
             const SizedBox(height: 16),
             Text(
-              statusFilter == null ? 'No products yet' : 'No ${_getStatusText(statusFilter)} products',
+              statusFilter == null
+                  ? 'No products yet'
+                  : 'No ${_getStatusText(statusFilter)} products',
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
@@ -372,7 +376,7 @@ class _SellerProductsViewState extends State<SellerProductsView>
             ),
             const SizedBox(height: 8),
             Text(
-              statusFilter == null 
+              statusFilter == null
                   ? 'Start by adding your first product'
                   : 'No products found with this status',
               style: TextStyle(color: Colors.grey.shade500),
@@ -422,7 +426,8 @@ class _SellerProductsViewState extends State<SellerProductsView>
                 top: 8,
                 right: 8,
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
                     color: _getStatusColor(product.status).withOpacity(0.9),
                     borderRadius: BorderRadius.circular(12),

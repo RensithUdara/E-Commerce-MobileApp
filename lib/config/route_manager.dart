@@ -68,6 +68,31 @@ class RouteManager {
           settings: settings,
         );
 
+      case AppRoutes.cart:
+        return MaterialPageRoute(
+          builder: (_) => const CartView(),
+          settings: settings,
+        );
+
+      case AppRoutes.checkout:
+        return MaterialPageRoute(
+          builder: (_) => const CheckoutView(),
+          settings: settings,
+        );
+
+      case AppRoutes.orderHistory:
+        return MaterialPageRoute(
+          builder: (_) => const OrderHistoryView(),
+          settings: settings,
+        );
+
+      case AppRoutes.orderDetail:
+        final orderId = settings.arguments as String?;
+        return MaterialPageRoute(
+          builder: (_) => OrderDetailView(orderId: orderId ?? ''),
+          settings: settings,
+        );
+
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

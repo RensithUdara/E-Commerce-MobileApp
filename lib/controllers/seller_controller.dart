@@ -1,14 +1,16 @@
 import 'package:flutter/foundation.dart';
 
 import '../models/models.dart';
+import '../models/order_model.dart' as order_model;
 import '../services/database_service.dart';
 
 class SellerController extends ChangeNotifier {
-  final DatabaseService _databaseService = DatabaseService();
+  // Use a concrete implementation or dependency injection in real app
+  late final DatabaseService _databaseService = FirestoreService();
 
   List<Product> _sellerProducts = [];
   List<Auction> _sellerAuctions = [];
-  List<Order> _sellerOrders = [];
+  List<order_model.Order> _sellerOrders = [];
   Map<String, dynamic> _sellerStats = {};
   bool _isLoading = false;
   String? _error;
@@ -16,7 +18,7 @@ class SellerController extends ChangeNotifier {
   // Getters
   List<Product> get sellerProducts => _sellerProducts;
   List<Auction> get sellerAuctions => _sellerAuctions;
-  List<Order> get sellerOrders => _sellerOrders;
+  List<order_model.Order> get sellerOrders => _sellerOrders;
   Map<String, dynamic> get sellerStats => _sellerStats;
   bool get isLoading => _isLoading;
   String? get error => _error;

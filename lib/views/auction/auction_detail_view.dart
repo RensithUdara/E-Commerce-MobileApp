@@ -518,7 +518,7 @@ class _AuctionDetailViewState extends State<AuctionDetailView> {
 
     // Sort bids by timestamp (most recent first)
     final sortedBids = List<Bid>.from(auction!.bids)
-      ..sort((a, b) => b.timestamp!.compareTo(a.timestamp!));
+      ..sort((a, b) => b.timestamp.compareTo(a.timestamp));
 
     return Padding(
       padding: const EdgeInsets.all(16),

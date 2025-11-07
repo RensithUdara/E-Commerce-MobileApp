@@ -112,33 +112,34 @@ class SellerController extends ChangeNotifier {
 
   // Create new product
   Future<bool> createProduct({
-    required String name,
+    required String title,
     required String description,
-    required double price,
+    required double pricing,
     required String category,
+    required String unit,
+    required int quantity,
     required List<String> imageUrls,
     required String sellerId,
   }) async {
     try {
       _setLoading(true);
       _setError(null);
-
+      
       final product = Product(
         id: '', // Will be set by database
-        name: name,
+        title: title,
         description: description,
-        price: price,
+        pricing: pricing,
         category: category,
+        unit: unit,
+        quantity: quantity,
         imageUrls: imageUrls,
         sellerId: sellerId,
-        isActive: true,
-        stock: 1,
-        rating: 0.0,
-        reviewCount: 0,
+        status: ProductStatus.active,
         createdAt: DateTime.now(),
         updatedAt: DateTime.now(),
       );
-
+      
       await _databaseService.createProduct(product);
       await fetchSellerProducts(sellerId); // Refresh products
       _setLoading(false);
@@ -148,9 +149,7 @@ class SellerController extends ChangeNotifier {
       _setLoading(false);
       return false;
     }
-  }
-
-  // Update product
+  }  // Update product
   Future<bool> updateProduct(Product product) async {
     try {
       _setLoading(true);

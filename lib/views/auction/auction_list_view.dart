@@ -1,10 +1,11 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../config/routes.dart';
 import '../../controllers/auction_controller.dart';
 import '../../models/models.dart';
-import '../../config/routes.dart';
 import '../../widgets/common/loading_widget.dart';
 
 class AuctionListView extends StatefulWidget {
@@ -23,7 +24,7 @@ class _AuctionListViewState extends State<AuctionListView> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _loadAuctions();
     });
-    
+
     // Update countdown timers every second
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (mounted) {
@@ -39,7 +40,8 @@ class _AuctionListViewState extends State<AuctionListView> {
   }
 
   void _loadAuctions() {
-    final auctionController = Provider.of<AuctionController>(context, listen: false);
+    final auctionController =
+        Provider.of<AuctionController>(context, listen: false);
     auctionController.fetchAuctions(status: AuctionStatus.active);
   }
 
@@ -149,7 +151,7 @@ class _AuctionListViewState extends State<AuctionListView> {
   Widget _buildAuctionCard(BuildContext context, Auction auction) {
     final timeRemaining = _getTimeRemaining(auction.endTime);
     final isExpired = timeRemaining['expired'] as bool;
-    
+
     return Card(
       margin: const EdgeInsets.only(bottom: 16),
       elevation: 8,
@@ -168,7 +170,8 @@ class _AuctionListViewState extends State<AuctionListView> {
           children: [
             // Image section
             ClipRRect(
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(20)),
               child: Stack(
                 children: [
                   Image.network(
@@ -176,21 +179,20 @@ class _AuctionListViewState extends State<AuctionListView> {
                     height: 200,
                     width: double.infinity,
                     fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) =>
-                        Container(
-                          height: 200,
-                          decoration: BoxDecoration(
-                            color: Colors.grey[200],
-                            borderRadius: const BorderRadius.vertical(
-                              top: Radius.circular(20),
-                            ),
-                          ),
-                          child: const Icon(
-                            Icons.image,
-                            size: 50,
-                            color: Colors.grey,
-                          ),
+                    errorBuilder: (context, error, stackTrace) => Container(
+                      height: 200,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        borderRadius: const BorderRadius.vertical(
+                          top: Radius.circular(20),
                         ),
+                      ),
+                      child: const Icon(
+                        Icons.image,
+                        size: 50,
+                        color: Colors.grey,
+                      ),
+                    ),
                   ),
                   // Status badge
                   Positioned(
@@ -345,7 +347,8 @@ class _AuctionListViewState extends State<AuctionListView> {
                           isExpired ? 'Auction Ended' : 'Time Remaining',
                           style: TextStyle(
                             fontSize: 12,
-                            color: isExpired ? Colors.red[700] : Colors.blue[700],
+                            color:
+                                isExpired ? Colors.red[700] : Colors.blue[700],
                             fontWeight: FontWeight.w500,
                           ),
                         ),
@@ -383,16 +386,16 @@ class _AuctionListViewState extends State<AuctionListView> {
   Map<String, dynamic> _getTimeRemaining(DateTime endTime) {
     final now = DateTime.now();
     final difference = endTime.difference(now);
-    
+
     if (difference.isNegative) {
       return {'expired': true};
     }
-    
+
     final days = difference.inDays;
     final hours = difference.inHours % 24;
     final minutes = difference.inMinutes % 60;
     final seconds = difference.inSeconds % 60;
-    
+
     return {
       'expired': false,
       'days': days,
@@ -404,12 +407,12 @@ class _AuctionListViewState extends State<AuctionListView> {
 
   String _formatTimeRemaining(Map<String, dynamic> timeRemaining) {
     if (timeRemaining['expired'] == true) return 'Expired';
-    
+
     final days = timeRemaining['days'] as int;
     final hours = timeRemaining['hours'] as int;
     final minutes = timeRemaining['minutes'] as int;
     final seconds = timeRemaining['seconds'] as int;
-    
+
     if (days > 0) {
       return '${days}d ${hours}h ${minutes}m';
     } else if (hours > 0) {
@@ -423,10 +426,21 @@ class _AuctionListViewState extends State<AuctionListView> {
 
   String _formatDate(DateTime date) {
     final months = [
-      '', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+      '',
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec'
     ];
-    
+
     return '${date.day} ${months[date.month]} ${date.year}';
   }
 }

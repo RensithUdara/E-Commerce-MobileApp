@@ -1,14 +1,14 @@
+import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 
-import '../../controllers/product_controller.dart';
+import '../../config/routes.dart';
 import '../../controllers/auth_controller.dart';
+import '../../controllers/product_controller.dart';
 import '../../models/product_model.dart';
 import '../../widgets/common/loading_widget.dart';
 import '../product/product_card_view.dart';
 import '../product/product_detail_view.dart';
-import '../../config/routes.dart';
 
 class HomeScreenMVC extends StatefulWidget {
   const HomeScreenMVC({super.key});
@@ -43,7 +43,8 @@ class _HomeScreenMVCState extends State<HomeScreenMVC> {
   }
 
   void _loadFeaturedProducts() {
-    final productController = Provider.of<ProductController>(context, listen: false);
+    final productController =
+        Provider.of<ProductController>(context, listen: false);
     productController.fetchProducts();
   }
 
@@ -221,7 +222,7 @@ class _HomeScreenMVCState extends State<HomeScreenMVC> {
           ),
         ),
         const SizedBox(height: 16),
-        Container(
+        SizedBox(
           height: 120,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
@@ -232,7 +233,7 @@ class _HomeScreenMVCState extends State<HomeScreenMVC> {
               return GestureDetector(
                 onTap: () {
                   Navigator.pushNamed(
-                    context, 
+                    context,
                     AppRoutes.categoryProducts,
                     arguments: category['name'],
                   );
@@ -313,14 +314,14 @@ class _HomeScreenMVCState extends State<HomeScreenMVC> {
 
   Widget _buildProductsList(ProductController productController) {
     if (productController.isLoading) {
-      return Container(
+      return SizedBox(
         height: 200,
         child: Center(child: LoadingWidget.circular(size: 40)),
       );
     }
 
     if (productController.errorMessage != null) {
-      return Container(
+      return SizedBox(
         height: 200,
         child: Center(
           child: Column(
@@ -347,7 +348,7 @@ class _HomeScreenMVCState extends State<HomeScreenMVC> {
     }
 
     if (productController.products.isEmpty) {
-      return Container(
+      return SizedBox(
         height: 200,
         child: Center(
           child: Column(
@@ -372,7 +373,7 @@ class _HomeScreenMVCState extends State<HomeScreenMVC> {
     // Show first 4 products
     final featuredProducts = productController.products.take(4).toList();
 
-    return Container(
+    return SizedBox(
       height: 280,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-import '../../controllers/auth_controller.dart';
-import '../../controllers/cart_controller.dart';
-import '../../models/product_model.dart';
-import '../../widgets/common/loading_widget.dart';
+import '../../../controllers/auth_controller.dart';
+import '../../../controllers/cart_controller.dart';
+import '../../../models/product_model.dart';
+import '../../../widgets/common/loading_widget.dart';
 
 class ProductDetailView extends StatefulWidget {
   final Product product;

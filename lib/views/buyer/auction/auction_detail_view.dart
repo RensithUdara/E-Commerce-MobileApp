@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-import '../../config/routes.dart';
-import '../../controllers/auction_controller.dart';
-import '../../controllers/auth_controller.dart';
-import '../../models/models.dart';
-import '../../widgets/common/loading_widget.dart';
+import '../../../config/routes.dart';
+import '../../../controllers/auction_controller.dart';
+import '../../../controllers/auth_controller.dart';
+import '../../../models/models.dart';
+import '../../../widgets/common/loading_widget.dart';
 
 class AuctionDetailView extends StatefulWidget {
   final String auctionId;

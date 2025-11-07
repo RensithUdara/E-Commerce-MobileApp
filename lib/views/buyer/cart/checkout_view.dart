@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../config/routes.dart';
-import '../../controllers/auth_controller.dart';
-import '../../controllers/cart_controller.dart';
-import '../../controllers/order_controller.dart';
-import '../../models/models.dart';
-import '../../widgets/common/loading_widget.dart';
+import '../../../config/routes.dart';
+import '../../../controllers/auth_controller.dart';
+import '../../../controllers/cart_controller.dart';
+import '../../../controllers/order_controller.dart';
+import '../../../models/models.dart';
+import '../../../widgets/common/loading_widget.dart';
 
 class CheckoutView extends StatefulWidget {
   const CheckoutView({super.key});

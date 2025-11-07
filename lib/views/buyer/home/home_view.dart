@@ -2,11 +2,11 @@ import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.da
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../config/routes.dart';
-import '../../controllers/auth_controller.dart';
-import '../../controllers/product_controller.dart';
-import '../../models/product_model.dart';
-import '../../widgets/common/loading_widget.dart';
+import '../../../config/routes.dart';
+import '../../../controllers/auth_controller.dart';
+import '../../../controllers/product_controller.dart';
+import '../../../models/product_model.dart';
+import '../../../widgets/common/loading_widget.dart';
 import '../product/product_card_view.dart';
 import '../product/product_detail_view.dart';
 

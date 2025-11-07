@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../controllers/order_controller.dart';
-import '../../models/models.dart';
-import '../../widgets/common/loading_widget.dart';
+import '../../../controllers/order_controller.dart';
+import '../../../models/models.dart';
+import '../../../widgets/common/loading_widget.dart';
 
 class OrderDetailView extends StatefulWidget {
   final String orderId;

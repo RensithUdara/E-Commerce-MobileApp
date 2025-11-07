@@ -3,10 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../config/routes.dart';
-import '../../controllers/auction_controller.dart';
-import '../../models/models.dart';
-import '../../widgets/common/loading_widget.dart';
+import '../../../config/routes.dart';
+import '../../../controllers/auction_controller.dart';
+import '../../../models/models.dart';
+import '../../../widgets/common/loading_widget.dart';
 
 class AuctionListView extends StatefulWidget {
   const AuctionListView({super.key});

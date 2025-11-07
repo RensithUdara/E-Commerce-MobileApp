@@ -36,17 +36,12 @@ class _OrderDetailViewState extends State<OrderDetailView> {
         id: '',
         userId: '',
         items: [],
-        subtotal: 0,
-        deliveryFee: 0,
         totalAmount: 0,
         status: OrderStatus.pending,
-        deliveryAddress: DeliveryAddress(
-          name: '',
-          phone: '',
-          email: '',
-          address: '',
-        ),
-        orderDate: DateTime.now(),
+        shippingAddress: '',
+        paymentMethod: PaymentMethod.card,
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now(),
       ),
     );
 
@@ -159,7 +154,7 @@ class _OrderDetailViewState extends State<OrderDetailView> {
                       ),
                     ),
                     Text(
-                      _formatDate(order!.orderDate),
+                      _formatDate(order!.createdAt),
                       style: const TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
@@ -167,19 +162,19 @@ class _OrderDetailViewState extends State<OrderDetailView> {
                     ),
                   ],
                 ),
-                if (order!.estimatedDelivery != null)
+                if (order!.deliveryDate != null)
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
-                        'Estimated Delivery',
+                        'Delivery Date',
                         style: TextStyle(
                           fontSize: 12,
                           color: Colors.grey[600],
                         ),
                       ),
                       Text(
-                        _formatDate(order!.estimatedDelivery!),
+                        order!.deliveryDate!,
                         style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,

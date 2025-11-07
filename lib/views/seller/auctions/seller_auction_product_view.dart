@@ -5,9 +5,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-import '../../controllers/auction_controller.dart';
-import '../../controllers/auth_controller.dart';
-import '../../widgets/common/loading_widget.dart';
+import '../../../controllers/auction_controller.dart';
+import '../../../controllers/auth_controller.dart';
+import '../../../widgets/common/loading_widget.dart';
 
 class SellerAuctionProductView extends StatefulWidget {
   const SellerAuctionProductView({super.key});

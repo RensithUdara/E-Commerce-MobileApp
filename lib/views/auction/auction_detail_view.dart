@@ -57,7 +57,7 @@ class _AuctionDetailViewState extends State<AuctionDetailView> {
       setState(() {
         auction = fetchedAuction;
         _bidController.text =
-            (fetchedAuction.currentBid + fetchedAuction.minimumBidIncrement)
+            (fetchedAuction.currentBid + _minimumBidIncrement)
                 .toStringAsFixed(2);
       });
     }
@@ -86,9 +86,9 @@ class _AuctionDetailViewState extends State<AuctionDetailView> {
       return;
     }
 
-    if (bidAmount < auction!.currentBid + auction!.minimumBidIncrement) {
+    if (bidAmount < auction!.currentBid + _minimumBidIncrement) {
       _showErrorSnackBar(
-          'Bid must be at least Rs. ${(auction!.currentBid + auction!.minimumBidIncrement).toStringAsFixed(2)}');
+          'Bid must be at least Rs. ${(auction!.currentBid + _minimumBidIncrement).toStringAsFixed(2)}');
       return;
     }
 

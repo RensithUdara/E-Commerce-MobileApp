@@ -301,61 +301,9 @@ class _OrderDetailViewState extends State<OrderDetailView> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    order!.deliveryAddress.name,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    order!.deliveryAddress.phone,
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey[600],
-                    ),
-                  ),
-                  if (order!.deliveryAddress.email.isNotEmpty) ...[
-                    const SizedBox(height: 2),
-                    Text(
-                      order!.deliveryAddress.email,
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey[600],
-                      ),
-                    ),
-                  ],
-                  const SizedBox(height: 8),
-                  Text(
-                    order!.deliveryAddress.address,
+                    order!.shippingAddress,
                     style: const TextStyle(fontSize: 14),
                   ),
-                  if (order!.deliveryAddress.notes?.isNotEmpty == true) ...[
-                    const SizedBox(height: 8),
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: Colors.blue[50],
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Icon(Icons.note, size: 16, color: Colors.blue[700]),
-                          const SizedBox(width: 8),
-                          Expanded(
-                            child: Text(
-                              order!.deliveryAddress.notes!,
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.blue[700],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
                 ],
               ),
             ),

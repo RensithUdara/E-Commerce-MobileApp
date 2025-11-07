@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../controllers/order_controller.dart';
+import '../../config/routes.dart';
 import '../../controllers/auth_controller.dart';
+import '../../controllers/order_controller.dart';
 import '../../models/models.dart';
 import '../../widgets/common/loading_widget.dart';
-import '../../config/routes.dart';
 
 class OrderHistoryView extends StatefulWidget {
   const OrderHistoryView({super.key});
@@ -19,9 +19,11 @@ class _OrderHistoryViewState extends State<OrderHistoryView> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final authController = Provider.of<AuthController>(context, listen: false);
-      final orderController = Provider.of<OrderController>(context, listen: false);
-      
+      final authController =
+          Provider.of<AuthController>(context, listen: false);
+      final orderController =
+          Provider.of<OrderController>(context, listen: false);
+
       if (authController.currentUser != null) {
         orderController.fetchUserOrders(authController.currentUser!.id);
       }
@@ -86,7 +88,8 @@ class _OrderHistoryViewState extends State<OrderHistoryView> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.error_outline, size: 80, color: Colors.grey[400]),
+                    Icon(Icons.error_outline,
+                        size: 80, color: Colors.grey[400]),
                     const SizedBox(height: 16),
                     Text(
                       'Error: ${orderController.errorMessage}',
@@ -96,9 +99,11 @@ class _OrderHistoryViewState extends State<OrderHistoryView> {
                     const SizedBox(height: 16),
                     ElevatedButton(
                       onPressed: () {
-                        final authController = Provider.of<AuthController>(context, listen: false);
+                        final authController =
+                            Provider.of<AuthController>(context, listen: false);
                         if (authController.currentUser != null) {
-                          orderController.fetchUserOrders(authController.currentUser!.id);
+                          orderController
+                              .fetchUserOrders(authController.currentUser!.id);
                         }
                       },
                       child: const Text('Retry'),
@@ -113,7 +118,8 @@ class _OrderHistoryViewState extends State<OrderHistoryView> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.shopping_bag_outlined, size: 80, color: Colors.grey[400]),
+                    Icon(Icons.shopping_bag_outlined,
+                        size: 80, color: Colors.grey[400]),
                     const SizedBox(height: 16),
                     Text(
                       'No orders found',
@@ -126,7 +132,8 @@ class _OrderHistoryViewState extends State<OrderHistoryView> {
                     ),
                     const SizedBox(height: 16),
                     ElevatedButton(
-                      onPressed: () => Navigator.pushNamed(context, AppRoutes.products),
+                      onPressed: () =>
+                          Navigator.pushNamed(context, AppRoutes.products),
                       child: const Text('Start Shopping'),
                     ),
                   ],
@@ -136,9 +143,11 @@ class _OrderHistoryViewState extends State<OrderHistoryView> {
 
             return RefreshIndicator(
               onRefresh: () async {
-                final authController = Provider.of<AuthController>(context, listen: false);
+                final authController =
+                    Provider.of<AuthController>(context, listen: false);
                 if (authController.currentUser != null) {
-                  await orderController.fetchUserOrders(authController.currentUser!.id);
+                  await orderController
+                      .fetchUserOrders(authController.currentUser!.id);
                 }
               },
               child: ListView.builder(
@@ -294,49 +303,52 @@ class _OrderHistoryViewState extends State<OrderHistoryView> {
     return Column(
       children: [
         ...items.take(2).map((item) => Padding(
-          padding: const EdgeInsets.symmetric(vertical: 4),
-          child: Row(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Image.network(
-                  item.imageUrl,
-                  width: 40,
-                  height: 40,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) => Container(
-                    width: 40,
-                    height: 40,
-                    color: Colors.grey[200],
-                    child: const Icon(Icons.image, color: Colors.grey, size: 20),
+              padding: const EdgeInsets.symmetric(vertical: 4),
+              child: Row(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image.network(
+                      item.imageUrl,
+                      width: 40,
+                      height: 40,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) => Container(
+                        width: 40,
+                        height: 40,
+                        color: Colors.grey[200],
+                        child: const Icon(Icons.image,
+                            color: Colors.grey, size: 20),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      item.title,
-                      style: const TextStyle(fontWeight: FontWeight.w500),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          item.title,
+                          style: const TextStyle(fontWeight: FontWeight.w500),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        Text(
+                          'Qty: ${item.quantity} × Rs. ${item.price.toStringAsFixed(2)}',
+                          style:
+                              TextStyle(color: Colors.grey[600], fontSize: 12),
+                        ),
+                      ],
                     ),
-                    Text(
-                      'Qty: ${item.quantity} × Rs. ${item.price.toStringAsFixed(2)}',
-                      style: TextStyle(color: Colors.grey[600], fontSize: 12),
-                    ),
-                  ],
-                ),
+                  ),
+                  Text(
+                    'Rs. ${item.totalPrice.toStringAsFixed(2)}',
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 12),
+                  ),
+                ],
               ),
-              Text(
-                'Rs. ${item.totalPrice.toStringAsFixed(2)}',
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
-              ),
-            ],
-          ),
-        )),
+            )),
         if (items.length > 2)
           Padding(
             padding: const EdgeInsets.only(top: 8),
@@ -370,7 +382,8 @@ class _OrderHistoryViewState extends State<OrderHistoryView> {
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Cancel Order'),
-        content: Text('Are you sure you want to cancel order #${order.id.substring(order.id.length - 8)}?'),
+        content: Text(
+            'Are you sure you want to cancel order #${order.id.substring(order.id.length - 8)}?'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
@@ -379,13 +392,17 @@ class _OrderHistoryViewState extends State<OrderHistoryView> {
           TextButton(
             onPressed: () async {
               Navigator.pop(context);
-              final orderController = Provider.of<OrderController>(context, listen: false);
-              final success = await orderController.updateOrderStatus(order.id, OrderStatus.cancelled);
-              
+              final orderController =
+                  Provider.of<OrderController>(context, listen: false);
+              final success = await orderController.updateOrderStatus(
+                  order.id, OrderStatus.cancelled);
+
               if (mounted) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: Text(success ? 'Order cancelled successfully' : 'Failed to cancel order'),
+                    content: Text(success
+                        ? 'Order cancelled successfully'
+                        : 'Failed to cancel order'),
                     backgroundColor: success ? Colors.green : Colors.red,
                   ),
                 );

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../controllers/seller_controller.dart';
+
 import '../../controllers/auth_controller.dart';
-import '../../widgets/common/loading_widget.dart';
+import '../../controllers/seller_controller.dart';
 import '../../models/order_model.dart';
+import '../../widgets/common/loading_widget.dart';
 
 class SellerOrderHistoryView extends StatefulWidget {
-  const SellerOrderHistoryView({Key? key}) : super(key: key);
+  const SellerOrderHistoryView({super.key});
 
   @override
   State<SellerOrderHistoryView> createState() => _SellerOrderHistoryViewState();
@@ -41,8 +42,9 @@ class _SellerOrderHistoryViewState extends State<SellerOrderHistoryView>
 
   void _loadSellerOrders() {
     final authController = Provider.of<AuthController>(context, listen: false);
-    final sellerController = Provider.of<SellerController>(context, listen: false);
-    
+    final sellerController =
+        Provider.of<SellerController>(context, listen: false);
+
     if (authController.currentUser != null) {
       sellerController.fetchSellerOrders(authController.currentUser!.id);
     }
@@ -79,9 +81,9 @@ class _SellerOrderHistoryViewState extends State<SellerOrderHistoryView>
                 child: Text('All Orders'),
               ),
               ...OrderStatus.values.map((status) => PopupMenuItem(
-                value: status,
-                child: Text(status.name.toUpperCase()),
-              )),
+                    value: status,
+                    child: Text(status.name.toUpperCase()),
+                  )),
             ],
           ),
         ],
@@ -150,7 +152,7 @@ class _SellerOrderHistoryViewState extends State<SellerOrderHistoryView>
                     ),
                     const SizedBox(height: 24),
                     Text(
-                      _selectedStatusFilter == null 
+                      _selectedStatusFilter == null
                           ? 'No Orders Found'
                           : 'No ${_selectedStatusFilter!.name.toUpperCase()} Orders',
                       style: TextStyle(
@@ -255,7 +257,7 @@ class _SellerOrderHistoryViewState extends State<SellerOrderHistoryView>
 
   Widget _buildOrderCard(Order order) {
     final statusColor = _getStatusColor(order.status);
-    
+
     return Card(
       margin: const EdgeInsets.only(bottom: 16),
       elevation: 4,
@@ -313,58 +315,60 @@ class _SellerOrderHistoryViewState extends State<SellerOrderHistoryView>
 
             // Order Items
             Column(
-              children: order.items.map((item) => Padding(
-                padding: const EdgeInsets.only(bottom: 8),
-                child: Row(
-                  children: [
-                    Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Icon(
-                        Icons.image,
-                        color: Colors.grey[500],
-                        size: 20,
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            item.productTitle,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w500,
+              children: order.items
+                  .map((item) => Padding(
+                        padding: const EdgeInsets.only(bottom: 8),
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 40,
+                              height: 40,
+                              decoration: BoxDecoration(
+                                color: Colors.grey[200],
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Icon(
+                                Icons.image,
+                                color: Colors.grey[500],
+                                size: 20,
+                              ),
                             ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          Text(
-                            'Qty: ${item.quantity} × Rs. ${item.price.toStringAsFixed(2)}',
-                            style: TextStyle(
-                              color: Colors.grey[600],
-                              fontSize: 12,
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    item.productTitle,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  Text(
+                                    'Qty: ${item.quantity} × Rs. ${item.price.toStringAsFixed(2)}',
+                                    style: TextStyle(
+                                      color: Colors.grey[600],
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Text(
-                      'Rs. ${(item.price * item.quantity).toStringAsFixed(2)}',
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.green,
-                      ),
-                    ),
-                  ],
-                ),
-              )).toList(),
+                            Text(
+                              'Rs. ${(item.price * item.quantity).toStringAsFixed(2)}',
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.green,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ))
+                  .toList(),
             ),
-            
+
             const Divider(),
 
             // Order Summary
@@ -437,7 +441,8 @@ class _SellerOrderHistoryViewState extends State<SellerOrderHistoryView>
                 const SizedBox(width: 12),
                 if (order.status == OrderStatus.pending)
                   ElevatedButton(
-                    onPressed: () => _updateOrderStatus(order, OrderStatus.processing),
+                    onPressed: () =>
+                        _updateOrderStatus(order, OrderStatus.processing),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
                       foregroundColor: Colors.white,
@@ -446,7 +451,8 @@ class _SellerOrderHistoryViewState extends State<SellerOrderHistoryView>
                   )
                 else if (order.status == OrderStatus.processing)
                   ElevatedButton(
-                    onPressed: () => _updateOrderStatus(order, OrderStatus.shipped),
+                    onPressed: () =>
+                        _updateOrderStatus(order, OrderStatus.shipped),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.orange,
                       foregroundColor: Colors.white,
@@ -455,7 +461,8 @@ class _SellerOrderHistoryViewState extends State<SellerOrderHistoryView>
                   )
                 else if (order.status == OrderStatus.shipped)
                   ElevatedButton(
-                    onPressed: () => _updateOrderStatus(order, OrderStatus.delivered),
+                    onPressed: () =>
+                        _updateOrderStatus(order, OrderStatus.delivered),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.green,
                       foregroundColor: Colors.white,
@@ -493,28 +500,32 @@ class _SellerOrderHistoryViewState extends State<SellerOrderHistoryView>
 
   Future<void> _updateOrderStatus(Order order, OrderStatus newStatus) async {
     try {
-      final authController = Provider.of<AuthController>(context, listen: false);
-      final sellerController = Provider.of<SellerController>(context, listen: false);
-      
+      final authController =
+          Provider.of<AuthController>(context, listen: false);
+      final sellerController =
+          Provider.of<SellerController>(context, listen: false);
+
       if (authController.currentUser == null) return;
-      
+
       final success = await sellerController.updateOrderStatus(
         order.id,
         newStatus,
         authController.currentUser!.id,
       );
-      
+
       if (success) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Order status updated to ${newStatus.name.toUpperCase()}'),
+            content:
+                Text('Order status updated to ${newStatus.name.toUpperCase()}'),
             backgroundColor: Colors.green,
           ),
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(sellerController.error ?? 'Failed to update order status'),
+            content:
+                Text(sellerController.error ?? 'Failed to update order status'),
             backgroundColor: Colors.red,
           ),
         );

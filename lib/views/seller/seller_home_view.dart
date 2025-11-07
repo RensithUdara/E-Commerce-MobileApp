@@ -23,10 +23,10 @@ class _SellerHomeViewState extends State<SellerHomeView>
 
   final List<Widget> _pages = [
     const SellerDashboardTab(),
-    const SellerProductsView(),
-    const SellerAuctionsView(),
-    const SellerOrdersView(),
-    const SellerNotificationsView(),
+    const _PlaceholderView(title: 'Products'),
+    const _PlaceholderView(title: 'Auctions'),
+    const _PlaceholderView(title: 'Orders'),
+    const _PlaceholderView(title: 'Notifications'),
   ];
 
   final List<BottomNavigationBarItem> _navigationItems = const [

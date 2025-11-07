@@ -566,16 +566,27 @@ class _OrderDetailViewState extends State<OrderDetailView> {
   String _getStatusDate(OrderStatus status) {
     // For demo purposes, we'll estimate dates based on order date
     switch (status) {
-      case OrderStatus.confirmed:
-        return _formatDateTime(order!.orderDate.add(const Duration(hours: 2)));
       case OrderStatus.processing:
-        return _formatDateTime(order!.orderDate.add(const Duration(days: 1)));
+        return _formatDateTime(order!.createdAt.add(const Duration(days: 1)));
       case OrderStatus.shipped:
-        return _formatDateTime(order!.orderDate.add(const Duration(days: 2)));
+        return _formatDateTime(order!.createdAt.add(const Duration(days: 2)));
       case OrderStatus.delivered:
-        return _formatDateTime(order!.orderDate.add(const Duration(days: 5)));
+        return _formatDateTime(order!.createdAt.add(const Duration(days: 5)));
       default:
-        return _formatDateTime(order!.orderDate);
+        return _formatDateTime(order!.createdAt);
+    }
+  }
+
+  String _getPaymentMethodText(PaymentMethod method) {
+    switch (method) {
+      case PaymentMethod.card:
+        return 'Credit/Debit Card';
+      case PaymentMethod.cash:
+        return 'Cash on Delivery';
+      case PaymentMethod.bankTransfer:
+        return 'Bank Transfer';
+      default:
+        return 'Unknown';
     }
   }
 }

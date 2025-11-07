@@ -98,7 +98,7 @@ class _AuctionDetailViewState extends State<AuctionDetailView> {
     try {
       final success = await auctionController.placeBid(
         auctionId: auction!.id,
-        bidderId: authController.currentUser!.id,
+        userId: authController.currentUser!.id,
         bidAmount: bidAmount,
       );
 
@@ -316,7 +316,7 @@ class _AuctionDetailViewState extends State<AuctionDetailView> {
               Expanded(
                 child: _buildInfoCard(
                   'Min. Increment',
-                  'Rs. ${auction!.minimumBidIncrement.toStringAsFixed(2)}',
+                  'Rs. ${_minimumBidIncrement.toStringAsFixed(2)}',
                   Colors.purple,
                 ),
               ),

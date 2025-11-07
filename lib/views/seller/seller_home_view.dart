@@ -112,7 +112,8 @@ class _SellerHomeViewState extends State<SellerHomeView>
               onPressed: () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const SellerProfileView(),
+                  builder: (context) =>
+                      const _PlaceholderView(title: 'Profile'),
                 ),
               ),
             ),
@@ -243,7 +244,7 @@ class SellerDashboardTab extends StatelessWidget {
     return Consumer<SellerController>(
       builder: (context, sellerController, child) {
         if (sellerController.isLoading) {
-          return const Center(child: LoadingWidget());
+          return Center(child: LoadingWidget.circular());
         }
 
         if (sellerController.error != null) {
@@ -589,5 +590,44 @@ class SellerDashboardTab extends StatelessWidget {
       default:
         return Colors.grey;
     }
+  }
+}
+
+class _PlaceholderView extends StatelessWidget {
+  final String title;
+
+  const _PlaceholderView({required this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.construction,
+            size: 64,
+            color: Colors.grey[400],
+          ),
+          const SizedBox(height: 16),
+          Text(
+            '$title View',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Colors.grey[600],
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            'Coming Soon!',
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.grey[500],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

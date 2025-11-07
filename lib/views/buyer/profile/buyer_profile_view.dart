@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
-import '../../../config/routes.dart';
 import '../../../controllers/auth_controller.dart';
 import '../../../widgets/common/loading_widget.dart';
 
@@ -187,7 +186,7 @@ class _BuyerProfileViewState extends State<BuyerProfileView>
           Provider.of<AuthController>(context, listen: false);
       await authController.signOut();
       if (mounted) {
-        Navigator.of(context).pushReplacementNamed('/login');
+        Navigator.of(context).pushReplacementNamed(AppRoutes.login);
       }
     }
   }

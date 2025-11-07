@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -339,7 +341,7 @@ class _SellerOrderHistoryViewState extends State<SellerOrderHistoryView>
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    item.productTitle,
+                                    item.title,
                                     style: const TextStyle(
                                       fontWeight: FontWeight.w500,
                                     ),

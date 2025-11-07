@@ -594,7 +594,7 @@ class SellerDashboardTab extends StatelessWidget {
 
 class _PlaceholderView extends StatelessWidget {
   final String title;
-  
+
   const _PlaceholderView({required this.title});
 
   @override

@@ -165,7 +165,7 @@ class _CartViewState extends State<CartView> {
                 return AlertDialog(
                   title: const Text('Remove Item'),
                   content: Text(
-                      'Are you sure you want to remove "${item.productName}" from your cart?'),
+                      'Are you sure you want to remove "${item.title}" from your cart?'),
                   actions: [
                     TextButton(
                       onPressed: () => Navigator.of(context).pop(false),
@@ -185,8 +185,7 @@ class _CartViewState extends State<CartView> {
         final authController =
             Provider.of<AuthController>(context, listen: false);
         if (authController.currentUser != null) {
-          cartController.removeFromCart(
-              authController.currentUser!.id, item.productId);
+          cartController.removeFromCart(item.productId);
         }
       },
       child: Card(
@@ -275,7 +274,6 @@ class _CartViewState extends State<CartView> {
                                           listen: false);
                                   if (authController.currentUser != null) {
                                     cartController.updateQuantity(
-                                      authController.currentUser!.id,
                                       item.productId,
                                       item.quantity - 1,
                                     );
@@ -295,7 +293,6 @@ class _CartViewState extends State<CartView> {
                                 listen: false);
                             if (authController.currentUser != null) {
                               cartController.updateQuantity(
-                                authController.currentUser!.id,
                                 item.productId,
                                 item.quantity + 1,
                               );

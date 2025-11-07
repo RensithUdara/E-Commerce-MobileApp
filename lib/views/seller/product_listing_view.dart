@@ -537,7 +537,7 @@ class _ProductListingViewState extends State<ProductListingView> {
                 border: OutlineInputBorder(),
               ),
               keyboardType: TextInputType.number,
-              validator: Validators.quantity,
+              validator: Validators.validateQuantity,
             ),
           ],
         ),

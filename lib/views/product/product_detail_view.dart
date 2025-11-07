@@ -40,8 +40,8 @@ class _ProductDetailViewState extends State<ProductDetailView> {
     }
 
     final success = await cartController.addToCart(
-      widget.product.id,
-      quantity,
+      widget.product,
+      quantity: quantity,
     );
 
     if (mounted) {
@@ -327,6 +327,11 @@ class _ProductDetailViewState extends State<ProductDetailView> {
         color = Colors.red;
         text = 'Out of Stock';
         icon = Icons.inventory_2;
+        break;
+      case ProductStatus.deleted:
+        color = Colors.red;
+        text = 'Deleted';
+        icon = Icons.delete;
         break;
     }
 

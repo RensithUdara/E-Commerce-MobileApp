@@ -1,30 +1,33 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+
 import '../../controllers/auction_controller.dart';
 import '../../controllers/auth_controller.dart';
 import '../../widgets/common/loading_widget.dart';
 
 class SellerAuctionProductView extends StatefulWidget {
-  const SellerAuctionProductView({Key? key}) : super(key: key);
+  const SellerAuctionProductView({super.key});
 
   @override
-  State<SellerAuctionProductView> createState() => _SellerAuctionProductViewState();
+  State<SellerAuctionProductView> createState() =>
+      _SellerAuctionProductViewState();
 }
 
 class _SellerAuctionProductViewState extends State<SellerAuctionProductView>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
-  
+
   final _formKey = GlobalKey<FormState>();
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
   final _startingPriceController = TextEditingController();
   final _endTimeController = TextEditingController();
-  
+
   File? _selectedImage;
   DateTime? _selectedEndTime;
   bool _isCreating = false;
@@ -170,7 +173,7 @@ class _SellerAuctionProductViewState extends State<SellerAuctionProductView>
           ),
         ),
         const SizedBox(height: 16),
-        
+
         // Title Field
         TextFormField(
           controller: _titleController,
@@ -266,11 +269,14 @@ class _SellerAuctionProductViewState extends State<SellerAuctionProductView>
                 Expanded(
                   child: Text(
                     _selectedEndTime != null
-                        ? DateFormat('MMM dd, yyyy - hh:mm a').format(_selectedEndTime!)
+                        ? DateFormat('MMM dd, yyyy - hh:mm a')
+                            .format(_selectedEndTime!)
                         : 'Select auction end time',
                     style: TextStyle(
                       fontSize: 16,
-                      color: _selectedEndTime != null ? Colors.black : Colors.grey[600],
+                      color: _selectedEndTime != null
+                          ? Colors.black
+                          : Colors.grey[600],
                     ),
                   ),
                 ),
@@ -337,7 +343,7 @@ class _SellerAuctionProductViewState extends State<SellerAuctionProductView>
         maxHeight: 1024,
         imageQuality: 85,
       );
-      
+
       if (image != null) {
         setState(() {
           _selectedImage = File(image.path);
@@ -372,10 +378,12 @@ class _SellerAuctionProductViewState extends State<SellerAuctionProductView>
         );
 
         // Validate that end time is at least 1 hour from now
-        if (selectedDateTime.isAfter(DateTime.now().add(const Duration(hours: 1)))) {
+        if (selectedDateTime
+            .isAfter(DateTime.now().add(const Duration(hours: 1)))) {
           setState(() {
             _selectedEndTime = selectedDateTime;
-            _endTimeController.text = DateFormat('MMM dd, yyyy - hh:mm a').format(selectedDateTime);
+            _endTimeController.text =
+                DateFormat('MMM dd, yyyy - hh:mm a').format(selectedDateTime);
           });
         } else {
           _showErrorDialog('Auction end time must be at least 1 hour from now');
@@ -410,12 +418,13 @@ class _SellerAuctionProductViewState extends State<SellerAuctionProductView>
     });
 
     try {
-      final auctionController = Provider.of<AuctionController>(context, listen: false);
-      
+      final auctionController =
+          Provider.of<AuctionController>(context, listen: false);
+
       // For now, we'll use a placeholder image URL
       // In a real app, you'd upload the image to Firebase Storage first
       final imageUrls = [_selectedImage!.path]; // This should be uploaded URL
-      
+
       final success = await auctionController.createAuction(
         productId: 'product_${DateTime.now().millisecondsSinceEpoch}',
         title: _titleController.text.trim(),

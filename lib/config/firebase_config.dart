@@ -15,18 +15,15 @@ class FirebaseConfig {
   static Future<void> configureAppCheck() async {
     await FirebaseAppCheck.instance.activate(
       // For Android
-      androidProvider: kDebugMode 
-          ? AndroidProvider.debug 
-          : AndroidProvider.playIntegrity,
-      
-      // For iOS  
-      appleProvider: kDebugMode 
-          ? AppleProvider.debug 
-          : AppleProvider.appAttest,
-      
+      androidProvider:
+          kDebugMode ? AndroidProvider.debug : AndroidProvider.playIntegrity,
+
+      // For iOS
+      appleProvider: kDebugMode ? AppleProvider.debug : AppleProvider.appAttest,
+
       // For web - you'll need to get a reCAPTCHA site key from Firebase Console
-      webProvider: kDebugMode 
-          ? ReCaptchaV3Provider('debug') 
+      webProvider: kDebugMode
+          ? ReCaptchaV3Provider('debug')
           : ReCaptchaV3Provider('your-production-recaptcha-site-key'),
     );
   }

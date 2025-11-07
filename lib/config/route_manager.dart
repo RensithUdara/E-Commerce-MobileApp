@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gemhub/views/product/product_list_view.dart';
+import 'package:gemhub/views/buyer/product/product_list_view.dart';
 import 'package:gemhub/views/seller/product_listing_view.dart';
 import 'package:gemhub/views/seller/seller_products_view.dart';
 
@@ -9,10 +9,10 @@ import '../screens/auth_screens/forgot_password_screen.dart';
 import '../screens/auth_screens/signup_screen.dart';
 import '../views/auth/login_view.dart';
 import '../views/auth/splash_view_mvc.dart';
-import '../views/cart/cart_view.dart';
-import '../views/cart/checkout_view.dart';
-import '../views/order/order_detail_view.dart';
-import '../views/order/order_history_view.dart';
+import '../views/buyer/cart/cart_view.dart';
+import '../views/buyer/cart/checkout_view.dart';
+import '../views/buyer/order/order_detail_view.dart';
+import '../views/buyer/order/order_history_view.dart';
 import 'routes.dart';
 
 class RouteManager {

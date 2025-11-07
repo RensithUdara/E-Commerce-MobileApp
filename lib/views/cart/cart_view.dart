@@ -293,7 +293,6 @@ class _CartViewState extends State<CartView> {
                                 listen: false);
                             if (authController.currentUser != null) {
                               cartController.updateQuantity(
-                                authController.currentUser!.id,
                                 item.productId,
                                 item.quantity + 1,
                               );

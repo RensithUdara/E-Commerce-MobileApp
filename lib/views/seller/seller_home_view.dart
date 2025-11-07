@@ -4,12 +4,8 @@ import 'package:provider/provider.dart';
 import '../../config/routes.dart';
 import '../../controllers/auth_controller.dart';
 import '../../controllers/seller_controller.dart';
+import '../../models/models.dart';
 import '../../widgets/common/loading_widget.dart';
-import 'seller_auctions_view.dart';
-import 'seller_notifications_view.dart';
-import 'seller_orders_view.dart';
-import 'seller_products_view.dart';
-import 'seller_profile_view.dart';
 
 class SellerHomeView extends StatefulWidget {
   const SellerHomeView({super.key});

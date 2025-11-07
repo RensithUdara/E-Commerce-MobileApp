@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../controllers/auth_controller.dart';
-import '../../controllers/seller_controller.dart';
-import '../../models/product_model.dart';
-import '../../widgets/common/loading_widget.dart';
+import '../../../controllers/auth_controller.dart';
+import '../../../controllers/seller_controller.dart';
+import '../../../models/product_model.dart';
+import '../../../widgets/common/loading_widget.dart';
 
 class SellerListedProductsView extends StatefulWidget {
   const SellerListedProductsView({super.key});

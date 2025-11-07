@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../controllers/seller_controller.dart';
+
 import '../../controllers/auth_controller.dart';
-import '../../widgets/common/loading_widget.dart';
+import '../../controllers/seller_controller.dart';
 import '../../models/product_model.dart';
+import '../../widgets/common/loading_widget.dart';
 
 class SellerListedProductsView extends StatefulWidget {
-  const SellerListedProductsView({Key? key}) : super(key: key);
+  const SellerListedProductsView({super.key});
 
   @override
-  State<SellerListedProductsView> createState() => _SellerListedProductsViewState();
+  State<SellerListedProductsView> createState() =>
+      _SellerListedProductsViewState();
 }
 
 class _SellerListedProductsViewState extends State<SellerListedProductsView>
@@ -40,8 +42,9 @@ class _SellerListedProductsViewState extends State<SellerListedProductsView>
 
   void _loadSellerProducts() {
     final authController = Provider.of<AuthController>(context, listen: false);
-    final sellerController = Provider.of<SellerController>(context, listen: false);
-    
+    final sellerController =
+        Provider.of<SellerController>(context, listen: false);
+
     if (authController.currentUser != null) {
       sellerController.fetchSellerProducts(authController.currentUser!.id);
     }
@@ -185,7 +188,7 @@ class _SellerListedProductsViewState extends State<SellerListedProductsView>
 
   Widget _buildProductCard(Product product) {
     final statusColor = _getStatusColor(product.status);
-    
+
     return Card(
       margin: const EdgeInsets.only(bottom: 16),
       elevation: 4,
@@ -464,16 +467,18 @@ class _SellerListedProductsViewState extends State<SellerListedProductsView>
 
   Future<void> _deleteProduct(String productId) async {
     try {
-      final authController = Provider.of<AuthController>(context, listen: false);
-      final sellerController = Provider.of<SellerController>(context, listen: false);
-      
+      final authController =
+          Provider.of<AuthController>(context, listen: false);
+      final sellerController =
+          Provider.of<SellerController>(context, listen: false);
+
       if (authController.currentUser == null) return;
-      
+
       final success = await sellerController.deleteProduct(
         productId,
         authController.currentUser!.id,
       );
-      
+
       if (success) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(

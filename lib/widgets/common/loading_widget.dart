@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class LoadingWidget {
   static Widget circular({double? size, Color? color}) {
     return SizedBox(

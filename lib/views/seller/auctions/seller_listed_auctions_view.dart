@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../controllers/auction_controller.dart';
-import '../../controllers/auth_controller.dart';
-import '../../controllers/seller_controller.dart';
-import '../../models/auction_model.dart';
-import '../../widgets/common/loading_widget.dart';
+import '../../../controllers/auction_controller.dart';
+import '../../../controllers/auth_controller.dart';
+import '../../../controllers/seller_controller.dart';
+import '../../../models/auction_model.dart';
+import '../../../widgets/common/loading_widget.dart';
 
 class SellerListedAuctionsView extends StatefulWidget {
   const SellerListedAuctionsView({super.key});

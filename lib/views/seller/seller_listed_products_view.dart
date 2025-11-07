@@ -390,7 +390,7 @@ class _SellerListedProductsViewState extends State<SellerListedProductsView>
         return Colors.green;
       case ProductStatus.inactive:
         return Colors.grey;
-      case ProductStatus.soldOut:
+      case ProductStatus.outOfStock:
         return Colors.red;
       default:
         return Colors.grey;

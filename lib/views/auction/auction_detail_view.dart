@@ -24,6 +24,7 @@ class _AuctionDetailViewState extends State<AuctionDetailView> {
   Timer? _timer;
   Auction? auction;
   bool _isPlacingBid = false;
+  static const double _minimumBidIncrement = 5.0; // Default minimum increment
 
   @override
   void initState() {

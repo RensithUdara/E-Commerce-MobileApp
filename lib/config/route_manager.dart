@@ -6,6 +6,9 @@ import '../screens/auth_screens/forgot_password_screen.dart';
 import '../screens/auth_screens/signup_screen.dart';
 import '../views/auth/login_view.dart';
 import '../views/auth/splash_view_mvc.dart';
+import '../views/product/product_list_view.dart';
+import '../views/seller/product_listing_view.dart';
+import '../views/seller/seller_products_view.dart';
 import 'routes.dart';
 
 class RouteManager {

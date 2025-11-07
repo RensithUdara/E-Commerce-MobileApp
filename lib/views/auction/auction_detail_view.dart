@@ -464,7 +464,7 @@ class _AuctionDetailViewState extends State<AuctionDetailView> {
                     border: const OutlineInputBorder(),
                     hintText: 'Enter your bid amount',
                     helperText:
-                        'Minimum: Rs. ${(auction!.currentBid + auction!.minimumBidIncrement).toStringAsFixed(2)}',
+                        'Minimum: Rs. ${(auction!.currentBid + _minimumBidIncrement).toStringAsFixed(2)}',
                   ),
                 ),
               ),
@@ -517,8 +517,8 @@ class _AuctionDetailViewState extends State<AuctionDetailView> {
     }
 
     // Sort bids by timestamp (most recent first)
-    final sortedBids = List<AuctionBid>.from(auction!.bids)
-      ..sort((a, b) => b.timestamp.compareTo(a.timestamp));
+    final sortedBids = List<Bid>.from(auction!.bids)
+      ..sort((a, b) => b.timestamp!.compareTo(a.timestamp!));
 
     return Padding(
       padding: const EdgeInsets.all(16),

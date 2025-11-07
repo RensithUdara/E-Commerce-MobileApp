@@ -438,7 +438,7 @@ class _SellerAuctionProductViewState extends State<SellerAuctionProductView>
       if (success) {
         _showSuccessDialog();
       } else {
-        _showErrorDialog(auctionController.error ?? 'Failed to create auction');
+        _showErrorDialog(auctionController.errorMessage ?? 'Failed to create auction');
       }
     } catch (e) {
       _showErrorDialog('Error creating auction: $e');

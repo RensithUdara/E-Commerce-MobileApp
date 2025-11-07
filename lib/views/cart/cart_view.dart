@@ -253,16 +253,6 @@ class _CartViewState extends State<CartView> {
                         color: Colors.grey[600],
                       ),
                     ),
-                    if (item.selectedVariant != null) ...[
-                      const SizedBox(height: 4),
-                      Text(
-                        'Variant: ${item.selectedVariant}',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey[500],
-                        ),
-                      ),
-                    ],
                   ],
                 ),
               ),

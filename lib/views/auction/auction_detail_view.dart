@@ -108,8 +108,7 @@ class _AuctionDetailViewState extends State<AuctionDetailView> {
 
         // Update bid controller with next minimum bid
         _bidController.text =
-            (auction!.currentBid + auction!.minimumBidIncrement)
-                .toStringAsFixed(2);
+            (auction!.currentBid + _minimumBidIncrement).toStringAsFixed(2);
       } else if (mounted) {
         _showErrorSnackBar(
             auctionController.errorMessage ?? 'Failed to place bid');

@@ -23,8 +23,6 @@ void main() async {
           ChangeNotifierProvider(create: (_) => OrderController()),
           ChangeNotifierProvider(create: (_) => AuctionController()),
           ChangeNotifierProvider(create: (_) => SellerController()),
-          ChangeNotifierProvider(
-              create: (_) => CartProvider()), // Legacy cart provider
         ],
         child: const MyApp(),
       ),

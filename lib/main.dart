@@ -20,7 +20,7 @@ import 'config/route_manager.dart';
 import 'config/routes.dart';
 import 'controllers/controllers.dart';
 // Legacy provider imports (will be migrated to controllers)
-import 'screens/cart_screen/cart_provider.dart';
+import 'providers/cart_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

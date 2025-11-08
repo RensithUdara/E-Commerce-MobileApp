@@ -1,9 +1,10 @@
+// DEPRECATED: This file is being migrated to MVC architecture
+// New MVC view: lib/views/auth/login_view.dart
+// TODO: Remove this file once all references are migrated
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gemhub/Seller/seller_home_page.dart';
-import 'package:gemhub/screens/auth_screens/forgot_password_screen.dart';
-import 'package:gemhub/screens/auth_screens/signup_screen.dart';
 import 'package:gemhub/widget/custom_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -84,7 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
         if (buyerSnapshot.exists) {
           await _saveCredentials();
-          _navigateTo(const HomeScreen());
+          Navigator.pushReplacementNamed(context, '/home');
         } else if (sellerSnapshot.exists) {
           Map<String, dynamic> sellerData =
               sellerSnapshot.data() as Map<String, dynamic>;
@@ -98,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
             );
           } else {
             await _saveCredentials();
-            _navigateTo(const SellerHomePage());
+            Navigator.pushReplacementNamed(context, '/seller-home');
           }
         } else {
           throw Exception('User role not found.');
@@ -122,10 +123,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _handleForgotPassword(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const ForgotPasswordScreen()),
-    );
+    Navigator.pushNamed(context, '/forgot-password');
   }
 
   void _showCustomDialog({
@@ -314,7 +312,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       const Text("Don't have an account?",
                           style: TextStyle(color: Colors.black54)),
                       TextButton(
-                        onPressed: () => _navigateTo(const SignUpScreen()),
+                        onPressed: () => Navigator.pushNamed(context, '/signup'),
                         child: const Text(
                           'Register',
                           style: TextStyle(

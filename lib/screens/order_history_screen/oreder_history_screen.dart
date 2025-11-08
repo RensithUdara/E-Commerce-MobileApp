@@ -1,7 +1,6 @@
 // order_history_screen.dart
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import '../../views/buyer/home/home_view.dart';
 
 class OrderHistoryScreen extends StatelessWidget {
   const OrderHistoryScreen({super.key});
@@ -29,10 +28,7 @@ class OrderHistoryScreen extends StatelessWidget {
         centerTitle: true,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
-          onPressed: () => Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const HomeScreen()),
-          ),
+          onPressed: () => Navigator.pushReplacementNamed(context, '/home'),
         ),
       ),
       body: Container(

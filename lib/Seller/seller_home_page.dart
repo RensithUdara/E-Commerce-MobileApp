@@ -1,3 +1,7 @@
+// DEPRECATED: This file is being migrated to MVC architecture
+// New MVC view: lib/views/seller/dashboard/seller_home_view.dart
+// TODO: Remove this file once all references are migrated
+
 import 'package:firebase_auth/firebase_auth.dart'; // Added Firebase Auth
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,7 +10,6 @@ import 'package:gemhub/Seller/listed_auction_screen.dart';
 import 'package:gemhub/Seller/listed_product_screen.dart';
 import 'package:gemhub/Seller/order_history_screen.dart';
 import 'package:gemhub/Seller/seller_profile_screen.dart';
-import 'package:gemhub/screens/auth_screens/login_screen.dart';
 
 import 'auction_product.dart' as auction;
 import 'notifications_page.dart';
@@ -94,10 +97,9 @@ class _SellerHomePageState extends State<SellerHomePage>
                 onPressed: () async {
                   await FirebaseAuth.instance.signOut();
                   Navigator.of(context).pop(true);
-                  Navigator.pushAndRemoveUntil(
+                  Navigator.pushNamedAndRemoveUntil(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => const LoginScreen()),
+                    '/login',
                     (route) => false,
                   );
                 },
@@ -159,10 +161,7 @@ class _SellerHomePageState extends State<SellerHomePage>
     if (currentUserId == null) {
       // If no user is logged in, redirect to login screen
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const LoginScreen()),
-        );
+        Navigator.pushReplacementNamed(context, '/login');
       });
       return const SizedBox(); // Return empty widget while redirecting
     }

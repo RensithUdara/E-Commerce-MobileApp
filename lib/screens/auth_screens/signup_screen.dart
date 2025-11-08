@@ -1,4 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+// DEPRECATED: This file is being migrated to MVC architecture
+// New MVC view: lib/views/auth/signup_view.dart
+// TODO: Remove this file once all references are migrated
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gemhub/screens/auth_screens/login_screen.dart';

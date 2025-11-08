@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gemhub/Seller/seller_home_page.dart';
-import 'package:gemhub/home_screen.dart';
 import 'package:gemhub/screens/auth_screens/forgot_password_screen.dart';
 import 'package:gemhub/screens/auth_screens/signup_screen.dart';
 import 'package:gemhub/widget/custom_dialog.dart';

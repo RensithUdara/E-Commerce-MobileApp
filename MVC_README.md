@@ -55,7 +55,7 @@ lib/
 │   └── config.dart          # Barrel export file
 │
 ├── mvc_structure.dart        # Architecture documentation
-└── main_mvc.dart            # Updated main file with MVC setup
+└── main.dart               # Updated main file with MVC setup
 ```
 
 ## 🎯 MVC Pattern Implementation

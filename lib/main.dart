@@ -15,12 +15,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 // MVC Architecture imports
+import 'config/firebase_options.dart';
 import 'config/route_manager.dart';
 import 'config/routes.dart';
 import 'controllers/controllers.dart';
 // Legacy provider imports (will be migrated to controllers)
 import 'screens/cart_screen/cart_provider.dart';
-import 'screens/firebase_options/firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

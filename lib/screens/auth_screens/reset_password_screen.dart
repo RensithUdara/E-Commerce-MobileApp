@@ -1,3 +1,7 @@
+// DEPRECATED: This file is being migrated to MVC architecture
+// No direct MVC equivalent - functionality should be integrated into forgot_password_view.dart
+// TODO: Remove this file once all references are migrated
+
 import 'package:flutter/material.dart';
 import 'package:gemhub/Database/db_helper.dart';
 import 'package:gemhub/screens/auth_screens/login_screen.dart';

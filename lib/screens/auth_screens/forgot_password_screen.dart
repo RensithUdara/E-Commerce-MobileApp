@@ -1,3 +1,7 @@
+// DEPRECATED: This file is being migrated to MVC architecture
+// New MVC view: lib/views/auth/forgot_password_view.dart
+// TODO: Remove this file once all references are migrated
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
